@@ -476,6 +476,73 @@ public class JavaApi {
         return response_content; 
     }
     
+    public static String add_image_by_file(Map<String, String> form) throws Exception {
+        String request_method = "post";
+        String access_key_id = form.get("access_key_id");
+        String secret_key = form.get("secret_key");
+        String service_type = "image_sets";
+        String service_id = "_0000014";
+        String image_set_id = form.get("image_set_id");
+        String pai_user_id = form.get("pai_user_id");
+        
+        String file_path = form.get("file_path");
+        
+        String api_url = SSF_CLIENT_API + "/" + service_type + "/" + service_id + "/" + image_set_id;
+        Map<String, String> headers = client_headers(access_key_id, request_method);
+        String signature = client_signature(headers, new HashMap<String, String>(), secret_key);
+        headers.put("x-ca-signature", signature);
+        headers.put("pai_user_id", pai_user_id);
+        
+        // request:
+        
+        String response_content = null;
+        
+        HttpClientBuilder httpclient_builder = HttpClientBuilder.create();  
+        configureHttpClient(httpclient_builder);  
+        CloseableHttpClient httpclient = httpclient_builder.build(); 
+          
+        HttpPost httppost = new HttpPost(api_url);
+
+        // set headers
+        for (String key: headers.keySet()) {
+            httppost.setHeader(key, headers.get(key));
+        }
+        
+        MultipartEntity reqEntity = new MultipartEntity();
+        
+        //set files: upload the csv file
+        FileBody bin = new FileBody(new File(file_path));
+        reqEntity.addPart("urls_to_add", bin);
+        
+        httppost.setEntity(reqEntity);
+        
+        try {
+            CloseableHttpResponse response = httpclient.execute(httppost);  
+            try {  
+                HttpEntity entity = response.getEntity();  
+                if (entity != null) {   
+                    response_content = EntityUtils.toString(entity, "UTF-8");  
+                } 
+            } finally {  
+                response.close();  
+            }  
+        } catch (ClientProtocolException e) {  
+            e.printStackTrace();  
+        } catch (UnsupportedEncodingException e1) {  
+            e1.printStackTrace();  
+        } catch (IOException e) {  
+            e.printStackTrace();  
+        } finally {  
+            // 关闭连接,释放资源    
+            try {  
+                httpclient.close();  
+            } catch (IOException e) {  
+                e.printStackTrace();  
+            }  
+        }
+
+        return response_content; 
+    }
     
     public static void main(String[] args) throws Exception {
         // please alter to your setting
@@ -532,7 +599,6 @@ public class JavaApi {
     /*
         // delete some images
         Map<String, String> form = new HashMap<String, String>();
-        form.put("request_method", "post");                     // 默认 的请求方法 post
         form.put("access_key_id", "your_access_key_id");        // require: 你的用户配置 access_key_id
         form.put("secret_key", "your_secret_key");              // require: 你的用户配置 secret_key
         form.put("pai_user_id", "your_user_id");                // require: 你的用户ID
@@ -540,6 +606,19 @@ public class JavaApi {
         form.put("file_path", "some_paths/your_csv_file.csv");  // require: 你的CSV文件的路径
         
         String response_content = delete_image_by_file(form);
+        System.out.println(response_content);
+    */
+
+    /*
+        // add some images
+        Map<String, String> form = new HashMap<String, String>();
+        form.put("access_key_id", "your_access_key_id");        // require: 你的用户配置 access_key_id
+        form.put("secret_key", "your_secret_key");              // require: 你的用户配置 secret_key
+        form.put("pai_user_id", "your_user_id");                // require: 你的用户ID
+        form.put("image_set_id", "your_image_set_id");          // require: 你的数据集ID
+        form.put("file_path", "some_paths/your_csv_file.csv");  // require: 你的CSV文件的路径
+        
+        String response_content = add_image_by_file(form);
         System.out.println(response_content);
     */
     }
