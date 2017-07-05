@@ -13,6 +13,9 @@ public class DressingClassifyResponse extends BaseResponse {
     @JsonProperty("results")
     private DressingClassifyResult[] results;
 
+    @JsonProperty("labels")
+    private String[] lables;
+
     public DressingClassifyResult[] getResults() {
         return results;
     }
