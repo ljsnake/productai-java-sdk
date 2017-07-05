@@ -3,7 +3,8 @@ package cn.productai.api.core;
 import cn.productai.api.core.enums.LanguageType;
 
 /**
- * Created by Thinkpad on 2017/7/3.
+ * Created by Zhong Wang on 2017/7/3.
+ *
  */
 public class DefaultProfile implements IProfile {
 
@@ -11,6 +12,17 @@ public class DefaultProfile implements IProfile {
     private String secretKey;
     private String version = "1";
     private LanguageType globalLanguage = null;
+
+    public DefaultProfile() {
+
+    }
+
+    public DefaultProfile(String accessKeyId, String secretKey, String version, LanguageType globalLanguage) {
+        this.accessKeyId = accessKeyId;
+        this.secretKey = secretKey;
+        this.version = version;
+        this.globalLanguage = globalLanguage;
+    }
 
     @Override
     public void setAccessKeyId(String accessKeyId) {
@@ -24,7 +36,7 @@ public class DefaultProfile implements IProfile {
 
     @Override
     public void setSecretKey(String secretKey) {
-        this.secretKey=secretKey;
+        this.secretKey = secretKey;
     }
 
     @Override
