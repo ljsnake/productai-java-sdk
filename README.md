@@ -1,4 +1,6 @@
-# ProductAI® SDK for java
+﻿# ProductAI® SDK for java
+
+[![Build Status](https://travis-ci.org/wzh880801/productai-java-sdk.svg?branch=master)](https://travis-ci.org/wzh880801/productai-java-sdk)
 
 ## ProductAI:
 <br>For more details about ProductAI, view
