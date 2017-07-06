@@ -1,17 +1,3 @@
-# JAVA SDK for ProductAI
-productai-java-sdk
-
-## ProductAI:
-<br>For more details about ProductAI, view
-- [ProductAI Global offcial site](http://www.productai.com)
-- [ProductAI China offcial site](http://www.productai.cn)
-- [ProductAI Documentation](https://api-doc.productai.cn/doc/pai.html)
-
-# Usage（用法）:
-
-## Example code
-```java
-
 package cn.productai.api.examples;
 
 import cn.productai.api.core.DefaultProductAIClient;
@@ -98,8 +84,3 @@ public class UsageIntroduction {
           */
     }
 }
-
-```
-
-# Examples （示例）
-See project examples. (请参考工程中的examples目录)
