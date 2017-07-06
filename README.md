@@ -1,5 +1,4 @@
-# JAVA SDK for ProductAI
-productai-java-sdk
+# ProductAI® SDK for java
 
 ## ProductAI:
 <br>For more details about ProductAI, view
@@ -8,6 +7,12 @@ productai-java-sdk
 - [ProductAI Documentation](https://api-doc.productai.cn/doc/pai.html)
 
 # Usage（用法）:
+
+## JDK
+
+```
+jdk 1.8.0_131
+```
 
 ## Example code
 ```java
