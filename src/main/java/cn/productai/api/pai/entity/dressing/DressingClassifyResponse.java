@@ -5,7 +5,7 @@ import cn.productai.api.pai.response.DressingClassifyResult;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Created by Thinkpad on 2017/7/4.
+ * Created by Zhong Wang on 2017/7/4.
  *
  */
 public class DressingClassifyResponse extends BaseResponse {
@@ -14,7 +14,7 @@ public class DressingClassifyResponse extends BaseResponse {
     private DressingClassifyResult[] results;
 
     @JsonProperty("labels")
-    private String[] lables;
+    private String[] labels;
 
     public DressingClassifyResult[] getResults() {
         return results;
