@@ -9,7 +9,7 @@ public class Main {
 
         IProfile profile = new DefaultProfile();
         profile.setAccessKeyId("3c289113a9b86b63f46551c895c2a617");
-        profile.setSecretKey("0a06f15f268bd60166e0e776775206cc");
+        profile.setSecretKey("*********");
         profile.setVersion("1");
         profile.setGlobalLanguage(LanguageType.Chinese);
 
