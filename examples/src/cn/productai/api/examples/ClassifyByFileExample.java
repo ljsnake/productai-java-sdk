@@ -23,7 +23,7 @@ public class ClassifyByFileExample implements IExample {
         System.out.println("==>  Demo - 场景分析与标注  <==");
         System.out.println("See https://api-doc.productai.cn/doc/pai.html#场景分析与标注 for details.\r\n");
 
-        ClassifyByImageFileRequest request = new ClassifyByImageFileRequest(ClassifyType.Gneral);
+        ClassifyByImageFileRequest request = new ClassifyByImageFileRequest(ClassifyType.General);
         request.setImageFile(new File(this.getClass().getResource("/").getPath() + "images/f10.jpg"));
         request.setLanguage(LanguageType.Chinese);
 
