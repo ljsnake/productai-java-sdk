@@ -4,7 +4,6 @@ import cn.productai.api.core.attribute.ParaSignAttribute;
 import cn.productai.api.core.base.BaseRequest;
 import cn.productai.api.core.base.BaseResponse;
 import cn.productai.api.core.helper.WebQueryHelper;
-import com.sun.javaws.exceptions.InvalidArgumentException;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -45,7 +44,7 @@ public abstract class DataSetSingleModifyByUrlBaseRequest<T extends BaseResponse
      * your image url
      */
     @ParaSignAttribute(Name = "image_url", IsNeedUrlEncode = true)
-    private String imageUrl;
+    public String imageUrl;
 
     /**
      * search tags
@@ -56,7 +55,7 @@ public abstract class DataSetSingleModifyByUrlBaseRequest<T extends BaseResponse
      * tags
      */
     @ParaSignAttribute(Name = "tags", IsNeedUrlEncode = true)
-    private String Tags;
+    public String Tags;
 
     public String getImageSetId() {
         return imageSetId;
@@ -98,7 +97,7 @@ public abstract class DataSetSingleModifyByUrlBaseRequest<T extends BaseResponse
      * meta info
      */
     @ParaSignAttribute(Name = "meta")
-    private String meta = null;
+    public String meta = null;
 
     public String getMeta() {
         return meta;

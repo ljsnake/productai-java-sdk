@@ -5,10 +5,8 @@ import cn.productai.api.core.base.BaseRequest;
 import cn.productai.api.core.base.BaseResponse;
 import cn.productai.api.core.enums.ServiceType;
 import cn.productai.api.core.helper.EnumHelper;
-import cn.productai.api.core.helper.FileHelper;
 import cn.productai.api.core.helper.WebQueryHelper;
 
-import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,18 +65,16 @@ public abstract class CallApiByImageUrlBaseRequest<T extends BaseResponse> exten
         return String.join("&", list);
     }
 
-    private String _boundary = "";
-
     @Override
     public byte[] getQueryBytes() {
         return null;
     }
 
     @ParaSignAttribute(Name = "url")
-    private String url;
+    public String url;
 
     @ParaSignAttribute(Name = "loc")
-    private String loc = "0-0-1-1";
+    public String loc = "0-0-1-1";
 
     public String getUrl() {
         return url;

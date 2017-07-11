@@ -16,7 +16,7 @@ public abstract class SearchByImageUrlBaseRequest<T extends BaseResponse> extend
     private ITag searchTag;
 
     @ParaSignAttribute(Name = "tags", IsNeedUrlEncode = true)
-    private String tags = "";
+    public String tags = "";
 
     public ITag getSearchTag() {
         return searchTag;
@@ -34,7 +34,7 @@ public abstract class SearchByImageUrlBaseRequest<T extends BaseResponse> extend
      * the max number of results you want to contain in the result response
      */
     @ParaSignAttribute(Name = "count")
-    private Integer count = 10;
+    public Integer count = 10;
 
     public Integer getCount() {
         return count;
