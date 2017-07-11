@@ -21,7 +21,7 @@ public class ClassifyByUrlExample implements IExample {
         System.out.println("==>  Demo - 场景分析与标注  <==");
         System.out.println("See https://api-doc.productai.cn/doc/pai.html#场景分析与标注 for details.\r\n");
 
-        ClassifyByImageUrlRequest request = new ClassifyByImageUrlRequest(ClassifyType.Gneral);
+        ClassifyByImageUrlRequest request = new ClassifyByImageUrlRequest(ClassifyType.General);
         request.setUrl("http://productai.cn/img/f10.jpg");
         request.setLanguage(LanguageType.Chinese);
         request.setLoc("0.1-0.1-1-1");
