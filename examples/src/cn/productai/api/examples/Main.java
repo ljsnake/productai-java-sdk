@@ -8,8 +8,8 @@ public class Main {
     public static void main(String[] args) {
 
         IProfile profile = new DefaultProfile();
-        profile.setAccessKeyId("<your access key id>");
-        profile.setSecretKey("<your secret key>");
+        profile.setAccessKeyId("3c289113a9b86b63f46551c895c2a617");
+        profile.setSecretKey("0a06f15f268bd60166e0e776775206cc");
         profile.setVersion("1");
         profile.setGlobalLanguage(LanguageType.Chinese);
 

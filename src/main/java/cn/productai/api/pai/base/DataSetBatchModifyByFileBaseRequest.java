@@ -26,7 +26,7 @@ public abstract class DataSetBatchModifyByFileBaseRequest<T extends BaseResponse
         return "";
     }
 
-    private String _boundary = "";
+    private String _boundary = FileHelper.getBoundary();
 
     @Override
     public byte[] getQueryBytes() {
