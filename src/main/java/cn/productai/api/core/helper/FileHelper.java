@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 /**
  * Created by Zhong Wang on 2017/7/3.
+ *
  */
 public class FileHelper {
     private final static Charset _charset = Charset.forName("UTF-8");
@@ -58,13 +59,8 @@ public class FileHelper {
     private static byte[] fieldBytes(String key, String value, String boundary) {
         String field = "Content-Disposition: form-data;";
         field += String.format(" name=\"%s\"\r\n\r\n%s", key, value);
-        byte[] fdBytes = field.getBytes(_charset);
-        byte[] bdBytes = boundaryBytes(boundary);
-
-        byte[] _result = new byte[fdBytes.length + bdBytes.length];
-        System.arraycopy(fdBytes, 0, _result, 0, fdBytes.length);
-        System.arraycopy(bdBytes, 0, _result, 0, bdBytes.length);
-        return _result;
+        field += String.format("\r\n--%s\r\n",boundary);
+        return field.getBytes(_charset);
     }
 
     private static byte[] tailBytes(String boundary) {
@@ -74,7 +70,7 @@ public class FileHelper {
 
     private static String getFileType(File _file) {
         String filename = _file.getName();
-        String extension = filename.substring(filename.lastIndexOf(".") + 1);
+        String extension = filename.substring(filename.lastIndexOf("."));
         switch (extension.toLowerCase()) {
             case ".png":
                 return "image/png";
@@ -96,7 +92,7 @@ public class FileHelper {
     }
 
     private static byte[] getFileAllBytes(File file) throws IOException {
-        byte[] buffer = null;
+        byte[] buffer;
 
         FileInputStream inputStream = new FileInputStream(file);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream((1024));
