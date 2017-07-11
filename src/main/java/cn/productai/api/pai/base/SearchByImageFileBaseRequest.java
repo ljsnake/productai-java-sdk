@@ -15,7 +15,7 @@ public abstract class SearchByImageFileBaseRequest<T extends BaseResponse> exten
     /**
      * advanced search tag
      */
-    private ITag searchTag;
+    private ITag searchTag = null;
 
     @ParaSignAttribute(Name = "tags", IsNeedUrlEncode = true)
     public String tags = null;

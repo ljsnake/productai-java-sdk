@@ -66,7 +66,10 @@ public abstract class CallApiByImageFileBaseRequest<T extends BaseResponse> exte
             ParaSignAttribute ca = p.getAnnotation(ParaSignAttribute.class);
             if (ca != null) {
                 try {
-                    options.put(ca.Name(), p.get(this).toString());
+                    Object value = p.get(this);
+                    if (value != null && !value.toString().isEmpty()) {
+                        options.put(ca.Name(), value.toString());
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
