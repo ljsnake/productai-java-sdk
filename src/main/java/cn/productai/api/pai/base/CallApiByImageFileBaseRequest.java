@@ -83,7 +83,7 @@ public abstract class CallApiByImageFileBaseRequest<T extends BaseResponse> exte
     private File imageFile;
 
     @ParaSignAttribute(Name = "loc")
-    private String loc = "0-0-1-1";
+    public String loc = "0-0-1-1";
 
     public File getImageFile() {
         return imageFile;

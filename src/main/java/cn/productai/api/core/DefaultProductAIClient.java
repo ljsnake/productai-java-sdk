@@ -98,7 +98,9 @@ public class DefaultProductAIClient implements IWebClient {
             ParaSignAttribute ca = p.getAnnotation(ParaSignAttribute.class);
             if (ca != null) {
                 Object value = p.get(request);
-                dics.put(ca.Name(), value.toString());
+                if(value!=null&&!value.toString().isEmpty()) {
+                    dics.put(ca.Name(), value.toString());
+                }
             }
         }
 

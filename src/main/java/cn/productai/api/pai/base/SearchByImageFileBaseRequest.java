@@ -18,7 +18,7 @@ public abstract class SearchByImageFileBaseRequest<T extends BaseResponse> exten
     private ITag searchTag;
 
     @ParaSignAttribute(Name = "tags", IsNeedUrlEncode = true)
-    private String tags = null;
+    public String tags = null;
 
     public String getTags() {
         if (this.searchTag == null)
@@ -35,7 +35,7 @@ public abstract class SearchByImageFileBaseRequest<T extends BaseResponse> exten
     }
 
     @ParaSignAttribute(Name = "count")
-    private Integer count = 10;
+    public Integer count = 10;
 
     public Integer getCount() {
         return count;
