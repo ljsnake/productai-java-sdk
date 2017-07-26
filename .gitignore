@@ -36,6 +36,8 @@ cmake-build-debug/
 
 # IntelliJ
 /out/
+!/examples/out/producttion/examples/cn/productai/api/examples/files/
+!/examples/out/producttion/examples/cn/productai/api/examples/images/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/

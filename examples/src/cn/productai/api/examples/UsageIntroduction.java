@@ -75,7 +75,7 @@ public class UsageIntroduction {
             e.printStackTrace();
 
         } catch (Exception e) {
-            System.out.println(String.format("%s occurred. ErrorMessage: %s", e.getClass().getTypeName(), e.getMessage()));
+            System.out.println(String.format("%s occurred. ErrorMessage: %s", e.getClass().getName(), e.getMessage()));
             e.printStackTrace();
         }
 

@@ -41,7 +41,7 @@ public class CoreUnitTest{
     @Test
     public void testSignature(){
         String secretKey = "1234567";
-        HashMap<String, String> dicts = new HashMap<>();
+        HashMap<String, String> dicts = new HashMap<String, String>();
         dicts.put("loc","0-0-1-1");
         dicts.put("url","http://productai.cn");
 

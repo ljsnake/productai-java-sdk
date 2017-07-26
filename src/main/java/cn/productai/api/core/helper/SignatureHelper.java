@@ -1,5 +1,7 @@
 package cn.productai.api.core.helper;
 
+import sun.misc.BASE64Encoder;
+
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -10,14 +12,14 @@ import java.util.*;
  */
 public class SignatureHelper {
     public static String signature(String secretKey, HashMap<String, String> paras) throws Exception {
-        ArrayList<String> excludeKeys = new ArrayList<>();
+        ArrayList<String> excludeKeys = new ArrayList<String>();
         excludeKeys.add("x-ca-signature");
         excludeKeys.add("x-ca-file-md5");
 
-        ArrayList<String> res = new ArrayList<>();
+        ArrayList<String> res = new ArrayList<String>();
 
         //exclude keys
-        HashMap<String, String> fields = new HashMap<>();
+        HashMap<String, String> fields = new HashMap<String, String>();
         for (String key : paras.keySet()) {
             if (excludeKeys.contains(key)) {
                 continue;
@@ -27,7 +29,7 @@ public class SignatureHelper {
         }
 
         //sort
-        List<Map.Entry<String, String>> _fields = new ArrayList<>(fields.entrySet());
+        List<Map.Entry<String, String>> _fields = new ArrayList<Map.Entry<String, String>>(fields.entrySet());
         Collections.sort(_fields, new Comparator<Map.Entry<String, String>>() {
             @Override
             public int compare(Map.Entry<String, String> o1, Map.Entry<String, String> o2) {
@@ -40,7 +42,7 @@ public class SignatureHelper {
             res.add(String.format("%s=%s", keyValuePair.getKey(), keyValuePair.getValue()));
         }
 
-        String urlPairs = String.join("&", res);
+        String urlPairs = StringHelper.join("&", res);
 
         //Mac
         Mac mac = Mac.getInstance("HmacSHA1");
@@ -49,7 +51,8 @@ public class SignatureHelper {
         mac.init(secretKey1);
         byte[] textBytes = urlPairs.getBytes("UTF-8");
 
-        return Base64.getEncoder().encodeToString(mac.doFinal(textBytes));
+        BASE64Encoder encoder = new BASE64Encoder();
+        return encoder.encode(mac.doFinal(textBytes));
 
     }
 }

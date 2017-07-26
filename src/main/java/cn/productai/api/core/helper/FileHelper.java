@@ -21,7 +21,7 @@ public class FileHelper {
     }
 
     public static byte[] getMultipartBytes(File file, String boundary, HashMap<String, String> options, String paraName) throws IOException {
-        ArrayList<Byte> bytes = new ArrayList<>();
+        ArrayList<Byte> bytes = new ArrayList<Byte>();
         addRange(bytes, boundaryBytes(boundary));
         if (options != null && options.size() > 0) {
             for (String key : options.keySet()) {
@@ -70,23 +70,22 @@ public class FileHelper {
 
     private static String getFileType(File _file) {
         String filename = _file.getName();
-        String extension = filename.substring(filename.lastIndexOf("."));
-        switch (extension.toLowerCase()) {
-            case ".png":
-                return "image/png";
-            case ".jpg":
-                return "image/jpeg";
-            case ".gif":
-                return "image/gif";
-            case ".bmp":
-                return "image/bmp";
-            case ".csv":
-                return "application/vnd.ms-excel";
-            case ".txt":
-                return "text/plain";
-            case ".xlsx":
-                return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-        }
+        String extension = filename.substring(filename.lastIndexOf(".")).toLowerCase();
+
+        if (extension.equals(".png"))
+            return "image/png";
+        if (extension.equals(".jpg"))
+            return "image/jpeg";
+        if (extension.equals(".gif"))
+            return "image/gif";
+        if (extension.equals(".bmp"))
+            return "image/bmp";
+        if (extension.equals(".csv"))
+            return "application/vnd.ms-excel";
+        if (extension.equals(".txt"))
+            return "text/plain";
+        if (extension.equals(".xlsx"))
+            return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
         return "text/plain";
     }

@@ -12,12 +12,12 @@ import cn.productai.api.core.internal.HttpResponse;
 
 import java.lang.reflect.Field;
 import java.nio.charset.Charset;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.UUID;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import sun.misc.BASE64Encoder;
 
 public class DefaultProductAIClient implements IWebClient {
 
@@ -81,7 +81,7 @@ public class DefaultProductAIClient implements IWebClient {
         if (this.profile.getAccessKeyId().isEmpty() || this.profile.getSecretKey().isEmpty()) {
             throw new ClientException("SDK.Profile", "Invalid accessKeyId/accessKey");
         }
-        HashMap<String, String> dics = new HashMap<>();
+        HashMap<String, String> dics = new HashMap<String, String>();
 
         dics.put("x-ca-accesskeyid", this.profile.getAccessKeyId());
         dics.put("x-ca-version", this.profile.getVersion());
@@ -126,7 +126,7 @@ public class DefaultProductAIClient implements IWebClient {
             T _t = mapper.readValue(httpResponse.getResponseString(), request.getResponseClass());
             _t.setHeaders(httpResponse.getHeaders());
             _t.setStatusCode(httpResponse.getStatusCode());
-            _t.setResponseBase64String(Base64.getEncoder().encodeToString(httpResponse.getResponseBytes()));
+            _t.setResponseBase64String(new BASE64Encoder().encode(httpResponse.getResponseBytes()));
 
             if (httpResponse.getStatusCode() >= 500) {
                 throw new ServerException(String.format("%s", _t.getErrorCode()), String.format("%s-%s-%s", _t.getErrorMsg(), _t.getMessage(), _t.getMsg()));

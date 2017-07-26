@@ -9,8 +9,8 @@
         <module name="productai-java-sdk" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.8">
-      <module name="productai-java-sdk" target="1.8" />
+    <bytecodeTargetLevel target="1.6">
+      <module name="productai-java-sdk" target="1.6" />
     </bytecodeTargetLevel>
   </component>
 </project>

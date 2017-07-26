@@ -9,7 +9,7 @@ public class Main {
 
         IProfile profile = new DefaultProfile();
         profile.setAccessKeyId("3c289113a9b86b63f46551c895c2a617");
-        profile.setSecretKey("*********");
+        profile.setSecretKey("****");
         profile.setVersion("1");
         profile.setGlobalLanguage(LanguageType.Chinese);
 
@@ -20,6 +20,9 @@ public class Main {
          */
         IExample classify_example = new ClassifyByFileExample();
         classify_example.run(client);
+
+        IExample classify_byUrl_example = new ClassifyByUrlExample();
+        classify_byUrl_example.run(client);
 
         /**
          * Image search
