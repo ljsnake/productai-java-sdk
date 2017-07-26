@@ -3,6 +3,7 @@ package cn.productai.api.pai.base;
 import cn.productai.api.core.attribute.ParaSignAttribute;
 import cn.productai.api.core.base.BaseRequest;
 import cn.productai.api.core.base.BaseResponse;
+import cn.productai.api.core.helper.StringHelper;
 import cn.productai.api.core.helper.WebQueryHelper;
 
 import java.lang.reflect.Field;
@@ -23,7 +24,7 @@ public abstract class DataSetSingleModifyByUrlBaseRequest<T extends BaseResponse
 
     @Override
     public String getQueryString() {
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<String> list = new ArrayList<String>();
         Field[] ps = this.getClass().getFields();
         for (Field p : ps) {
             ParaSignAttribute ca = p.getAnnotation(ParaSignAttribute.class);
@@ -37,7 +38,7 @@ public abstract class DataSetSingleModifyByUrlBaseRequest<T extends BaseResponse
                 }
             }
         }
-        return String.join("&", list);
+        return StringHelper.join("&", list);
     }
 
     /**
@@ -87,7 +88,7 @@ public abstract class DataSetSingleModifyByUrlBaseRequest<T extends BaseResponse
 
     public String getTags() {
         if (this.searchTags != null && this.searchTags.size() > 0) {
-            return String.join("|", this.searchTags);
+            return StringHelper.join("|", this.searchTags);
         }
 
         return null;

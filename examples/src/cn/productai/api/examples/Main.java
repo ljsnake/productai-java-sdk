@@ -21,6 +21,9 @@ public class Main {
         IExample classify_example = new ClassifyByFileExample();
         classify_example.run(client);
 
+        IExample classify_byUrl_example = new ClassifyByUrlExample();
+        classify_byUrl_example.run(client);
+
         /**
          * Image search
          */

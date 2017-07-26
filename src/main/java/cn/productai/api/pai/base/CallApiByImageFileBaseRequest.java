@@ -60,7 +60,7 @@ public abstract class CallApiByImageFileBaseRequest<T extends BaseResponse> exte
 
     @Override
     public byte[] getQueryBytes() {
-        HashMap<String, String> options = new HashMap<>();
+        HashMap<String, String> options = new HashMap<String, String>();
         Field[] ps = this.getClass().getFields();
         for (Field p : ps) {
             ParaSignAttribute ca = p.getAnnotation(ParaSignAttribute.class);

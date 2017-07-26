@@ -5,6 +5,7 @@ import cn.productai.api.core.base.BaseRequest;
 import cn.productai.api.core.base.BaseResponse;
 import cn.productai.api.core.enums.ServiceType;
 import cn.productai.api.core.helper.EnumHelper;
+import cn.productai.api.core.helper.StringHelper;
 import cn.productai.api.core.helper.WebQueryHelper;
 
 import java.lang.reflect.Field;
@@ -48,7 +49,7 @@ public abstract class CallApiByImageUrlBaseRequest<T extends BaseResponse> exten
 
     @Override
     public String getQueryString() {
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<String> list = new ArrayList<String>();
         Field[] ps = this.getClass().getFields();
         for (Field p : ps) {
             ParaSignAttribute ca = p.getAnnotation(ParaSignAttribute.class);
@@ -62,7 +63,7 @@ public abstract class CallApiByImageUrlBaseRequest<T extends BaseResponse> exten
                 }
             }
         }
-        return String.join("&", list);
+        return StringHelper.join("&",list);
     }
 
     @Override

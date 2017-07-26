@@ -12,7 +12,7 @@ public abstract class BaseRequest<T extends BaseResponse> {
     private static HashMap<Integer, String> _contentTypeDicts = EnumHelper.toHashMap(ContentType.class);
     private static HashMap<Integer, String> _languageDicts = EnumHelper.toHashMap(LanguageType.class);
     private static HashMap<Integer, String> _httpMethodDicts = EnumHelper.toHashMap(HttpMethod.class);
-    private HashMap<String, String> _headers = new HashMap<>();
+    private HashMap<String, String> _headers = new HashMap<String, String>();
 
     private String host = "api.productai.cn";
 
@@ -100,11 +100,7 @@ public abstract class BaseRequest<T extends BaseResponse> {
     }
 
     public void setHeader(String key, String value) {
-        if (!_headers.containsKey(key)) {
-            _headers.put(key, value);
-        } else {
-            _headers.replace(key, value);
-        }
+        _headers.put(key, value);
     }
 
     public void removeHeader(String key) {
