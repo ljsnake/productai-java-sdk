@@ -1,6 +1,6 @@
 ﻿# ProductAI® SDK for java
 
-[![Build Status](https://travis-ci.org/MalongTech/productai-java-sdk.svg?branch=master)](https://travis-ci.org/MalongTech/productai-java-sdk)
+[![Build Status](https://travis-ci.org/MalongTech/productai-java-sdk.svg?branch=jdk1.6)](https://travis-ci.org/MalongTech/productai-java-sdk)
 [![GitHub release](https://img.shields.io/github/release/MalongTech/productai-java-sdk.svg)](https://github.com/MalongTech/productai-java-sdk/releases)
 
 ## ProductAI:
@@ -97,7 +97,7 @@ public class UsageIntroduction {
             e.printStackTrace();
 
         } catch (Exception e) {
-            System.out.println(String.format("%s occurred. ErrorMessage: %s", e.getClass().getTypeName(), e.getMessage()));
+            System.out.println(String.format("%s occurred. ErrorMessage: %s", e.getClass().getName(), e.getMessage()));
             e.printStackTrace();
         }
 

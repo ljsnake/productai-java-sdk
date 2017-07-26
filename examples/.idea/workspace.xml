@@ -15,7 +15,7 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cn/productai/api/examples/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
+            <state relative-caret-position="646">
               <caret line="47" column="53" lean-forward="false" selection-start-line="47" selection-start-column="39" selection-end-line="47" selection-end-column="63" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -24,7 +24,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DataSetManagementExample.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UsageIntroduction.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/cn/productai/api/examples/UsageIntroduction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1326">
+              <caret line="86" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DataSetManagementExample.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cn/productai/api/examples/DataSetManagementExample.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="136">
@@ -669,14 +679,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/productai/api/examples/UsageIntroduction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cn/productai/api/examples/SmartFilterExample.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="707">
@@ -693,9 +695,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/cn/productai/api/examples/DataSetManagementExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="26" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/cn/productai/api/examples/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
+        <state relative-caret-position="646">
           <caret line="47" column="53" lean-forward="false" selection-start-line="47" selection-start-column="39" selection-end-line="47" selection-end-column="63" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -703,10 +713,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/productai/api/examples/DataSetManagementExample.java">
+    <entry file="file://$PROJECT_DIR$/src/cn/productai/api/examples/UsageIntroduction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="26" selection-end-column="50" />
+        <state relative-caret-position="1326">
+          <caret line="86" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
           <folding />
         </state>
       </provider>
