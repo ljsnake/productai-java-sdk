@@ -4,6 +4,7 @@ import cn.productai.api.core.IWebClient;
 import cn.productai.api.core.enums.LanguageType;
 import cn.productai.api.core.exceptions.ClientException;
 import cn.productai.api.pai.entity.filter.IntelligentFilterByImageFileRequest;
+import cn.productai.api.pai.entity.filter.IntelligentFilterByImageUrlRequest;
 import cn.productai.api.pai.entity.filter.IntelligentFilterResponse;
 import cn.productai.api.pai.response.IntelligentFilterResult;
 
@@ -13,7 +14,7 @@ import java.io.File;
  * Created by Zhong Wang on 2017/7/5.
  *
  */
-public class SmartFilterExample implements IExample {
+public class SmartFilterByUrlExample implements IExample {
 
     @Override
     public void run(IWebClient client) {
@@ -21,8 +22,8 @@ public class SmartFilterExample implements IExample {
         System.out.println("==>  Demo - 智能滤镜  <==");
         System.out.println("See https://api-doc.productai.cn/doc/pai.html#智能滤镜 for details.\r\n");
 
-        IntelligentFilterByImageFileRequest request = new IntelligentFilterByImageFileRequest();
-        request.setImageFile(new File(this.getClass().getResource("/").getPath() + "images/f12.jpg"));
+        IntelligentFilterByImageUrlRequest request = new IntelligentFilterByImageUrlRequest();
+        request.setUrl("http://static.esobing.com/images/dog.jpg");
         request.setLanguage(LanguageType.Chinese);
 
         try {

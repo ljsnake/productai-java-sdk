@@ -1,38 +1,44 @@
 package cn.productai.api.examples;
 
 import cn.productai.api.core.IWebClient;
+import cn.productai.api.core.enums.DetectType;
 import cn.productai.api.core.enums.LanguageType;
+import cn.productai.api.core.enums.ServiceType;
 import cn.productai.api.core.exceptions.ClientException;
-import cn.productai.api.pai.entity.filter.IntelligentFilterByImageFileRequest;
-import cn.productai.api.pai.entity.filter.IntelligentFilterResponse;
-import cn.productai.api.pai.response.IntelligentFilterResult;
+import cn.productai.api.pai.entity.detect.DetectByImageUrlRequest;
+import cn.productai.api.pai.entity.detect.DetectResponse;
+import cn.productai.api.pai.response.DetectResult;
 
 import java.io.File;
 
 /**
- * Created by Zhong Wang on 2017/7/5.
- *
+ * Created by Zhong Wang on 2017/8/15.
+ * 3C电器检测与定位
+ * https://api-doc.productai.cn/doc/pai.html#宠物检测与定位
  */
-public class SmartFilterExample implements IExample {
+public class DetectByUrlExample implements IExample {
 
     @Override
     public void run(IWebClient client) {
 
-        System.out.println("==>  Demo - 智能滤镜  <==");
-        System.out.println("See https://api-doc.productai.cn/doc/pai.html#智能滤镜 for details.\r\n");
+        System.out.println("==>  Demo - 宠物检测与定位  <==");
+        System.out.println("See https://api-doc.productai.cn/doc/pai.html#宠物检测与定位 for details.\r\n");
 
-        IntelligentFilterByImageFileRequest request = new IntelligentFilterByImageFileRequest();
-        request.setImageFile(new File(this.getClass().getResource("/").getPath() + "images/f12.jpg"));
+        // DetectByImageUrlRequest request = new DetectByImageUrlRequest(DetectType.Pet);
+        DetectByImageUrlRequest request = new DetectByImageUrlRequest(ServiceType.Detect,
+                "_0000031",
+                "http://static.esobing.com/images/dog.jpg",
+                "0-0-1-1");
         request.setLanguage(LanguageType.Chinese);
 
         try {
-            IntelligentFilterResponse response = client.getResponse(request);
+            DetectResponse response = client.getResponse(request);
 
             System.out.println("==============================Result==============================");
 
-            for (IntelligentFilterResult r : response.getResults()) {
+            for (DetectResult r : response.getDetectedBoxes()) {
                 // access the response directly
-                System.out.println(String.format("%s - %s", r.getImageUrl(), r.getScore()));
+                System.out.println(String.format("%s - %s", r.getType(), r.getScore()));
             }
 
             System.out.println("==============================Result==============================");
