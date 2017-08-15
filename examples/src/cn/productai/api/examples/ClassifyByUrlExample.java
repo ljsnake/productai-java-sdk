@@ -3,6 +3,7 @@ package cn.productai.api.examples;
 import cn.productai.api.core.IWebClient;
 import cn.productai.api.core.enums.ClassifyType;
 import cn.productai.api.core.enums.LanguageType;
+import cn.productai.api.core.enums.ServiceType;
 import cn.productai.api.core.exceptions.ClientException;
 import cn.productai.api.pai.entity.classify.ClassifyByImageUrlRequest;
 import cn.productai.api.pai.entity.classify.ClassifyResponse;
@@ -21,7 +22,7 @@ public class ClassifyByUrlExample implements IExample {
         System.out.println("==>  Demo - 场景分析与标注  <==");
         System.out.println("See https://api-doc.productai.cn/doc/pai.html#场景分析与标注 for details.\r\n");
 
-        ClassifyByImageUrlRequest request = new ClassifyByImageUrlRequest(ClassifyType.General);
+        ClassifyByImageUrlRequest request = new ClassifyByImageUrlRequest(ServiceType.Classify,"_0000056");
         request.setUrl("http://productai.cn/img/f10.jpg");
         request.setLanguage(LanguageType.Chinese);
         request.setLoc("0.1-0.1-1-1");
@@ -51,7 +52,7 @@ public class ClassifyByUrlExample implements IExample {
             e.printStackTrace();
 
         } catch (Exception e) {
-            System.out.println(String.format("%s occurred. ErrorMessage: %s", e.getClass().getTypeName(), e.getMessage()));
+            System.out.println(String.format("%s occurred. ErrorMessage: %s", e.getClass().getName(), e.getMessage()));
             e.printStackTrace();
         }
     }

@@ -18,32 +18,56 @@ public class Main {
         /**
          * Classify
          */
-        IExample classify_example = new ClassifyByFileExample();
-        classify_example.run(client);
+        IExample classify_by_file_example = new ClassifyByFileExample();
+        classify_by_file_example.run(client);
+
+        IExample classify_by_url_example = new ClassifyByUrlExample();
+        classify_by_url_example.run(client);
 
         /**
          * Image search
          */
-        IExample search_example = new ImageSearchExample();
-        search_example.run(client);
+        IExample search_by_file_example = new ImageSearchExample();
+        search_by_file_example.run(client);
+
+        IExample search_by_url_example = new ImageSearchByUrlExample();
+        search_by_url_example.run(client);
 
         /**
          * Detect
          */
-        IExample detect_example = new DetectExample();
-        detect_example.run(client);
+        IExample detect_by_file_example = new DetectExample();
+        detect_by_file_example.run(client);
+
+        IExample detect_by_url_example = new DetectByUrlExample();
+        detect_by_url_example.run(client);
 
         /**
          * Filter
          */
-        IExample filter_example = new SmartFilterExample();
-        filter_example.run(client);
+        IExample filter_by_file_example = new SmartFilterExample();
+        filter_by_file_example.run(client);
+
+        IExample filter_by_image_url_example = new SmartFilterByUrlExample();
+        filter_by_image_url_example.run(client);
 
         /**
          * Data set
          */
         IExample dataSet_example = new DataSetManagementExample();
         dataSet_example.run(client);
+
+        /**
+         * Add single image to data set
+         */
+        IExample single_add_image_to_dataSet_example = new DataSetSingleModifyExample();
+        single_add_image_to_dataSet_example.run(client);
+
+        /**
+         * Delete images from data set
+         */
+        IExample delete_images_from_dataSet_example = new DataSetDeleteExample();
+        delete_images_from_dataSet_example.run(client);
 
         System.out.println("Done");
     }
