@@ -3,37 +3,35 @@ package cn.productai.api.examples;
 import cn.productai.api.core.IWebClient;
 import cn.productai.api.core.enums.LanguageType;
 import cn.productai.api.core.exceptions.ClientException;
-import cn.productai.api.pai.entity.filter.IntelligentFilterByImageFileRequest;
-import cn.productai.api.pai.entity.filter.IntelligentFilterResponse;
-import cn.productai.api.pai.response.IntelligentFilterResult;
+import cn.productai.api.pai.entity.dataset.DataSetBatchDeleteRequest;
+import cn.productai.api.pai.entity.dataset.DataSetModifyResponse;
 
 import java.io.File;
 
 /**
- * Created by Zhong Wang on 2017/7/5.
- *
+ * Created by Zhong Wang on 2017/8/15.
+ * 数据集操作 - 从数据集删除多条数据
+ * https://api-doc.productai.cn/doc/pai.html#向数据集增加多条数据
  */
-public class SmartFilterExample implements IExample {
+public class DataSetDeleteExample implements IExample {
 
     @Override
     public void run(IWebClient client) {
 
-        System.out.println("==>  Demo - 智能滤镜  <==");
-        System.out.println("See https://api-doc.productai.cn/doc/pai.html#智能滤镜 for details.\r\n");
+        System.out.println("==>  Demo - 从数据集删除多条数据  <==");
+        System.out.println("See https://api-doc.productai.cn/doc/pai.html#从数据集删除多条数据 for details.\r\n");
 
-        IntelligentFilterByImageFileRequest request = new IntelligentFilterByImageFileRequest();
-        request.setImageFile(new File(this.getClass().getResource("/").getPath() + "images/f12.jpg"));
+        DataSetBatchDeleteRequest request = new DataSetBatchDeleteRequest("lqn2jj6z");
+        request.setCsvFile(new File(this.getClass().getResource("/").getPath() + "files/example.csv"));
         request.setLanguage(LanguageType.Chinese);
 
         try {
-            IntelligentFilterResponse response = client.getResponse(request);
+            DataSetModifyResponse response = client.getResponse(request);
 
             System.out.println("==============================Result==============================");
 
-            for (IntelligentFilterResult r : response.getResults()) {
-                // access the response directly
-                System.out.println(String.format("%s - %s", r.getImageUrl(), r.getScore()));
-            }
+            // access the response directly
+            System.out.println(String.format("LastModifiedTime - %s", response.getLastModifiedTime()));
 
             System.out.println("==============================Result==============================");
         } catch (cn.productai.api.core.exceptions.ServerException e) {
