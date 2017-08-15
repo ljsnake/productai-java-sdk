@@ -1,41 +1,39 @@
 package cn.productai.api.examples;
 
 import cn.productai.api.core.IWebClient;
-import cn.productai.api.core.enums.ClassifyType;
 import cn.productai.api.core.enums.LanguageType;
-import cn.productai.api.core.enums.ServiceType;
 import cn.productai.api.core.exceptions.ClientException;
-import cn.productai.api.pai.entity.classify.ClassifyByImageFileRequest;
-import cn.productai.api.pai.entity.classify.ClassifyResponse;
-import cn.productai.api.pai.response.ClassifyResult;
+import cn.productai.api.pai.entity.filter.IntelligentFilterByImageFileRequest;
+import cn.productai.api.pai.entity.filter.IntelligentFilterByImageUrlRequest;
+import cn.productai.api.pai.entity.filter.IntelligentFilterResponse;
+import cn.productai.api.pai.response.IntelligentFilterResult;
 
 import java.io.File;
 
 /**
  * Created by Zhong Wang on 2017/7/5.
- * 场景分析与标注
- * https://api-doc.productai.cn/doc/pai.html#场景分析与标注
+ *
  */
-public class ClassifyByFileExample implements IExample {
+public class SmartFilterByUrlExample implements IExample {
 
     @Override
     public void run(IWebClient client) {
 
-        System.out.println("==>  Demo - 场景分析与标注  <==");
-        System.out.println("See https://api-doc.productai.cn/doc/pai.html#场景分析与标注 for details.\r\n");
+        System.out.println("==>  Demo - 智能滤镜  <==");
+        System.out.println("See https://api-doc.productai.cn/doc/pai.html#智能滤镜 for details.\r\n");
 
-        ClassifyByImageFileRequest request = new ClassifyByImageFileRequest(ServiceType.Classify,"_0000056");
-        request.setImageFile(new File(this.getClass().getResource("/").getPath() + "images/f10.jpg"));
+        IntelligentFilterByImageUrlRequest request = new IntelligentFilterByImageUrlRequest();
+        request.setUrl("http://static.esobing.com/images/dog.jpg");
         request.setLanguage(LanguageType.Chinese);
 
         try {
-            ClassifyResponse response = client.getResponse(request);
+            IntelligentFilterResponse response = client.getResponse(request);
 
             System.out.println("==============================Result==============================");
 
-            for (ClassifyResult r : response.getResults()) {
+            for (IntelligentFilterResult r : response.getResults()) {
                 // access the response directly
-                System.out.println(String.format("%s - %s", r.getCategory(), r.getScore()));
+                System.out.println(String.format("%s - %s", r.getImageUrl(), r.getScore()));
             }
 
             System.out.println("==============================Result==============================");

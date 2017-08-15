@@ -1,42 +1,37 @@
 package cn.productai.api.examples;
 
 import cn.productai.api.core.IWebClient;
-import cn.productai.api.core.enums.ClassifyType;
 import cn.productai.api.core.enums.LanguageType;
-import cn.productai.api.core.enums.ServiceType;
 import cn.productai.api.core.exceptions.ClientException;
-import cn.productai.api.pai.entity.classify.ClassifyByImageFileRequest;
-import cn.productai.api.pai.entity.classify.ClassifyResponse;
-import cn.productai.api.pai.response.ClassifyResult;
+import cn.productai.api.pai.entity.dataset.DataSetBatchDeleteRequest;
+import cn.productai.api.pai.entity.dataset.DataSetModifyResponse;
 
 import java.io.File;
 
 /**
- * Created by Zhong Wang on 2017/7/5.
- * 场景分析与标注
- * https://api-doc.productai.cn/doc/pai.html#场景分析与标注
+ * Created by Zhong Wang on 2017/8/15.
+ * 数据集操作 - 从数据集删除多条数据
+ * https://api-doc.productai.cn/doc/pai.html#向数据集增加多条数据
  */
-public class ClassifyByFileExample implements IExample {
+public class DataSetDeleteExample implements IExample {
 
     @Override
     public void run(IWebClient client) {
 
-        System.out.println("==>  Demo - 场景分析与标注  <==");
-        System.out.println("See https://api-doc.productai.cn/doc/pai.html#场景分析与标注 for details.\r\n");
+        System.out.println("==>  Demo - 从数据集删除多条数据  <==");
+        System.out.println("See https://api-doc.productai.cn/doc/pai.html#从数据集删除多条数据 for details.\r\n");
 
-        ClassifyByImageFileRequest request = new ClassifyByImageFileRequest(ServiceType.Classify,"_0000056");
-        request.setImageFile(new File(this.getClass().getResource("/").getPath() + "images/f10.jpg"));
+        DataSetBatchDeleteRequest request = new DataSetBatchDeleteRequest("lqn2jj6z");
+        request.setCsvFile(new File(this.getClass().getResource("/").getPath() + "files/example.csv"));
         request.setLanguage(LanguageType.Chinese);
 
         try {
-            ClassifyResponse response = client.getResponse(request);
+            DataSetModifyResponse response = client.getResponse(request);
 
             System.out.println("==============================Result==============================");
 
-            for (ClassifyResult r : response.getResults()) {
-                // access the response directly
-                System.out.println(String.format("%s - %s", r.getCategory(), r.getScore()));
-            }
+            // access the response directly
+            System.out.println(String.format("LastModifiedTime - %s", response.getLastModifiedTime()));
 
             System.out.println("==============================Result==============================");
         } catch (cn.productai.api.core.exceptions.ServerException e) {

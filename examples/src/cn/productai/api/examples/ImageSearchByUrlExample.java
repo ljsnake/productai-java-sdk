@@ -1,54 +1,52 @@
 package cn.productai.api.examples;
 
-import cn.productai.api.core.DefaultProductAIClient;
-import cn.productai.api.core.DefaultProfile;
-import cn.productai.api.core.IProfile;
+import cn.productai.api.core.ISearchTag;
+import cn.productai.api.core.ITag;
 import cn.productai.api.core.IWebClient;
+import cn.productai.api.core.entity.AndTag;
+import cn.productai.api.core.entity.OrTag;
+import cn.productai.api.core.entity.SearchTag;
 import cn.productai.api.core.enums.LanguageType;
 import cn.productai.api.core.exceptions.ClientException;
+import cn.productai.api.pai.entity.search.ImageSearchByImageFileRequest;
 import cn.productai.api.pai.entity.search.ImageSearchByImageUrlRequest;
 import cn.productai.api.pai.entity.search.ImageSearchResponse;
 import cn.productai.api.pai.response.SearchResult;
 
+import java.io.File;
+import java.util.ArrayList;
+
 /**
- * Created by Zhong Wang on 2017/7/4.
+ * Created by Zhong Wang on 2017/7/5.
  *
  */
-public class UsageIntroduction {
-    public void fullFlowExample() {
+public class ImageSearchByUrlExample implements IExample {
 
-        /**
-         * step 1 - setup your account profile
-         * get your accessKeyId & secretKey at https://console.productai.cn/main#/21/service_category_id=1
-         */
+    @Override
+    public void run(IWebClient client) {
 
-        IProfile profile = new DefaultProfile();
-        profile.setAccessKeyId("<your access key id>");
-        profile.setSecretKey("<your secret key>");
-        profile.setVersion("1");
-        profile.setGlobalLanguage(LanguageType.Chinese);
+        System.out.println("==>  Demo - 通用图像搜索  <==");
+        System.out.println("See https://api-doc.productai.cn/doc/pai.html#通用图像搜索 for details.\r\n");
 
-        /**
-         * step 2 - initialize your ProductAI client
-         *
-         */
+        // 复杂Tag查询示例
+        ISearchTag andTag = new AndTag();
+        andTag.Add("上衣");
+        andTag.Add(new ArrayList<String>(){Boolean a = add("圆领"); Boolean b = add("无袖");});
 
-        IWebClient client = new DefaultProductAIClient(profile);
+        ISearchTag orTag = new OrTag();
+        orTag.Add("蓝色");
+        orTag.Add("休闲");
 
-        /**
-         * step 3 - build your request
-         * take image search as example
-         */
+        andTag.Add(orTag);
 
-        ImageSearchByImageUrlRequest request = new ImageSearchByImageUrlRequest("<your service id>");
-        request.setUrl("http://productai.cn/img/f10.jpg");
+        ITag searchTag = new SearchTag();
+        searchTag.setTag(andTag);
 
-        // this value will be override because you had set the IProfile.GlobalLanguage = LanguageType.Chinese
-        request.setLanguage(LanguageType.English);
-
-        /**
-         * step 4 - send out the request、receive the response、catch the exceptions
-         */
+        ImageSearchByImageUrlRequest request = new ImageSearchByImageUrlRequest("k7h9fail");
+        request.setUrl("http://static.esobing.com/images/dog.jpg");
+        request.setLanguage(LanguageType.Chinese);
+        request.setSearchTag(searchTag);
+        request.setCount(50);
 
         try {
             ImageSearchResponse response = client.getResponse(request);
@@ -78,9 +76,5 @@ public class UsageIntroduction {
             System.out.println(String.format("%s occurred. ErrorMessage: %s", e.getClass().getName(), e.getMessage()));
             e.printStackTrace();
         }
-
-        /**
-         *  Congrats! Now you can build your smart AI service using ProductAI.
-          */
     }
 }
