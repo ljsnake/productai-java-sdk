@@ -96,7 +96,7 @@ public abstract class DataSetSingleModifyByUrlBaseRequest<T extends BaseResponse
     /**
      * meta info
      */
-    @ParaSignAttribute(Name = "meta")
+    @ParaSignAttribute(Name = "meta", IsNeedUrlEncode = true)
     public String meta = null;
 
     public String getMeta() {
