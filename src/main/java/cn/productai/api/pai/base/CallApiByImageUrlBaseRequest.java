@@ -71,7 +71,7 @@ public abstract class CallApiByImageUrlBaseRequest<T extends BaseResponse> exten
         return null;
     }
 
-    @ParaSignAttribute(Name = "url")
+    @ParaSignAttribute(Name = "url", IsNeedUrlEncode = true)
     public String url;
 
     @ParaSignAttribute(Name = "loc")
