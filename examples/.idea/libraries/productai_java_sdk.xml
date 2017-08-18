@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="productai-java-sdk">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../out/artifacts/productai_java_sdk_jar/productai-java-sdk.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
