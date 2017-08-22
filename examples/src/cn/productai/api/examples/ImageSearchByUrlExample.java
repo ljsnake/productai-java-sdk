@@ -48,6 +48,11 @@ public class ImageSearchByUrlExample implements IExample {
         request.setSearchTag(searchTag);
         request.setCount(50);
 
+        // you can pass the extra paras to the request
+        request.getOptions().put("para1", "1");
+        request.getOptions().put("para2", "中文");
+        request.getOptions().put("para3", "value3");
+
         try {
             ImageSearchResponse response = client.getResponse(request);
 

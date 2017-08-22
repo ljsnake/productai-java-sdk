@@ -8,6 +8,7 @@ import cn.productai.api.core.exceptions.ClientException;
 import cn.productai.api.core.exceptions.ServerException;
 import cn.productai.api.core.helper.RequestHelper;
 import cn.productai.api.core.helper.SignatureHelper;
+import cn.productai.api.core.helper.WebQueryHelper;
 import cn.productai.api.core.internal.HttpResponse;
 
 import java.lang.reflect.Field;
@@ -16,6 +17,8 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.UUID;
 
+import cn.productai.api.pai.base.DataSetBatchModifyByFileBaseRequest;
+import cn.productai.api.pai.base.DataSetSingleModifyByUrlBaseRequest;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -100,6 +103,20 @@ public class DefaultProductAIClient implements IWebClient {
                 Object value = p.get(request);
                 if (value != null && !value.toString().isEmpty()) {
                     dics.put(ca.Name(), value.toString());
+                }
+            }
+        }
+
+        // exclude the options
+        if (!(request instanceof DataSetBatchModifyByFileBaseRequest) &&
+                !(request instanceof DataSetSingleModifyByUrlBaseRequest)) {
+            if (request.getOptions() != null && request.getOptions().size() > 0) {
+                for (String key : request.getOptions().keySet()) {
+                    try {
+                        dics.put(key, request.getOptions().get(key));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

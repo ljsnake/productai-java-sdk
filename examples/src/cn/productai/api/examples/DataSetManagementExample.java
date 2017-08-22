@@ -5,7 +5,6 @@ import cn.productai.api.core.enums.LanguageType;
 import cn.productai.api.core.exceptions.ClientException;
 import cn.productai.api.pai.entity.dataset.DataSetBatchAddRequest;
 import cn.productai.api.pai.entity.dataset.DataSetModifyResponse;
-import cn.productai.api.pai.response.ClassifyResult;
 
 import java.io.File;
 

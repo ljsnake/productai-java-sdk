@@ -9,10 +9,14 @@ import java.net.URLEncoder;
  */
 public class WebQueryHelper {
     public static String urlEncode(String para) throws UnsupportedEncodingException {
-        return URLEncoder.encode(para,"UTF-8");
+        if (para != null && !para.isEmpty())
+            return URLEncoder.encode(para, "UTF-8");
+        return "";
     }
 
-    public static String urlDecode(String encodedUrl) throws UnsupportedEncodingException{
-        return URLDecoder.decode(encodedUrl, "UTF-8");
+    public static String urlDecode(String encodedUrl) throws UnsupportedEncodingException {
+        if (encodedUrl != null && !encodedUrl.isEmpty())
+            return URLDecoder.decode(encodedUrl, "UTF-8");
+        return "";
     }
 }

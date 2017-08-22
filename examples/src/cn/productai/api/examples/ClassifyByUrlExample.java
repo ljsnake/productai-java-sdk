@@ -22,10 +22,15 @@ public class ClassifyByUrlExample implements IExample {
         System.out.println("==>  Demo - 场景分析与标注  <==");
         System.out.println("See https://api-doc.productai.cn/doc/pai.html#场景分析与标注 for details.\r\n");
 
-        ClassifyByImageUrlRequest request = new ClassifyByImageUrlRequest(ServiceType.Classify,"_0000056");
+        ClassifyByImageUrlRequest request = new ClassifyByImageUrlRequest(ServiceType.Classify, "_0000039");
         request.setUrl("http://productai.cn/img/f10.jpg");
         request.setLanguage(LanguageType.Chinese);
         request.setLoc("0.1-0.1-1-1");
+
+        // you can pass the extra paras to the request
+        request.getOptions().put("para1", "1");
+        request.getOptions().put("para2", "中文");
+        request.getOptions().put("para3", "value3");
 
         try {
             ClassifyResponse response = client.getResponse(request);
