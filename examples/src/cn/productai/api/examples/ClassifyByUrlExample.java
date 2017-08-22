@@ -27,6 +27,11 @@ public class ClassifyByUrlExample implements IExample {
         request.setLanguage(LanguageType.Chinese);
         request.setLoc("0.1-0.1-1-1");
 
+        // you can pass the extra paras to the request
+        request.getOptions().put("para1", "1");
+        request.getOptions().put("para2", "中文");
+        request.getOptions().put("para3", "value3");
+
         try {
             ClassifyResponse response = client.getResponse(request);
 

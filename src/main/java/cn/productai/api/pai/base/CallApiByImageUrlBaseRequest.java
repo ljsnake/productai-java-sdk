@@ -62,6 +62,15 @@ public abstract class CallApiByImageUrlBaseRequest<T extends BaseResponse> exten
                 }
             }
         }
+        if (this.getOptions() != null && this.getOptions().size() > 0) {
+            for (String key : this.getOptions().keySet()) {
+                try {
+                    list.add(String.format("%s=%s", key, WebQueryHelper.urlEncode(this.getOptions().get(key))));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         return String.join("&", list);
     }
 

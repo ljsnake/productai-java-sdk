@@ -46,6 +46,11 @@ public class UsageIntroduction {
         // this value will be override because you had set the IProfile.GlobalLanguage = LanguageType.Chinese
         request.setLanguage(LanguageType.English);
 
+        // you can pass the extra paras to the request
+        request.getOptions().put("para1", "1");
+        request.getOptions().put("para2", "中文");
+        request.getOptions().put("para3", "value3");
+
         /**
          * step 4 - send out the request、receive the response、catch the exceptions
          */
