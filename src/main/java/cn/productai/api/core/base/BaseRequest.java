@@ -5,6 +5,7 @@ import cn.productai.api.core.enums.HttpMethod;
 import cn.productai.api.core.enums.LanguageType;
 import cn.productai.api.core.helper.EnumHelper;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 public abstract class BaseRequest<T extends BaseResponse> {
@@ -23,6 +24,9 @@ public abstract class BaseRequest<T extends BaseResponse> {
     private ContentType contentType = ContentType.Default;
 
     private LanguageType language = LanguageType.English;
+
+    // builtin paras
+    private String[] builtinKeywords = new String[]{"url", "loc", "count", "search", "tags", "urls_to_delete", "image_url", "meta", "urls_to_add"};
 
     /**
      * get the reponse class type
@@ -112,5 +116,30 @@ public abstract class BaseRequest<T extends BaseResponse> {
     public BaseRequest(){
         this.setHeader("Accept-Encoding", "gzip, deflate");
         this.setLanguage(LanguageType.English);
+    }
+
+    private HashMap<String, String> options = new HashMap<String, String>();
+
+    public HashMap<String, String> getOptions() {
+        return options;
+    }
+
+    /**
+     * you can pass the extra paras to the request, but you can't pass these paras to data set related apis
+     *
+     * @param options the extra paras you want to pass to the request
+     */
+    public void setOptions(HashMap<String, String> options) {
+        if (options != null && options.size() > 0) {
+            HashMap<String, String> _options = new HashMap<String, String>();
+            for (String key : options.keySet()) {
+                if (!Arrays.asList(builtinKeywords).contains(key.toLowerCase())) {
+                    _options.put(key, options.get(key));
+                }
+            }
+            this.options = _options;
+        } else {
+            this.options = options;
+        }
     }
 }
