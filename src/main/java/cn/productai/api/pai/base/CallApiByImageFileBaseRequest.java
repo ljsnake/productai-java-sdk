@@ -7,6 +7,7 @@ import cn.productai.api.core.base.BaseResponse;
 import cn.productai.api.core.enums.ServiceType;
 import cn.productai.api.core.helper.EnumHelper;
 import cn.productai.api.core.helper.FileHelper;
+import cn.productai.api.core.helper.WebQueryHelper;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -70,6 +71,15 @@ public abstract class CallApiByImageFileBaseRequest<T extends BaseResponse> exte
                     if (value != null && !value.toString().isEmpty()) {
                         options.put(ca.Name(), value.toString());
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if (this.getOptions() != null && this.getOptions().size() > 0) {
+            for (String key : this.getOptions().keySet()) {
+                try {
+                    options.put(key, this.getOptions().get(key));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

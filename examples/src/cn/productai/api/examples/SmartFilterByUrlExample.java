@@ -26,6 +26,11 @@ public class SmartFilterByUrlExample implements IExample {
         request.setUrl("http://static.esobing.com/images/dog.jpg");
         request.setLanguage(LanguageType.Chinese);
 
+        // you can pass the extra paras to the request
+        request.getOptions().put("para1", "1");
+        request.getOptions().put("para2", "中文");
+        request.getOptions().put("para3", "value3");
+
         try {
             IntelligentFilterResponse response = client.getResponse(request);
 
