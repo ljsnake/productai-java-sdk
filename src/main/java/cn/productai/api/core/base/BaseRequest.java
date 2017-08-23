@@ -121,25 +121,23 @@ public abstract class BaseRequest<T extends BaseResponse> {
     private HashMap<String, String> options = new HashMap<String, String>();
 
     public HashMap<String, String> getOptions() {
+        if (options == null || options.size() == 0)
+            return options;
+        HashMap<String, String> _options = new HashMap<String, String>();
+        for (String key : options.keySet()) {
+            if (!Arrays.asList(builtinKeywords).contains(key.toLowerCase())) {
+                _options.put(key, options.get(key));
+            }
+        }
+        this.options = _options;
         return options;
     }
 
     /**
      * you can pass the extra paras to the request, but you can't pass these paras to data set related apis
-     *
      * @param options the extra paras you want to pass to the request
      */
     public void setOptions(HashMap<String, String> options) {
-        if (options != null && options.size() > 0) {
-            HashMap<String, String> _options = new HashMap<String, String>();
-            for (String key : options.keySet()) {
-                if (!Arrays.asList(builtinKeywords).contains(key.toLowerCase())) {
-                    _options.put(key, options.get(key));
-                }
-            }
-            this.options = _options;
-        } else {
-            this.options = options;
-        }
+        this.options = options;
     }
 }
