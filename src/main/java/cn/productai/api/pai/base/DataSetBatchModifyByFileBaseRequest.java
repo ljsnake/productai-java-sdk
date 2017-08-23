@@ -1,5 +1,6 @@
 package cn.productai.api.pai.base;
 
+import cn.productai.api.core.attribute.IgnoreExtraParasAttribute;
 import cn.productai.api.core.base.BaseRequest;
 import cn.productai.api.core.base.BaseResponse;
 import cn.productai.api.core.helper.FileHelper;
@@ -11,6 +12,7 @@ import java.io.IOException;
  * modify your image set using a csv file
  * @param <T>
  */
+@IgnoreExtraParasAttribute
 public abstract class DataSetBatchModifyByFileBaseRequest<T extends BaseResponse> extends BaseRequest<T> {
 
     private String imageSetId = "";

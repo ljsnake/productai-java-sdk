@@ -1,5 +1,6 @@
 package cn.productai.api.core;
 
+import cn.productai.api.core.attribute.IgnoreExtraParasAttribute;
 import cn.productai.api.core.attribute.ParaSignAttribute;
 import cn.productai.api.core.base.BaseRequest;
 import cn.productai.api.core.base.BaseResponse;
@@ -8,7 +9,6 @@ import cn.productai.api.core.exceptions.ClientException;
 import cn.productai.api.core.exceptions.ServerException;
 import cn.productai.api.core.helper.RequestHelper;
 import cn.productai.api.core.helper.SignatureHelper;
-import cn.productai.api.core.helper.WebQueryHelper;
 import cn.productai.api.core.internal.HttpResponse;
 
 import java.lang.reflect.Field;
@@ -17,8 +17,6 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.UUID;
 
-import cn.productai.api.pai.base.DataSetBatchModifyByFileBaseRequest;
-import cn.productai.api.pai.base.DataSetSingleModifyByUrlBaseRequest;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -108,15 +106,13 @@ public class DefaultProductAIClient implements IWebClient {
         }
 
         // exclude the options
-        if (!(request instanceof DataSetBatchModifyByFileBaseRequest) &&
-                !(request instanceof DataSetSingleModifyByUrlBaseRequest)) {
-            if (request.getOptions() != null && request.getOptions().size() > 0) {
-                for (String key : request.getOptions().keySet()) {
-                    try {
-                        dics.put(key, request.getOptions().get(key));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+        IgnoreExtraParasAttribute ignoreExtraPara = request.getClass().getAnnotation(IgnoreExtraParasAttribute.class);
+        if (ignoreExtraPara == null && request.getOptions() != null && request.getOptions().size() > 0) {
+            for (String key : request.getOptions().keySet()) {
+                try {
+                    dics.put(key, request.getOptions().get(key));
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }
