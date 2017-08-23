@@ -1,5 +1,6 @@
 package cn.productai.api.core;
 
+import cn.productai.api.core.attribute.IgnoreExtraParasAttribute;
 import cn.productai.api.core.attribute.ParaSignAttribute;
 import cn.productai.api.core.base.BaseRequest;
 import cn.productai.api.core.base.BaseResponse;
@@ -15,8 +16,6 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.UUID;
 
-import cn.productai.api.pai.base.DataSetBatchModifyByFileBaseRequest;
-import cn.productai.api.pai.base.DataSetSingleModifyByUrlBaseRequest;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import sun.misc.BASE64Encoder;
@@ -107,15 +106,13 @@ public class DefaultProductAIClient implements IWebClient {
         }
 
         // exclude the options
-        if (!(request instanceof DataSetBatchModifyByFileBaseRequest) &&
-                !(request instanceof DataSetSingleModifyByUrlBaseRequest)) {
-            if (request.getOptions() != null && request.getOptions().size() > 0) {
-                for (String key : request.getOptions().keySet()) {
-                    try {
-                        dics.put(key, request.getOptions().get(key));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+        IgnoreExtraParasAttribute ignoreExtraPara = request.getClass().getAnnotation(IgnoreExtraParasAttribute.class);
+        if (ignoreExtraPara == null && request.getOptions() != null && request.getOptions().size() > 0) {
+            for (String key : request.getOptions().keySet()) {
+                try {
+                    dics.put(key, request.getOptions().get(key));
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }
@@ -145,9 +142,18 @@ public class DefaultProductAIClient implements IWebClient {
             _t.setResponseBase64String(new BASE64Encoder().encode(httpResponse.getResponseBytes()));
 
             if (httpResponse.getStatusCode() >= 500) {
-                throw new ServerException(String.format("%s", _t.getErrorCode()), String.format("%s-%s-%s", _t.getErrorMsg(), _t.getMessage(), _t.getMsg()));
+                throw new ServerException(String.format("%s", _t.getErrorCode()),
+                        String.format("%s%s%s",
+                                _t.getErrorMsg() == null || _t.getErrorMsg().isEmpty() ? "" : _t.getErrorMsg(),
+                                _t.getMessage() == null || _t.getMessage().isEmpty() ? "" : _t.getMessage(),
+                                _t.getMsg() == null || _t.getMsg().isEmpty() ? "" : _t.getMsg()));
             } else if (httpResponse.getStatusCode() >= 400) {
-                throw new ClientException(String.format("%s", _t.getErrorCode()), String.format("%s-%s-%s", _t.getErrorMsg(), _t.getMessage(), _t.getMsg()), _t.getRequestId());
+                throw new ClientException(String.format("%s", _t.getErrorCode()),
+                        String.format("%s%s%s",
+                                _t.getErrorMsg() == null || _t.getErrorMsg().isEmpty() ? "" : _t.getErrorMsg(),
+                                _t.getMessage() == null || _t.getMessage().isEmpty() ? "" : _t.getMessage(),
+                                _t.getMsg() == null || _t.getMsg().isEmpty() ? "" : _t.getMsg()),
+                        _t.getRequestId());
             }
 
             return _t;
