@@ -1,5 +1,6 @@
 package cn.productai.api.pai.base;
 
+import cn.productai.api.core.attribute.IgnoreExtraParasAttribute;
 import cn.productai.api.core.attribute.ParaSignAttribute;
 import cn.productai.api.core.base.BaseRequest;
 import cn.productai.api.core.base.BaseResponse;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
  * Created by Thinkpad on 2017/7/4.
  *
  */
+@IgnoreExtraParasAttribute
 public abstract class DataSetSingleModifyByUrlBaseRequest<T extends BaseResponse> extends BaseRequest<T> {
 
     private String imageSetId = "";
