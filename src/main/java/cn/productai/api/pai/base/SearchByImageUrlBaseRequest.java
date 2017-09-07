@@ -24,6 +24,7 @@ public abstract class SearchByImageUrlBaseRequest<T extends BaseResponse> extend
 
     public void setSearchTag(ITag searchTag) {
         this.searchTag = searchTag;
+        this.tags = this.getTags();
     }
 
     public String getTags() {
@@ -61,6 +62,7 @@ public abstract class SearchByImageUrlBaseRequest<T extends BaseResponse> extend
         super(serviceType, serviceId, url, loc);
 
         this.searchTag = searchTag;
+        this.tags = this.getTags();
 
         if (count != null && count > 0 && count <= 100)
             this.count = count;
