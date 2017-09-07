@@ -32,6 +32,7 @@ public abstract class SearchByImageFileBaseRequest<T extends BaseResponse> exten
 
     public void setSearchTag(ITag searchTag) {
         this.searchTag = searchTag;
+        this.tags = this.getTags();
     }
 
     @ParaSignAttribute(Name = "count")
@@ -52,6 +53,7 @@ public abstract class SearchByImageFileBaseRequest<T extends BaseResponse> exten
     public SearchByImageFileBaseRequest(String serviceType, String serviceId, String loc, ITag searchTag, Integer count) {
         super(serviceType, serviceId, loc);
         this.searchTag = searchTag;
+        this.tags = this.getTags();
         if (count != null && count > 0 && count <= 100)
             this.count = count;
     }
