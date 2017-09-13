@@ -110,4 +110,12 @@ public class DataSetModifyResponse extends BaseResponse {
     public void setDataSetName(String dataSetName) {
         this.dataSetName = dataSetName;
     }
+
+    public int getFailedCount() {
+        return failedCount;
+    }
+
+    public void setFailedCount(int failedCount) {
+        this.failedCount = failedCount;
+    }
 }
