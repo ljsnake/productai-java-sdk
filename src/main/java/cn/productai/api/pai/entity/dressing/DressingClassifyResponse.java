@@ -23,4 +23,12 @@ public class DressingClassifyResponse extends BaseResponse {
     public void setResults(DressingClassifyResult[] results) {
         this.results = results;
     }
+
+    public String[] getLabels() {
+        return labels;
+    }
+
+    public void setLabels(String[] labels) {
+        this.labels = labels;
+    }
 }
