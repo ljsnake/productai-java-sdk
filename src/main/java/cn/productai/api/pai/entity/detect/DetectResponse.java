@@ -34,4 +34,12 @@ public class DetectResponse extends BaseResponse {
     public void setDetectTime(double detectTime) {
         DetectTime = detectTime;
     }
+
+    public String getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
+    }
 }
