@@ -163,6 +163,16 @@ $result = $product_ai->imageColorAnalysis($image, $type, $granularity, $return_t
 
 ```$loc```: Optional.
 
+#### General request
+
+```php
+$result = $product_ai->generalRequest($service_type, $service_id, $image, $args);
+```
+
+The ```$image``` argument accepts the same type as the image search.
+
+```$args```: The arguments which will be appended to request body.
+
 ## 中文说明
 
 ProductAI® SDK 提供了 API 请求封装与签名验证功能，用户可以轻松使用 PHP SDK 完成 API 的调用。
@@ -324,3 +334,13 @@ $result = $product_ai->imageColorAnalysis($image, $type, $granularity, $return_t
 ```$return_type```: 返回颜色类型，```basic```、```w3c```、```ncs``` 或 ```cncs```。
 
 ```$loc```: 可选。
+
+#### 通用请求
+
+```php
+$result = $product_ai->generalRequest($service_type, $service_id, $image, $args);
+```
+
+```$image``` 参数接受的类型与图像搜索一致。
+
+```$args```: 直接附加到 request body 里的参数。
