@@ -5,7 +5,7 @@
 [![Travis CI Build Status](https://travis-ci.org/MalongTech/productai-php-sdk.svg?branch=master)](https://travis-ci.org/MalongTech/productai-php-sdk)
 [![Code Coverage](https://codecov.io/gh/MalongTech/productai-php-sdk/branch/master/graph/badge.svg)](https://codecov.io/gh/MalongTech/productai-php-sdk)
 
-ProductAI® SDKs enable using ProductAI® APIs easily in the programming languege of your choice. You can use our PHP SDK to send image queries and maintain your datasets.
+ProductAI® SDKs enable using ProductAI® APIs easily in the programming language of your choice. You can use our PHP SDK to send image queries and maintain your datasets.
 
 ### Install
 
