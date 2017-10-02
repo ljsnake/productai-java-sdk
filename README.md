@@ -1,4 +1,4 @@
-﻿# ProductAI® SDK for java
+﻿# ProductAI® SDK for Java
 
 [![Build Status](https://travis-ci.org/MalongTech/productai-java-sdk.svg?branch=master)](https://travis-ci.org/MalongTech/productai-java-sdk)
 [![GitHub release](https://img.shields.io/github/release/MalongTech/productai-java-sdk.svg)](https://github.com/MalongTech/productai-java-sdk/releases)
@@ -32,10 +32,7 @@ import cn.productai.api.pai.entity.search.ImageSearchByImageUrlRequest;
 import cn.productai.api.pai.entity.search.ImageSearchResponse;
 import cn.productai.api.pai.response.SearchResult;
 
-/**
- * Created by Zhong Wang on 2017/7/4.
- *
- */
+
 public class UsageIntroduction {
     public void fullFlowExample() {
 
