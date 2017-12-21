@@ -9,11 +9,12 @@ use CURLFile;
 
 class Base
 {
-    const VERSION = '0.2.5';
-    const API = 'https://api.productai.cn';
+    const VERSION = '0.3.0';
 
+    public $api = 'https://api.productai.cn';
     private $access_key_id;
     private $secret_key;
+    private $language;
 
     public $method;
     public $headers;
@@ -49,8 +50,6 @@ class Base
         $this->headers = [
             'x-ca-version' => 1,
             'x-ca-accesskeyid' => $this->access_key_id,
-            'x-ca-timestamp' => time(),
-            'x-ca-signaturenonce' => $this->generateNonce(16),
             'user-agent' => "ProductAI-SDK-PHP/{$this->version()} (+http://www.productai.cn)",
             'accept-language' => $this->language,
         ];
@@ -79,62 +78,18 @@ class Base
         return static::VERSION;
     }
 
-    public static function api()
+    protected function curl($service_type, $service_id, $json=False)
     {
-        return static::API;
-    }
-
-    private function generateNonce($len, $chars = '')
-    {
-        if (!$chars) {
-            $chars = array_merge(range('a', 'z'), range('A', 'Z'), range(0, 9));
-        } elseif (!is_array($chars)) {
-            $chars = str_split($chars);
+        if ($json) {
+            $this->headers['Content-Type'] = 'application/json';
+            $this->body = json_encode($this->body);
         }
 
-        $index = count($chars) - 1;
-
-        $nonce = '';
-        for ($i = 0; $i < $len; ++$i) {
-            $nonce .= $chars[mt_rand(0, $index)];
-        }
-
-        return $nonce;
-    }
-
-    private function signRequests()
-    {
-        $headers = [
-            'requestmethod' => $this->headers['requestmethod'],
-        ];
-        foreach ($this->headers as $k => $v) {
-            if (substr($k, 0, 2) == 'x-') {
-                $headers[$k] = $v;
-            }
-        }
-
-        $body = [];
-        foreach ($this->body as $k => $v) {
-            if (is_string($v) || is_numeric($v)) {
-                $body[$k] = $v;
-            }
-        }
-
-        $requests = array_merge($headers, $body);
-        ksort($requests);
-
-        return base64_encode(hash_hmac('sha1', urldecode(http_build_query($requests)), $this->secret_key, true));
-    }
-
-    protected function curl($service_type, $service_id)
-    {
-        $curl = curl_init("{$this->api()}/$service_type/$service_id");
+        $curl = curl_init("{$this->api}/$service_type/$service_id");
 
         $this->curl_opt[CURLOPT_CUSTOMREQUEST] = $this->method;
 
-        $this->headers['requestmethod'] = $this->method;
-        $this->headers['x-ca-signature'] = $this->signRequests();
-
+        $headers = [];
         foreach ($this->headers as $k => $v) {
             $headers[] = "$k: $v";
         }
@@ -160,9 +115,9 @@ class Base
             throw new Exception("Request failed. $this->curl_error", $this->curl_errno);
         }
 
-        $result = json_decode($this->curl_output, true);
+        $result = $this->curl_output ? json_decode($this->curl_output, true) : '';
 
-        if ($this->curl_info['http_code'] !== 200) {
+        if ($this->curl_info['http_code'] >= 400) {
             throw new Exception('API thrown an error. ' . (isset($result['message']) ? $result['message'] : $this->curl_output), $this->curl_info['http_code']);
         }
 

@@ -50,6 +50,12 @@ $product_ai = new ProductAI\API($access_key_id, $secret_key, $language);
 
 ```$language```: Default is ```en-US```. The language of return results. NOT all services support this argument.
 
+#### Change API Endpoint
+
+```php
+$product_ai->api = 'https://api-bj.productai.cn';
+```
+
 #### Search image using URL
 
 ```php
@@ -95,6 +101,30 @@ $result = $product_ai->detectImage($service_type, $service_id, $image, $loc);
 ```
 
 The ```$image``` argument accepts the same type as the image search.
+
+#### Create an image set
+
+```php
+$image_set = $this->product_ai->createImageSet($name, $description);
+```
+
+#### Get image set by ID
+
+```php
+$image_set = $this->product_ai->getImageSet($set_id);
+```
+
+#### Update the name and description of an image set
+
+```php
+$image_set = $this->product_ai->updateImageSetNameDesc($set_id, $name, $description);
+```
+
+#### Delete image set by ID
+
+```php
+$this->product_ai->removeImageSet($set_id);
+```
 
 #### Upload a image to image set
 
@@ -147,6 +177,30 @@ $result = $product_ai->removeImagesFromSet($set_id, [
 
 ```php
 $result = $product_ai->removeImagesFromSet($set_id, $filename);
+```
+
+#### Create a custom service
+
+```php
+$service = $this->product_ai->createService($image_set_id, $name, $scenario);
+```
+
+#### Get custom service by ID
+
+```php
+$service = $this->product_ai->getService($service_id);
+```
+
+#### Update the name of a custom service
+
+```php
+$service = $this->product_ai->updateServiceName($service_id, $name);
+```
+
+#### Delete custom service by ID
+
+```php
+$this->product_ai->removeService($service_id);
 ```
 
 #### Image color analysis
@@ -222,6 +276,12 @@ $product_ai = new ProductAI\API($access_key_id, $secret_key, $language);
 
 ```$language```: 默认为 ```en-US```。返回结果的语言，不是所有服务都支持此参数。
 
+#### 切换 API Endpoint
+
+```php
+$product_ai->api = 'https://api-bj.productai.cn';
+```
+
 #### 使用图像 URL 搜索
 
 ```php
@@ -267,6 +327,30 @@ $result = $product_ai->detectImage($service_type, $service_id, $image, $loc);
 ```
 
 ```$image``` 参数接受的类型与图像搜索一致。
+
+#### 创建数据集
+
+```php
+$image_set = $this->product_ai->createImageSet($name, $description);
+```
+
+#### 获取数据集
+
+```php
+$image_set = $this->product_ai->getImageSet($set_id);
+```
+
+#### 更新数据集名称和描述
+
+```php
+$image_set = $this->product_ai->updateImageSetNameDesc($set_id, $name, $description);
+```
+
+#### 删除数据集
+
+```php
+$this->product_ai->removeImageSet($set_id);
+```
 
 #### 上传一张图片到数据集
 
@@ -321,6 +405,30 @@ $result = $product_ai->removeImagesFromSet($set_id, [
 $result = $product_ai->removeImagesFromSet($set_id, $filename);
 ```
 
+#### 创建自建服务
+
+```php
+$service = $this->product_ai->createService($image_set_id, $name, $scenario);
+```
+
+#### 获取自建服务
+
+```php
+$service = $this->product_ai->getService($service_id);
+```
+
+#### 更新自建服务名称
+
+```php
+$service = $this->product_ai->updateServiceName($service_id, $name);
+```
+
+#### 删除自建服务
+
+```php
+$this->product_ai->removeService($service_id);
+```
+
 #### 图片色彩分析
 
 ```php
@@ -329,7 +437,7 @@ $result = $product_ai->imageColorAnalysis($image, $type, $granularity, $return_t
 
 ```$type```: 分析类型，```everything``` 全图颜色、```foreground``` 前景颜色 或 ```person_outfit``` 人物服饰颜色。
 
-```$granularity```: 分析粒度，```major``` 主要颜色、```detailed``` 所有颜色 或 ```dominant``` 最显著单色。
+```$granularity```: 分析粒度，```major``` 主要颜色、```detailed``` 所有颜色、```dominant``` 最显著单色 或 ```exhaustive``` 最显著单色。
 
 ```$return_type```: 返回颜色类型，```basic```、```w3c```、```ncs``` 或 ```cncs```。
 

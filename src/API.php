@@ -58,13 +58,19 @@ class API extends Base
         return $this->searchImage($service_type, $service_id, $image, $loc);
     }
 
-    /*
-    protected function addImageSet($name, $description = '')
+    protected function getImageSet($set_id)
+    {
+        $this->method = 'GET';
+
+        return $this->curl('image_sets', "_0000014/$set_id");
+    }
+
+    protected function createImageSet($name, $description = '')
     {
         $this->body['name'] = $name;
         $this->body['description'] = $description;
 
-        return $this->curl('image_sets', '_0000014');
+        return $this->curl('image_sets', '_0000014', true);
     }
 
     protected function removeImageSet($set_id)
@@ -73,7 +79,47 @@ class API extends Base
 
         return $this->curl('image_sets', "_0000014/$set_id");
     }
-    */
+
+    protected function updateImageSetNameDesc($set_id, $name, $description='')
+    {
+        $this->method = 'PUT';
+
+        $this->body['name'] = $name;
+        $this->body['description'] = $description;
+
+        return $this->curl('image_sets', "_0000014/$set_id", true);
+    }
+
+    protected function getService($service_id)
+    {
+        $this->method = 'GET';
+
+        return $this->curl('customer_services', "_0000172/$service_id");
+    }
+
+    protected function createService($image_set_id, $name, $scenario)
+    {
+        $this->body['name'] = $name;
+        $this->body['scenario'] = $scenario;
+
+        return $this->curl('image_sets', "_0000014/$image_set_id/services", true);
+    }
+
+    protected function removeService($service_id)
+    {
+        $this->method = 'DELETE';
+
+        return $this->curl('customer_services', "_0000172/$service_id");
+    }
+
+    protected function updateServiceName($service_id, $name)
+    {
+        $this->method = 'PUT';
+
+        $this->body['name'] = $name;
+
+        return $this->curl('customer_services', "_0000172/$service_id", true);
+    }
 
     protected function addImageToSet($set_id, $image_url, $meta = '', $tags = [])
     {
@@ -89,17 +135,6 @@ class API extends Base
 
         return $this->curl('image_sets', "_0000014/$set_id");
     }
-
-    /*
-    protected function removeImageFromSet($set_id, $image_url)
-    {
-        $this->method = 'DELETE';
-
-        $this->body['image_url'] = $image_url;
-
-        return $this->curl('image_sets', "_0000014/$set_id");
-    }
-    */
 
     protected function addImagesToSet($set_id, $images)
     {
@@ -150,7 +185,7 @@ class API extends Base
                 throw new BadMethodCallException('Bad type.', 1);
         }
 
-        if (!in_array($granularity, array('major', 'detailed', 'dominant'))) {
+        if (!in_array($granularity, array('major', 'detailed', 'dominant', 'exhaustive'))) {
             throw new BadMethodCallException('Bad granularity.', 1);
         }
         $this->body['granularity'] = $granularity;

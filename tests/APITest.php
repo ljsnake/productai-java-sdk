@@ -2,6 +2,7 @@
 
 namespace ProductAI\Tests;
 
+use Exception;
 use PHPUnit\Framework\TestCase;
 use ProductAI\API;
 
@@ -120,5 +121,47 @@ class APITest extends TestCase
     {
         $result = $this->product_ai->imageColorAnalysis(file_get_contents(__DIR__.'/test.jpg'), 'person_outfit', 'major', 'basic');
         $this->assertArrayHasKey('results', $result);
+    }
+
+    public function testCRUDImageSet()
+    {
+        $set_id = $this->product_ai->createImageSet('name1', 'desc1')['id'];
+        $image_set = $this->product_ai->getImageSet($set_id);
+        $this->assertEquals($set_id, $image_set['id']);
+        $this->assertEquals('name1', $image_set['name']);
+        $this->assertEquals('desc1', $image_set['description']);
+
+        $this->product_ai->updateImageSetNameDesc($set_id, 'name2', 'desc2');
+        $image_set = $this->product_ai->getImageSet($set_id);
+        $this->assertEquals($set_id, $image_set['id']);
+        $this->assertEquals('name2', $image_set['name']);
+        $this->assertEquals('desc2', $image_set['description']);
+
+        $this->product_ai->removeImageSet($set_id);
+        $this->expectException(Exception::class);
+        $this->product_ai->getImageSet($set_id);
+        $this->assertEquals(404, $this->product_ai->curl_info['http_code']);
+    }
+
+    public function testCRUDService()
+    {
+        $service_id = $this->product_ai->createService(IMAGE_SET_ID, 'name1', SERVICE_SCENARIO)['id'];
+        $service = $this->product_ai->getService($service_id);
+        $this->assertEquals($service_id, $service['id']);
+        $this->assertEquals($service['image_set_id'], IMAGE_SET_ID);
+        $this->assertEquals($service['scenario'], SERVICE_SCENARIO);
+        $this->assertEquals('name1', $service['name']);
+
+        $this->product_ai->updateServiceName($service_id, 'name2');
+        $service = $this->product_ai->getService($service_id);
+        $this->assertEquals($service_id, $service['id']);
+        $this->assertEquals($service['image_set_id'], IMAGE_SET_ID);
+        $this->assertEquals($service['scenario'], SERVICE_SCENARIO);
+        $this->assertEquals('name2', $service['name']);
+
+        $this->product_ai->removeService($service_id);
+        $this->expectException(Exception::class);
+        $this->product_ai->getService($service_id);
+        $this->assertEquals(404, $this->product_ai->curl_info['http_code']);
     }
 }
