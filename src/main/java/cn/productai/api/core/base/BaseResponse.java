@@ -3,6 +3,8 @@ package cn.productai.api.core.base;
 import cn.productai.api.core.enums.ResponseType;
 import com.fasterxml.jackson.annotation.*;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +17,14 @@ public abstract class BaseResponse {
     private String responseBase64String;
     private Integer statusCode;
     private Map<String, List<String>> headers;
+    private String responseJsonString;
+
+    public String getResponseJsonString() throws IOException {
+        if (this.getResponseBase64String() != null && !this.getResponseBase64String().isEmpty()) {
+            return new String(Base64.getDecoder().decode(this.getResponseBase64String()));
+        }
+        return "";
+    }
 
     public ResponseType getResponseType(){
         return this.responseType;

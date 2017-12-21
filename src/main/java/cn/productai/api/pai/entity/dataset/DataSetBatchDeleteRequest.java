@@ -8,11 +8,11 @@ import java.io.File;
  * Created by Thinkpad on 2017/7/4.
  *
  */
-public class DataSetBatchDeleteRequest extends DataSetBatchModifyByFileBaseRequest<DataSetModifyResponse> {
+public class DataSetBatchDeleteRequest extends DataSetBatchModifyByFileBaseRequest<DataSetBaseResponse> {
 
     @Override
-    public Class<DataSetModifyResponse> getResponseClass() {
-        return DataSetModifyResponse.class;
+    public Class<DataSetBaseResponse> getResponseClass() {
+        return DataSetBaseResponse.class;
     }
 
     public DataSetBatchDeleteRequest(String imageSetId) {
