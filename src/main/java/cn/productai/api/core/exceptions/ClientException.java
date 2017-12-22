@@ -32,7 +32,7 @@ public class ClientException extends Exception {
 
     @Override
     public String getMessage(){
-        return super.getMessage() + (null == getRequestId() ? "" : "\r\nRerequestId :" + getRequestId());
+        return super.getMessage() + (null == getRequestId() ? "" : "\r\nRequestId :" + getRequestId());
     }
 
     public String getErrorCode(){

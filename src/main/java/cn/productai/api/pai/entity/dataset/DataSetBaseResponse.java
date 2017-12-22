@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Created by Thinkpad on 2017/7/4.
  *
  */
-public class DataSetModifyResponse extends BaseResponse {
+public class DataSetBaseResponse extends BaseResponse {
 
     @JsonProperty("status")
     private String status;

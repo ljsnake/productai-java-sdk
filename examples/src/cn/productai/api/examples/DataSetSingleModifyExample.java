@@ -3,7 +3,7 @@ package cn.productai.api.examples;
 import cn.productai.api.core.IWebClient;
 import cn.productai.api.core.enums.LanguageType;
 import cn.productai.api.core.exceptions.ClientException;
-import cn.productai.api.pai.entity.dataset.DataSetModifyResponse;
+import cn.productai.api.pai.entity.dataset.DataSetBaseResponse;
 import cn.productai.api.pai.entity.dataset.DataSetSingleAddByImageUrlRequest;
 
 /**
@@ -24,7 +24,7 @@ public class DataSetSingleModifyExample implements IExample {
         request.setLanguage(LanguageType.Chinese);
 
         try {
-            DataSetModifyResponse response = client.getResponse(request);
+            DataSetBaseResponse response = client.getResponse(request);
 
             System.out.println("==============================Result==============================");
 

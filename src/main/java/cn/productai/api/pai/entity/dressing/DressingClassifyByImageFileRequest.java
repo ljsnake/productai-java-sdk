@@ -17,7 +17,7 @@ public class DressingClassifyByImageFileRequest extends CallApiByImageFileBaseRe
     }
 
     public DressingClassifyByImageFileRequest(String loc) {
-        super("dressing", "_0000057", loc);
+        super("dressing", "_0000111", loc);
     }
 
     public DressingClassifyByImageFileRequest(File imageFile, String loc) {
