@@ -58,19 +58,18 @@ public class RequestHelper {
         outputStream.close();
     }
 
-    private static void writeRequestParas(HttpURLConnection connection, byte[] buffer) throws IOException{
+    private static void writeRequestParas(HttpURLConnection connection, byte[] buffer) throws IOException {
         DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
-        outputStream.write(buffer,0,buffer.length);
+        outputStream.write(buffer, 0, buffer.length);
         outputStream.flush();
         outputStream.close();
     }
 
     private static byte[] readStreamBytes(HttpURLConnection connection) throws IOException {
         InputStream inputStream;
-        if(connection.getResponseCode()<HttpURLConnection.HTTP_BAD_REQUEST){
+        if (connection.getResponseCode() < HttpURLConnection.HTTP_BAD_REQUEST) {
             inputStream = connection.getInputStream();
-        }
-        else {
+        } else {
             inputStream = connection.getErrorStream();
         }
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -86,16 +85,15 @@ public class RequestHelper {
         return sb.toString().getBytes(_charset);
     }
 
-    public static <T extends BaseResponse> HttpResponse getResponse(BaseRequest<T> request) throws Exception{
+    public static <T extends BaseResponse> HttpResponse getResponse(BaseRequest<T> request) throws Exception {
         HttpResponse httpResponse;
 
         HttpURLConnection connection = createRequest(request);
-        if(request.getRequestMethod() == HttpMethod.POST){
-            if(request.getQueryBytes()!=null){
+        if (request.getRequestMethod() != HttpMethod.GET) {
+            if (request.getQueryBytes() != null) {
                 writeRequestParas(connection, request.getQueryBytes());
-            }
-            else {
-                writeRequestParas(connection,request.getQueryString());
+            } else {
+                writeRequestParas(connection, request.getQueryString());
             }
         }
         int statusCode = connection.getResponseCode();

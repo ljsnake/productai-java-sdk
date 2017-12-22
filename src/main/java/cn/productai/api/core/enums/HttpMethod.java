@@ -9,7 +9,7 @@ public enum HttpMethod {
 
     /*
     GET
-     */
+    */
     @EnumDescriptionAttribute(Text = "GET")
     GET,
 
@@ -17,5 +17,23 @@ public enum HttpMethod {
     POST
      */
     @EnumDescriptionAttribute(Text = "POST")
-    POST
+    POST,
+
+    /*
+    PUT
+     */
+    @EnumDescriptionAttribute(Text = "PUT")
+    PUT,
+
+    /*
+    PATCH
+    */
+    @EnumDescriptionAttribute(Text = "PATCH")
+    PATCH,
+
+    /*
+    DELETE
+     */
+    @EnumDescriptionAttribute(Text = "DELETE")
+    DELETE
 }

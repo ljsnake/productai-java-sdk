@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
 
         IProfile profile = new DefaultProfile();
-        profile.setAccessKeyId("3c289113a9b86b63f46551c895c2a617");
+        profile.setAccessKeyId("****");
         profile.setSecretKey("****");
         profile.setVersion("1");
         profile.setGlobalLanguage(LanguageType.Chinese);
@@ -68,6 +68,19 @@ public class Main {
          */
         IExample delete_images_from_dataSet_example = new DataSetDeleteExample();
         delete_images_from_dataSet_example.run(client);
+
+        /**
+         * DataSet management api example
+         */
+        IExample dataSet_management_api_example = new DataSetManagementApiExample();
+        dataSet_management_api_example.run(client);
+
+        /**
+         * Search service management api example
+         */
+        ServiceApiExample service_management_api_example = new ServiceApiExample();
+        service_management_api_example.setDataSetId("s5xwihok");
+        service_management_api_example.run(client);
 
         System.out.println("Done");
     }

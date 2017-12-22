@@ -24,25 +24,6 @@ public abstract class DataSetSingleModifyByUrlBaseRequest<T extends BaseResponse
         return String.format("https://%s/image_sets/_0000014/%s", this.getHost(), this.imageSetId);
     }
 
-    @Override
-    public String getQueryString() {
-        ArrayList<String> list = new ArrayList<String>();
-        Field[] ps = this.getClass().getFields();
-        for (Field p : ps) {
-            ParaSignAttribute ca = p.getAnnotation(ParaSignAttribute.class);
-            if (ca != null) {
-                try {
-                    Object value = p.get(this);
-                    if (value != null && !value.toString().isEmpty())
-                        list.add(String.format("%s=%s", ca.Name(), ca.IsNeedUrlEncode() ? WebQueryHelper.urlEncode(value.toString()) : value.toString()));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return StringHelper.join("&", list);
-    }
-
     /**
      * your image url
      */

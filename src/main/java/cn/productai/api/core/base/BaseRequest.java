@@ -1,10 +1,15 @@
 package cn.productai.api.core.base;
 
+import cn.productai.api.core.attribute.ParaSignAttribute;
 import cn.productai.api.core.enums.ContentType;
 import cn.productai.api.core.enums.HttpMethod;
 import cn.productai.api.core.enums.LanguageType;
 import cn.productai.api.core.helper.EnumHelper;
+import cn.productai.api.core.helper.StringHelper;
+import cn.productai.api.core.helper.WebQueryHelper;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -17,7 +22,7 @@ public abstract class BaseRequest<T extends BaseResponse> {
 
     private String host = "api.productai.cn";
 
-    private String userAgent = "Product AI java SDK 1.0";
+    private String userAgent = "Product AI java SDK-jdk1.6 V2.1.1";
 
     private HttpMethod requestMethod = HttpMethod.POST;
 
@@ -93,7 +98,32 @@ public abstract class BaseRequest<T extends BaseResponse> {
 
     public abstract String getApiUrl();
 
-    public abstract String getQueryString();
+    public String getQueryString() {
+        ArrayList<String> list = new ArrayList<String>();
+        Field[] ps = this.getClass().getFields();
+        for (Field p : ps) {
+            ParaSignAttribute ca = p.getAnnotation(ParaSignAttribute.class);
+            if (ca != null) {
+                try {
+                    Object value = p.get(this);
+                    if (value != null && !value.toString().isEmpty())
+                        list.add(String.format("%s=%s", ca.Name(), ca.IsNeedUrlEncode() ? WebQueryHelper.urlEncode(value.toString()) : value.toString()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if (this.getOptions() != null && this.getOptions().size() > 0) {
+            for (String key : this.getOptions().keySet()) {
+                try {
+                    list.add(String.format("%s=%s", key, WebQueryHelper.urlEncode(this.getOptions().get(key))));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return StringHelper.join("&", list);
+    }
 
     public byte[] getQueryBytes() {
         return null;

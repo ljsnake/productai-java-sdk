@@ -16,6 +16,9 @@ public class DressingClassifyResponse extends BaseResponse {
     @JsonProperty("labels")
     private String[] labels;
 
+    @JsonProperty("labels-en")
+    private String[] labelsEN;
+
     public DressingClassifyResult[] getResults() {
         return results;
     }
@@ -30,5 +33,13 @@ public class DressingClassifyResponse extends BaseResponse {
 
     public void setLabels(String[] labels) {
         this.labels = labels;
+    }
+
+    public String[] getLabelsEN() {
+        return labelsEN;
+    }
+
+    public void setLabelsEN(String[] labelsEN) {
+        this.labelsEN = labelsEN;
     }
 }

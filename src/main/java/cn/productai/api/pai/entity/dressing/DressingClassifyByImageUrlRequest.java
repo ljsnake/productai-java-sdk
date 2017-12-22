@@ -14,7 +14,7 @@ public class DressingClassifyByImageUrlRequest extends CallApiByImageUrlBaseRequ
     }
 
     public DressingClassifyByImageUrlRequest(String loc) {
-        super("dressing", "_0000057", loc);
+        super("dressing", "_0000111", loc);
     }
 
     public DressingClassifyByImageUrlRequest(String url, String loc) {

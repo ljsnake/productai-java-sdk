@@ -1,20 +1,15 @@
 package cn.productai.api.core;
 
-import cn.productai.api.core.attribute.IgnoreExtraParasAttribute;
-import cn.productai.api.core.attribute.ParaSignAttribute;
 import cn.productai.api.core.base.BaseRequest;
 import cn.productai.api.core.base.BaseResponse;
 import cn.productai.api.core.enums.ResponseType;
 import cn.productai.api.core.exceptions.ClientException;
 import cn.productai.api.core.exceptions.ServerException;
 import cn.productai.api.core.helper.RequestHelper;
-import cn.productai.api.core.helper.SignatureHelper;
 import cn.productai.api.core.internal.HttpResponse;
 
-import java.lang.reflect.Field;
 import java.nio.charset.Charset;
 import java.util.HashMap;
-import java.util.UUID;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,6 +23,11 @@ public class DefaultProductAIClient implements IWebClient {
 
     public DefaultProductAIClient(){
 
+    }
+
+    public DefaultProductAIClient(IProfile profile, String endpoint) {
+        this(profile);
+        this.setHost(endpoint);
     }
 
     public DefaultProductAIClient(IProfile profile) {
@@ -86,38 +86,11 @@ public class DefaultProductAIClient implements IWebClient {
 
         dics.put("x-ca-accesskeyid", this.profile.getAccessKeyId());
         dics.put("x-ca-version", this.profile.getVersion());
-        dics.put("x-ca-timestamp", String.valueOf(System.currentTimeMillis() / 1000));
-        dics.put("x-ca-signaturenonce", UUID.randomUUID().toString());
-        dics.put("requestmethod", request.getRequestMethodHeader());
 
         for (String key : dics.keySet()) {
             request.setHeader(key, dics.get(key));
         }
 
-        Field[] properties = request.getClass().getFields();
-        for (Field p : properties) {
-            ParaSignAttribute ca = p.getAnnotation(ParaSignAttribute.class);
-            if (ca != null) {
-                Object value = p.get(request);
-                if (value != null && !value.toString().isEmpty()) {
-                    dics.put(ca.Name(), value.toString());
-                }
-            }
-        }
-
-        // exclude the options
-        IgnoreExtraParasAttribute ignoreExtraPara = request.getClass().getAnnotation(IgnoreExtraParasAttribute.class);
-        if (ignoreExtraPara == null && request.getOptions() != null && request.getOptions().size() > 0) {
-            for (String key : request.getOptions().keySet()) {
-                try {
-                    dics.put(key, request.getOptions().get(key));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        request.setHeader("x-ca-signature", SignatureHelper.signature(this.profile.getSecretKey(), dics));
         request.setHost(this.host);
 
         if (this.profile.getGlobalLanguage() != null) {
@@ -128,7 +101,7 @@ public class DefaultProductAIClient implements IWebClient {
     private <T extends BaseResponse> T parse(BaseRequest<T> request, HttpResponse httpResponse) throws Exception {
         String responseString = httpResponse.getResponseString();
         T t = getInstance(request.getResponseClass());
-        if (responseString.isEmpty()) {
+        if (responseString == null || responseString.isEmpty()) {
             t.setHeaders(httpResponse.getHeaders());
             t.setStatusCode(httpResponse.getStatusCode());
             return t;

@@ -8,11 +8,11 @@ import java.util.ArrayList;
  * Created by Thinkpad on 2017/7/4.
  *
  */
-public class DataSetSingleAddByImageUrlRequest extends DataSetSingleModifyByUrlBaseRequest<DataSetModifyResponse> {
+public class DataSetSingleAddByImageUrlRequest extends DataSetSingleModifyByUrlBaseRequest<DataSetBaseResponse> {
 
     @Override
-    public Class<DataSetModifyResponse> getResponseClass() {
-        return DataSetModifyResponse.class;
+    public Class<DataSetBaseResponse> getResponseClass() {
+        return DataSetBaseResponse.class;
     }
 
     public DataSetSingleAddByImageUrlRequest(String imageSetId, ArrayList<String> tags, String meta) {

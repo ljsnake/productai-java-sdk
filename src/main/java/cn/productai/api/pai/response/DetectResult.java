@@ -14,6 +14,9 @@ public class DetectResult {
     @JsonProperty("type")
     private String Type;
 
+    @JsonProperty("puid")
+    private String Puid;
+
     @JsonProperty("score")
     private double Score;
 
@@ -39,5 +42,13 @@ public class DetectResult {
 
     public void setScore(double score) {
         Score = score;
+    }
+
+    public String getPuid() {
+        return Puid;
+    }
+
+    public void setPuid(String puid) {
+        Puid = puid;
     }
 }
