@@ -272,3 +272,10 @@ Done
 Process finished with exit code 0
 
 ```
+
+# Release Notes （更新日志）
+
+## 2017-12-21
+
+ - Add dataset management apis (增加数据集管理API)
+ - Add search service management apis （增加搜索服务管理API）

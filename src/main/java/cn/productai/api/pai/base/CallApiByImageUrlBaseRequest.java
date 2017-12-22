@@ -47,34 +47,6 @@ public abstract class CallApiByImageUrlBaseRequest<T extends BaseResponse> exten
     }
 
     @Override
-    public String getQueryString() {
-        ArrayList<String> list = new ArrayList<>();
-        Field[] ps = this.getClass().getFields();
-        for (Field p : ps) {
-            ParaSignAttribute ca = p.getAnnotation(ParaSignAttribute.class);
-            if (ca != null) {
-                try {
-                    Object value = p.get(this);
-                    if (value != null && !value.toString().isEmpty())
-                        list.add(String.format("%s=%s", ca.Name(), ca.IsNeedUrlEncode() ? WebQueryHelper.urlEncode(value.toString()) : value.toString()));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        if (this.getOptions() != null && this.getOptions().size() > 0) {
-            for (String key : this.getOptions().keySet()) {
-                try {
-                    list.add(String.format("%s=%s", key, WebQueryHelper.urlEncode(this.getOptions().get(key))));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return String.join("&", list);
-    }
-
-    @Override
     public byte[] getQueryBytes() {
         return null;
     }

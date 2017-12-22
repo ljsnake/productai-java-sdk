@@ -52,7 +52,7 @@ public abstract class CallApiByImageFileBaseRequest<T extends BaseResponse> exte
         return "";
     }
 
-    private String _boundary = "";
+    private String _boundary = FileHelper.getBoundary();
 
     @Override
     public String getContentTypeHeader() {
