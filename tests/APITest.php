@@ -2,9 +2,10 @@
 
 namespace ProductAI\Tests;
 
-use Exception;
+use DateTime;
 use PHPUnit\Framework\TestCase;
 use ProductAI\API;
+use ProductAI\CURLException;
 
 class APITest extends TestCase
 {
@@ -58,7 +59,7 @@ class APITest extends TestCase
     public function testClassifyImage()
     {
         $result = $this->product_ai->classifyImage(SERVICE_TYPE_CLASSIFY, SERVICE_ID_CLASSIFY, 'http://www.sinaimg.cn/dy/slidenews/24_img/2013_13/40223_662671_794351.jpg');
-        $this->assertEquals(0, $result['is_err']);
+        $this->assertSame(0, $result['is_err']);
     }
 
     public function testDetectImage()
@@ -127,41 +128,107 @@ class APITest extends TestCase
     {
         $set_id = $this->product_ai->createImageSet('name1', 'desc1')['id'];
         $image_set = $this->product_ai->getImageSet($set_id);
-        $this->assertEquals($set_id, $image_set['id']);
-        $this->assertEquals('name1', $image_set['name']);
-        $this->assertEquals('desc1', $image_set['description']);
+        $this->assertSame($set_id, $image_set['id']);
+        $this->assertSame('name1', $image_set['name']);
+        $this->assertSame('desc1', $image_set['description']);
 
         $this->product_ai->updateImageSetNameDesc($set_id, 'name2', 'desc2');
         $image_set = $this->product_ai->getImageSet($set_id);
-        $this->assertEquals($set_id, $image_set['id']);
-        $this->assertEquals('name2', $image_set['name']);
-        $this->assertEquals('desc2', $image_set['description']);
+        $this->assertSame($set_id, $image_set['id']);
+        $this->assertSame('name2', $image_set['name']);
+        $this->assertSame('desc2', $image_set['description']);
 
         $this->product_ai->removeImageSet($set_id);
-        $this->expectException(Exception::class);
+        $this->expectException(CURLException::class);
         $this->product_ai->getImageSet($set_id);
-        $this->assertEquals(404, $this->product_ai->curl_info['http_code']);
+        $this->assertSame(404, $this->product_ai->curl_info['http_code']);
     }
 
     public function testCRUDService()
     {
         $service_id = $this->product_ai->createService(IMAGE_SET_ID, 'name1', SERVICE_SCENARIO)['id'];
         $service = $this->product_ai->getService($service_id);
-        $this->assertEquals($service_id, $service['id']);
-        $this->assertEquals($service['image_set_id'], IMAGE_SET_ID);
-        $this->assertEquals($service['scenario'], SERVICE_SCENARIO);
-        $this->assertEquals('name1', $service['name']);
+        $this->assertSame($service_id, $service['id']);
+        $this->assertSame($service['image_set_id'], IMAGE_SET_ID);
+        $this->assertSame($service['scenario'], SERVICE_SCENARIO);
+        $this->assertSame('name1', $service['name']);
 
         $this->product_ai->updateServiceName($service_id, 'name2');
         $service = $this->product_ai->getService($service_id);
-        $this->assertEquals($service_id, $service['id']);
-        $this->assertEquals($service['image_set_id'], IMAGE_SET_ID);
-        $this->assertEquals($service['scenario'], SERVICE_SCENARIO);
-        $this->assertEquals('name2', $service['name']);
+        $this->assertSame($service_id, $service['id']);
+        $this->assertSame($service['image_set_id'], IMAGE_SET_ID);
+        $this->assertSame($service['scenario'], SERVICE_SCENARIO);
+        $this->assertSame('name2', $service['name']);
 
         $this->product_ai->removeService($service_id);
-        $this->expectException(Exception::class);
-        $this->product_ai->getService($service_id);
-        $this->assertEquals(404, $this->product_ai->curl_info['http_code']);
+        $this->expectException(CURLException::class);
+        try {
+            $this->product_ai->getService($service_id);
+        } catch (CURLException $e) {
+            $this->assertSame(404, $this->product_ai->curl_info['http_code']);
+
+            $result = json_decode($this->product_ai->curl_output, true);
+            $this->assertSame(2002, $result['error_code']);
+
+            throw $e;
+        }
+    }
+
+    public function testAddAndGetBatchTask()
+    {
+        $services = $this->product_ai->listBatchServices()['data'];
+
+        $task = $this->product_ai->prepareBatchTask($services[0], [
+            'http://wx1.sinaimg.cn/large/63136032ly1fmuhazpck1j20fe0a8thm.jpg',
+            'http://wx4.sinaimg.cn/large/6587622bly1fmv0usxdxuj20kk0cj76f.jpg',
+        ])['data'];
+        $this->assertSame('RECEIVED', $task['state']);
+
+        $task = $this->product_ai->applyBatchTask($task['task_id'])['data'];
+        $this->assertContains($task['state'], ['PENDING', 'STARTED']);
+    }
+
+    public function testRevokeBatchTask()
+    {
+        $tasks = $this->product_ai->listBatchTasks(
+            new DateTime('2017-01-01T00:00Z'),
+            new DateTime('2018-01-01T00:00Z')
+        )['data'];
+        $task = reset($tasks);
+        $this->assertSame('SUCCESS', $task['state']);
+
+        $this->expectException(CURLException::class);
+        try {
+            $this->product_ai->revokeBatchTask($task['task_id']);
+        } catch (CURLException $e) {
+            $this->assertSame(400, $this->product_ai->curl_info['http_code']);
+
+            $result = json_decode($this->product_ai->curl_output, true)['data'];
+            $this->assertSame(400012, $result['error_code']);
+
+            throw $e;
+        }
+    }
+
+    public function testRetryBatchTask()
+    {
+        $tasks = $this->product_ai->listBatchTasks(
+            new DateTime('2017-01-01T00:00Z'),
+            new DateTime('2018-01-01T00:00Z')
+        )['data'];
+        $task = reset($tasks);
+        $this->assertSame('SUCCESS', $task['state']);
+
+        $this->expectException(CURLException::class);
+        try {
+            $this->product_ai->retryBatchTask($task['task_id']);
+        } catch (CURLException $e) {
+            $this->assertSame(400, $this->product_ai->curl_info['http_code']);
+
+            $result = json_decode($this->product_ai->curl_output, true)['data'];
+            $this->assertSame(400014, $result['error_code']);
+
+            throw $e;
+        }
     }
 }

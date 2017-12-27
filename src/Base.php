@@ -7,9 +7,11 @@ use OutOfBoundsException;
 use UnexpectedValueException;
 use CURLFile;
 
+class CURLException extends Exception {}
+
 class Base
 {
-    const VERSION = '0.3.0';
+    const VERSION = '0.3.1';
 
     public $api = 'https://api.productai.cn';
     private $access_key_id;
@@ -112,17 +114,17 @@ class Base
         }
 
         if ($this->curl_errno !== 0) {
-            throw new Exception("Request failed. $this->curl_error", $this->curl_errno);
+            throw new CURLException("Request failed. $this->curl_error", $this->curl_errno);
         }
 
         $result = $this->curl_output ? json_decode($this->curl_output, true) : '';
 
         if ($this->curl_info['http_code'] >= 400) {
-            throw new Exception('API thrown an error. ' . (isset($result['message']) ? $result['message'] : $this->curl_output), $this->curl_info['http_code']);
+            throw new CURLException('API thrown an error. ' . (isset($result['message']) ? $result['message'] : $this->curl_output), $this->curl_info['http_code']);
         }
 
         if ($result === null) {
-            throw new Exception("Decode result error. The original output is '$this->curl_output'.", 1);
+            throw new CURLException("Decode result error. The original output is '$this->curl_output'.", 1);
         }
 
         return $result;
@@ -133,7 +135,7 @@ class Base
         $this->tmpfile = tmpfile();
 
         if ($this->tmpfile === false) {
-            throw new Exception('Can not create temporary file.', 1);
+            throw new UnexpectedValueException('Can not create temporary file.', 1);
         }
 
         foreach ($array as $v) {

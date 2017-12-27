@@ -4,6 +4,7 @@ namespace ProductAI;
 
 use BadMethodCallException;
 use CURLFile;
+use DateTime;
 
 class API extends Base
 {
@@ -136,24 +137,24 @@ class API extends Base
         return $this->curl('image_sets', "_0000014/$set_id");
     }
 
-    protected function addImagesToSet($set_id, $images)
+    protected function addImagesToSet($set_id, $image_urls)
     {
-        if (is_array($images)) {
-            $images = $this->convertArrayToCSV($images);
+        if (is_array($image_urls)) {
+            $image_urls = $this->convertArrayToCSV($image_urls);
         }
 
-        $this->body['urls_to_add'] = new CURLFile($images);
+        $this->body['urls_to_add'] = new CURLFile($image_urls);
 
         return $this->curl('image_sets', "_0000014/$set_id");
     }
 
-    protected function removeImagesFromSet($set_id, $images)
+    protected function removeImagesFromSet($set_id, $image_urls)
     {
-        if (is_array($images)) {
-            $images = $this->convertArrayToCSV($images);
+        if (is_array($image_urls)) {
+            $image_urls = $this->convertArrayToCSV($image_urls);
         }
 
-        $this->body['urls_to_delete'] = new CURLFile($images);
+        $this->body['urls_to_delete'] = new CURLFile($image_urls);
 
         return $this->curl('image_sets', "_0000014/$set_id");
     }
@@ -213,5 +214,67 @@ class API extends Base
         }
 
         return $this->curl($service_type, $service_id);
+    }
+
+    protected function prepareBatchTask($service_id, $image_urls)
+    {
+        if (is_array($image_urls)) {
+            $image_urls = $this->convertArrayToCSV($image_urls);
+        }
+
+        $this->body['service_id'] = $service_id;
+        $this->body['urls'] = new CURLFile($image_urls);
+
+        return $this->curl('batch', '_1000001/task/prepare');
+    }
+
+    protected function applyBatchTask($task_id)
+    {
+        $this->body['task_id'] = $task_id;
+
+        return $this->curl('batch', '_1000001/task/apply');
+    }
+
+    protected function getBatchTaskInfo($task_id)
+    {
+        $this->method = 'GET';
+
+        return $this->curl('batch', "_1000001/task/info/$task_id");
+    }
+
+    protected function revokeBatchTask($task_id)
+    {
+        return $this->curl('batch', "_1000001/task/revoke/$task_id");
+    }
+
+    protected function retryBatchTask($task_id)
+    {
+        return $this->curl('batch', "_1000001/task/retry/$task_id");
+    }
+
+    protected function listBatchTasks($start=null, $end=null)
+    {
+        $this->method = 'GET';
+
+        if ($start !== null) {
+            if ($start instanceof DateTime) $start = $start->format(DateTime::ATOM);
+
+            $this->body['start'] = $start;
+        }
+
+        if ($end !== null) {
+            if ($end instanceof DateTime) $end = $end->format(DateTime::ATOM);
+
+            $this->body['end'] = $end;
+        }
+
+        return $this->curl('batch', '_1000001/tasks');
+    }
+
+    protected function listBatchServices()
+    {
+        $this->method = 'GET';
+
+        return $this->curl('batch', '_1000001/services');
     }
 }
