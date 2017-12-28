@@ -56,7 +56,9 @@ $product_ai = new ProductAI\API($access_key_id, $secret_key, $language);
 $product_ai->api = 'https://api-bj.productai.cn';
 ```
 
-#### Search image using URL
+#### Search by Image
+
+##### Search image using URL
 
 ```php
 $result = $product_ai->searchImage($service_type, $service_id, $url, $loc, $tags, $count);
@@ -68,19 +70,19 @@ $result = $product_ai->searchImage($service_type, $service_id, $url, $loc, $tags
 
 ```$count```: Optional, default is 20. The number of results that between 0 and 100. Public services do NOT support this argument.
 
-#### Search image using file
+##### Search image using file
 
 ```php
 $result = $product_ai->searchImage($service_type, $service_id, '@'.$filename, $loc, $tags, $count);
 ```
 
-#### Search image using raw image
+##### Search image using raw image
 
 ```php
 $result = $product_ai->searchImage($service_type, $service_id, file_get_contents($filename), $loc, $tags, $count);
 ```
 
-#### Search image using upload form
+##### Search image using upload form
 
 ```php
 $result = $product_ai->searchImage($service_type, $service_id, '#'.$form_name, $loc, $tags, $count);
@@ -102,31 +104,33 @@ $result = $product_ai->detectImage($service_type, $service_id, $image, $loc);
 
 The ```$image``` argument accepts the same type as the image search.
 
-#### Create an image set
+### Image Set
+
+##### Create an image set
 
 ```php
 $image_set = $this->product_ai->createImageSet($name, $description);
 ```
 
-#### Get image set by ID
+##### Get image set by ID
 
 ```php
 $image_set = $this->product_ai->getImageSet($set_id);
 ```
 
-#### Update the name and description of an image set
+##### Update the name and description of an image set
 
 ```php
 $image_set = $this->product_ai->updateImageSetNameDesc($set_id, $name, $description);
 ```
 
-#### Delete image set by ID
+##### Delete image set by ID
 
 ```php
 $this->product_ai->removeImageSet($set_id);
 ```
 
-#### Upload a image to image set
+##### Upload a image to image set
 
 ```php
 $result = $product_ai->addImageToSet($set_id, $image_url, 'optional meta', [
@@ -135,7 +139,7 @@ $result = $product_ai->addImageToSet($set_id, $image_url, 'optional meta', [
 ]);
 ```
 
-#### Upload images to image set using URLs
+##### Upload images to image set using URLs
 
 ```php
 $result = $product_ai->addImagesToSet($set_id, [
@@ -158,13 +162,13 @@ $result = $product_ai->addImagesToSet($set_id, [
 ]);
 ```
 
-#### Upload images to image set using a CSV file
+##### Upload images to image set using a CSV file
 
 ```php
 $result = $product_ai->addImagesToSet($set_id, $filename);
 ```
 
-#### Remove images from image set using URLs
+##### Remove images from image set using URLs
 
 ```php
 $result = $product_ai->removeImagesFromSet($set_id, [
@@ -173,31 +177,33 @@ $result = $product_ai->removeImagesFromSet($set_id, [
 ]);
 ```
 
-#### Remove images from image set using a CSV file
+##### Remove images from image set using a CSV file
 
 ```php
 $result = $product_ai->removeImagesFromSet($set_id, $filename);
 ```
 
-#### Create a custom service
+#### Custom Service
+
+##### Create a custom service
 
 ```php
 $service = $this->product_ai->createService($image_set_id, $name, $scenario);
 ```
 
-#### Get custom service by ID
+##### Get custom service by ID
 
 ```php
 $service = $this->product_ai->getService($service_id);
 ```
 
-#### Update the name of a custom service
+##### Update the name of a custom service
 
 ```php
 $service = $this->product_ai->updateServiceName($service_id, $name);
 ```
 
-#### Delete custom service by ID
+##### Delete custom service by ID
 
 ```php
 $this->product_ai->removeService($service_id);
@@ -220,12 +226,65 @@ $result = $product_ai->imageColorAnalysis($image, $type, $granularity, $return_t
 #### General request
 
 ```php
-$result = $product_ai->generalRequest($service_type, $service_id, $image, $args);
+$result = $product_ai->generalRequest($service_type, $service_id, $image, $args, $json);
 ```
 
 The ```$image``` argument accepts the same type as the image search.
 
 ```$args```: The arguments which will be appended to request body.
+
+```$json```: ```true``` or ```false```. Request with JSON format.
+
+#### Batch Task
+
+##### Get services list
+
+```php
+$task = $product_ai->listBatchServices();
+```
+
+##### Get tasks list
+
+```php
+$task = $product_ai->listBatchTasks($start, $end);
+```
+
+```$start```: Start time. [DateTime](http://php.net/manual/en/class.datetime.php) instance. **Include** that time.
+
+```$end```: End time. [DateTime](http://php.net/manual/en/class.datetime.php) instance. **Not include** that time.
+
+##### Prepare task
+
+```php
+$task = $product_ai->prepareBatchTask($service_id, [
+    $image_url_1,
+    $image_url_2,
+]);
+```
+
+##### Apply task
+
+```php
+$task = $product_ai->applyBatchTask($task_id);
+```
+
+##### Get task information
+
+```php
+$task = $product_ai->getBatchTaskInfo($task_id);
+```
+
+##### Revoke task
+
+```php
+$task = $product_ai->revokeBatchTask($task_id);
+```
+
+##### Retry task
+
+```php
+$task = $product_ai->retryBatchTask($task_id);
+```
 
 ## 中文说明
 
@@ -282,7 +341,9 @@ $product_ai = new ProductAI\API($access_key_id, $secret_key, $language);
 $product_ai->api = 'https://api-bj.productai.cn';
 ```
 
-#### 使用图像 URL 搜索
+#### 以图搜图
+
+##### 使用图像 URL 搜索
 
 ```php
 $result = $product_ai->searchImage($service_type, $service_id, $url, $loc, $tags, $count);
@@ -294,19 +355,19 @@ $result = $product_ai->searchImage($service_type, $service_id, $url, $loc, $tags
 
 ```$count```: 可选，默认为 20。 设置返回结果的数量，值为 0 到 100，公共服务不支持此参数。
 
-#### 使用图像文件搜索
+##### 使用图像文件搜索
 
 ```php
 $result = $product_ai->searchImage($service_type, $service_id, '@'.$filename, $loc, $tags, $count);
 ```
 
-#### 使用图像字符串搜索
+##### 使用图像字符串搜索
 
 ```php
 $result = $product_ai->searchImage($service_type, $service_id, file_get_contents($filename), $loc, $tags, $count);
 ```
 
-#### 使用通过表单上传的图像搜索
+##### 使用通过表单上传的图像搜索
 
 ```php
 $result = $product_ai->searchImage($service_type, $service_id, '#'.$form_name, $loc, $tags, $count);
@@ -328,31 +389,33 @@ $result = $product_ai->detectImage($service_type, $service_id, $image, $loc);
 
 ```$image``` 参数接受的类型与图像搜索一致。
 
-#### 创建数据集
+#### 数据集
+
+##### 创建数据集
 
 ```php
 $image_set = $this->product_ai->createImageSet($name, $description);
 ```
 
-#### 获取数据集
+##### 获取数据集
 
 ```php
 $image_set = $this->product_ai->getImageSet($set_id);
 ```
 
-#### 更新数据集名称和描述
+##### 更新数据集名称和描述
 
 ```php
 $image_set = $this->product_ai->updateImageSetNameDesc($set_id, $name, $description);
 ```
 
-#### 删除数据集
+##### 删除数据集
 
 ```php
 $this->product_ai->removeImageSet($set_id);
 ```
 
-#### 上传一张图片到数据集
+##### 上传一张图片到数据集
 
 ```php
 $result = $product_ai->addImageToSet($set_id, $image_url, 'optional meta', [
@@ -361,7 +424,7 @@ $result = $product_ai->addImageToSet($set_id, $image_url, 'optional meta', [
 ]);
 ```
 
-#### 上传多张图片到数据集
+##### 上传多张图片到数据集
 
 ```php
 $result = $product_ai->addImagesToSet($set_id, [
@@ -384,13 +447,13 @@ $result = $product_ai->addImagesToSet($set_id, [
 ]);
 ```
 
-#### 使用 CSV 文件上传多张图片到数据集
+##### 使用 CSV 文件上传多张图片到数据集
 
 ```php
 $result = $product_ai->addImagesToSet($set_id, $filename);
 ```
 
-#### 从数据集删除多张图片
+##### 从数据集删除多张图片
 
 ```php
 $result = $product_ai->removeImagesFromSet($set_id, [
@@ -399,31 +462,33 @@ $result = $product_ai->removeImagesFromSet($set_id, [
 ]);
 ```
 
-#### 使用 CSV 文件从数据集删除多张图片
+##### 使用 CSV 文件从数据集删除多张图片
 
 ```php
 $result = $product_ai->removeImagesFromSet($set_id, $filename);
 ```
 
-#### 创建自建服务
+#### 自建服务
+
+##### 创建自建服务
 
 ```php
 $service = $this->product_ai->createService($image_set_id, $name, $scenario);
 ```
 
-#### 获取自建服务
+##### 获取自建服务
 
 ```php
 $service = $this->product_ai->getService($service_id);
 ```
 
-#### 更新自建服务名称
+##### 更新自建服务名称
 
 ```php
 $service = $this->product_ai->updateServiceName($service_id, $name);
 ```
 
-#### 删除自建服务
+##### 删除自建服务
 
 ```php
 $this->product_ai->removeService($service_id);
@@ -446,9 +511,62 @@ $result = $product_ai->imageColorAnalysis($image, $type, $granularity, $return_t
 #### 通用请求
 
 ```php
-$result = $product_ai->generalRequest($service_type, $service_id, $image, $args);
+$result = $product_ai->generalRequest($service_type, $service_id, $image, $args, $json);
 ```
 
 ```$image``` 参数接受的类型与图像搜索一致。
 
 ```$args```: 直接附加到 request body 里的参数。
+
+```$json```: ```true``` 或 ```false```，是否以 JSON 格式提交请求。
+
+#### 批量任务
+
+##### 获取服务列表
+
+```php
+$task = $product_ai->listBatchServices();
+```
+
+##### 获取任务列表
+
+```php
+$task = $product_ai->listBatchTasks($start, $end);
+```
+
+```$start```: 开始时间，[DateTime](http://php.net/manual/zh/class.datetime.php) 实例，**包括**该时间。
+
+```$end```: 结束时间，[DateTime](http://php.net/manual/zh/class.datetime.php) 实例，**不包括**该时间。
+
+##### 预提交任务
+
+```php
+$task = $product_ai->prepareBatchTask($service_id, [
+    $image_url_1,
+    $image_url_2,
+]);
+```
+
+##### 提交任务
+
+```php
+$task = $product_ai->applyBatchTask($task_id);
+```
+
+##### 获取任务信息
+
+```php
+$task = $product_ai->getBatchTaskInfo($task_id);
+```
+
+##### 取消任务
+
+```php
+$task = $product_ai->revokeBatchTask($task_id);
+```
+
+##### 重试任务
+
+```php
+$task = $product_ai->retryBatchTask($task_id);
+```

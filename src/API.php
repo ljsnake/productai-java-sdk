@@ -203,7 +203,7 @@ class API extends Base
         return $this->curl($service_type, $service_id);
     }
 
-    protected function generalRequest($service_type, $service_id, $image = null, $args = [])
+    protected function generalRequest($service_type, $service_id, $image = null, $args = [], $json = false)
     {
         if ($image !== null) {
             $this->loadImage($image);
@@ -213,7 +213,7 @@ class API extends Base
             $this->body += $args;
         }
 
-        return $this->curl($service_type, $service_id);
+        return $this->curl($service_type, $service_id, $json);
     }
 
     protected function prepareBatchTask($service_id, $image_urls)
