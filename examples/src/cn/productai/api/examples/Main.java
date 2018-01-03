@@ -19,7 +19,7 @@ public class Main {
     public static void main(String[] args) {
 
         IProfile profile = new DefaultProfile();
-        profile.setAccessKeyId("3c289113a9b86b63f46551c895c2a617");
+        profile.setAccessKeyId("****");
         profile.setSecretKey("****");
         profile.setVersion("1");
         profile.setGlobalLanguage(LanguageType.Chinese);
