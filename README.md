@@ -26,12 +26,10 @@ import cn.productai.api.core.*;
 import cn.productai.api.core.enums.*;
 import cn.productai.api.examples.batch_tasks.TasksExample;
 import cn.productai.api.examples.classify.*;
-import cn.productai.api.examples.color.ColorAnalysisByFileExample;
-import cn.productai.api.examples.color.ColorAnalysisByUrlExample;
+import cn.productai.api.examples.color.*;;
 import cn.productai.api.examples.dataset.*;
 import cn.productai.api.examples.detect.*;
-import cn.productai.api.examples.dressing.DressingClassifyByFileExample;
-import cn.productai.api.examples.dressing.DressingClassifyByUrlExample;
+import cn.productai.api.examples.dressing.*;
 import cn.productai.api.examples.filter.*;
 import cn.productai.api.examples.search.*;
 import cn.productai.api.examples.service.*;
@@ -41,7 +39,7 @@ public class Main {
     public static void main(String[] args) {
 
         IProfile profile = new DefaultProfile();
-        profile.setAccessKeyId("3c289113a9b86b63f46551c895c2a617");
+        profile.setAccessKeyId("****");
         profile.setSecretKey("****");
         profile.setVersion("1");
         profile.setGlobalLanguage(LanguageType.Chinese);
