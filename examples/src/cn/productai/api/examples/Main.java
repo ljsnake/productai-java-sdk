@@ -1,7 +1,18 @@
 package cn.productai.api.examples;
 
 import cn.productai.api.core.*;
-import cn.productai.api.core.enums.LanguageType;
+import cn.productai.api.core.enums.*;
+import cn.productai.api.examples.batch_tasks.TasksExample;
+import cn.productai.api.examples.classify.*;
+import cn.productai.api.examples.color.ColorAnalysisByFileExample;
+import cn.productai.api.examples.color.ColorAnalysisByUrlExample;
+import cn.productai.api.examples.dataset.*;
+import cn.productai.api.examples.detect.*;
+import cn.productai.api.examples.dressing.DressingClassifyByFileExample;
+import cn.productai.api.examples.dressing.DressingClassifyByUrlExample;
+import cn.productai.api.examples.filter.*;
+import cn.productai.api.examples.search.*;
+import cn.productai.api.examples.service.*;
 
 public class Main {
 
@@ -43,15 +54,6 @@ public class Main {
         detect_by_url_example.run(client);
 
         /**
-         * Filter
-         */
-        IExample filter_by_file_example = new SmartFilterExample();
-        filter_by_file_example.run(client);
-
-        IExample filter_by_image_url_example = new SmartFilterByUrlExample();
-        filter_by_image_url_example.run(client);
-
-        /**
          * Data set
          */
         IExample dataSet_example = new DataSetManagementExample();
@@ -81,6 +83,40 @@ public class Main {
         ServiceApiExample service_management_api_example = new ServiceApiExample();
         service_management_api_example.setDataSetId("s5xwihok");
         service_management_api_example.run(client);
+
+        /**
+         * Batch api examples
+         */
+        TasksExample task_example = new TasksExample();
+        task_example.run(client);
+
+        /**
+         * Color api example
+         */
+        ColorAnalysisByFileExample color_file_example = new ColorAnalysisByFileExample();
+        color_file_example.run(client);
+
+        ColorAnalysisByUrlExample color_url_example = new ColorAnalysisByUrlExample();
+        color_url_example.run(client);
+
+        /**
+         * Dressing api example
+         */
+        DressingClassifyByFileExample dressing_file_example = new DressingClassifyByFileExample();
+        dressing_file_example.run(client);
+
+        DressingClassifyByUrlExample dressing_url_example = new DressingClassifyByUrlExample();
+        dressing_url_example.run(client);
+
+        /**
+         * Filter
+         */
+        IExample filter_by_file_example = new SmartFilterExample();
+        filter_by_file_example.run(client);
+
+        IExample filter_by_image_url_example = new SmartFilterByUrlExample();
+        filter_by_image_url_example.run(client);
+
 
         System.out.println("Done");
     }

@@ -51,6 +51,7 @@ public class CreateSearchServiceRequest extends ManagementAPIBaseRequest<CreateS
 
     public void setScenario(SearchScenario scenario) {
         this.Scenario = scenario;
+        this.scenarioString = _dics.get(this.getScenario().ordinal());
     }
 
     private static HashMap<Integer, String> _dics = EnumHelper.toHashMap(SearchScenario.class);
@@ -69,7 +70,6 @@ public class CreateSearchServiceRequest extends ManagementAPIBaseRequest<CreateS
         this.setDataSetId(imageSetId);
         this.setName(name);
         this.setScenario(scenario);
-        this.scenarioString = _dics.get(this.getScenario().ordinal());
     }
 
     /**
