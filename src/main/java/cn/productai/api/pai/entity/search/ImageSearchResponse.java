@@ -4,6 +4,8 @@ import cn.productai.api.core.base.BaseResponse;
 import cn.productai.api.pai.response.SearchResult;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 /**
  * Created by Thinkpad on 2017/7/4.
  *
@@ -24,6 +26,9 @@ public class ImageSearchResponse extends BaseResponse {
 
     @JsonProperty("download_time")
     private double downloadTime;
+
+    @JsonProperty("most_common_tags")
+    private List<Object[]> mostCommonTags;
 
     public SearchResult[] getResults() {
         return results;
@@ -63,5 +68,13 @@ public class ImageSearchResponse extends BaseResponse {
 
     public void setDownloadTime(double downloadTime) {
         this.downloadTime = downloadTime;
+    }
+
+    public List<Object[]> getMostCommonTags() {
+        return mostCommonTags;
+    }
+
+    public void setMostCommonTags(List<Object[]> mostCommonTags) {
+        this.mostCommonTags = mostCommonTags;
     }
 }
