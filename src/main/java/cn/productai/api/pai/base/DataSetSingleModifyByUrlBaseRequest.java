@@ -4,9 +4,7 @@ import cn.productai.api.core.attribute.IgnoreExtraParasAttribute;
 import cn.productai.api.core.attribute.ParaSignAttribute;
 import cn.productai.api.core.base.BaseRequest;
 import cn.productai.api.core.base.BaseResponse;
-import cn.productai.api.core.helper.WebQueryHelper;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 /**
@@ -66,6 +64,7 @@ public abstract class DataSetSingleModifyByUrlBaseRequest<T extends BaseResponse
      */
     public void setSearchTags(ArrayList<String> searchTags) {
         this.searchTags = searchTags;
+        Tags = this.getTags();
     }
 
     public String getTags() {
@@ -98,12 +97,12 @@ public abstract class DataSetSingleModifyByUrlBaseRequest<T extends BaseResponse
      */
     public DataSetSingleModifyByUrlBaseRequest(String imageSetId, ArrayList<String> searchTags, String meta) {
         super();
-        if (imageSetId.isEmpty())
+        if (imageSetId == null || imageSetId.isEmpty())
             throw new IllegalArgumentException("imageSetId can not be null!");
 
-        this.imageSetId = imageSetId;
-        this.searchTags = searchTags;
-        this.meta = meta;
+        this.setImageSetId(imageSetId);
+        this.setSearchTags(searchTags);
+        this.setMeta(meta);
     }
 
     /**
@@ -115,7 +114,7 @@ public abstract class DataSetSingleModifyByUrlBaseRequest<T extends BaseResponse
      */
     public DataSetSingleModifyByUrlBaseRequest(String imageSetId, String imageUrl, ArrayList<String> searchTags, String meta) {
         this(imageSetId, searchTags, meta);
-        this.imageUrl = imageUrl;
+        this.setImageUrl(imageUrl);
     }
 
     public DataSetSingleModifyByUrlBaseRequest(){

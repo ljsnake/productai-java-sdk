@@ -17,6 +17,9 @@ public class SearchResult {
     @JsonProperty("metadata")
     private String metadata;
 
+    @JsonProperty("tags")
+    private String[] tags;
+
     public String getUrl() {
         return url;
     }
@@ -39,5 +42,13 @@ public class SearchResult {
 
     public void setMetadata(String metadata) {
         this.metadata = metadata;
+    }
+
+    public String[] getTags() {
+        return tags;
+    }
+
+    public void setTags(String[] tags) {
+        this.tags = tags;
     }
 }
