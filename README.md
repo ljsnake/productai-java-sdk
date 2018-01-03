@@ -22,85 +22,125 @@ jdk 1.8.0_131
 
 package cn.productai.api.examples;
 
-import cn.productai.api.core.DefaultProductAIClient;
-import cn.productai.api.core.DefaultProfile;
-import cn.productai.api.core.IProfile;
-import cn.productai.api.core.IWebClient;
-import cn.productai.api.core.enums.LanguageType;
-import cn.productai.api.core.exceptions.ClientException;
-import cn.productai.api.pai.entity.search.ImageSearchByImageUrlRequest;
-import cn.productai.api.pai.entity.search.ImageSearchResponse;
-import cn.productai.api.pai.response.SearchResult;
+import cn.productai.api.core.*;
+import cn.productai.api.core.enums.*;
+import cn.productai.api.examples.batch_tasks.TasksExample;
+import cn.productai.api.examples.classify.*;
+import cn.productai.api.examples.color.ColorAnalysisByFileExample;
+import cn.productai.api.examples.color.ColorAnalysisByUrlExample;
+import cn.productai.api.examples.dataset.*;
+import cn.productai.api.examples.detect.*;
+import cn.productai.api.examples.dressing.DressingClassifyByFileExample;
+import cn.productai.api.examples.dressing.DressingClassifyByUrlExample;
+import cn.productai.api.examples.filter.*;
+import cn.productai.api.examples.search.*;
+import cn.productai.api.examples.service.*;
 
+public class Main {
 
-public class UsageIntroduction {
-    public void fullFlowExample() {
-
-        /**
-         * step 1 - setup your account profile
-         * get your accessKeyId & secretKey at https://console.productai.cn/main#/21/service_category_id=1
-         */
+    public static void main(String[] args) {
 
         IProfile profile = new DefaultProfile();
-        profile.setAccessKeyId("<your access key id>");
-        profile.setSecretKey("<your secret key>");
+        profile.setAccessKeyId("3c289113a9b86b63f46551c895c2a617");
+        profile.setSecretKey("****");
         profile.setVersion("1");
         profile.setGlobalLanguage(LanguageType.Chinese);
-
-        /**
-         * step 2 - initialize your ProductAI client
-         *
-         */
 
         IWebClient client = new DefaultProductAIClient(profile);
 
         /**
-         * step 3 - build your request
-         * take image search as example
+         * Classify
          */
+        IExample classify_by_file_example = new ClassifyByFileExample();
+        classify_by_file_example.run(client);
 
-        ImageSearchByImageUrlRequest request = new ImageSearchByImageUrlRequest("<your service id>");
-        request.setUrl("http://productai.cn/img/f10.jpg");
-
-        // this value will be override because you had set the IProfile.GlobalLanguage = LanguageType.Chinese
-        request.setLanguage(LanguageType.English);
+        IExample classify_by_url_example = new ClassifyByUrlExample();
+        classify_by_url_example.run(client);
 
         /**
-         * step 4 - send out the request、receive the response、catch the exceptions
+         * Image search
          */
+        IExample search_by_file_example = new ImageSearchExample();
+        search_by_file_example.run(client);
 
-        try {
-            ImageSearchResponse response = client.getResponse(request);
-
-            System.out.println("==============================Result==============================");
-
-            for (SearchResult r : response.getResults()) {
-                // access the response directly
-                System.out.println(String.format("%s - %s", r.getUrl(), r.getScore()));
-            }
-
-            System.out.println("==============================Result==============================");
-        } catch (cn.productai.api.core.exceptions.ServerException e) {
-            System.out.println(String.format("ServerException occurred. ErrorCode: %s \r\n ErrorMessage: %s",
-                    e.getErrorCode(),
-                    e.getErrorMessage()));
-            e.printStackTrace();
-
-        } catch (ClientException e) {
-            System.out.println(String.format("ClientException occurred. ErrorCode: %s \r\n ErrorMessage: %s \r\n RequestId: %s",
-                    e.getErrorCode(),
-                    e.getErrorMessage(),
-                    e.getRequestId()));
-            e.printStackTrace();
-
-        } catch (Exception e) {
-            System.out.println(String.format("%s occurred. ErrorMessage: %s", e.getClass().getTypeName(), e.getMessage()));
-            e.printStackTrace();
-        }
+        IExample search_by_url_example = new ImageSearchByUrlExample();
+        search_by_url_example.run(client);
 
         /**
-         *  Congrats! Now you can build your smart AI service using ProductAI.
-          */
+         * Detect
+         */
+        IExample detect_by_file_example = new DetectExample();
+        detect_by_file_example.run(client);
+
+        IExample detect_by_url_example = new DetectByUrlExample();
+        detect_by_url_example.run(client);
+
+        /**
+         * Data set
+         */
+        IExample dataSet_example = new DataSetManagementExample();
+        dataSet_example.run(client);
+
+        /**
+         * Add single image to data set
+         */
+        IExample single_add_image_to_dataSet_example = new DataSetSingleModifyExample();
+        single_add_image_to_dataSet_example.run(client);
+
+        /**
+         * Delete images from data set
+         */
+        IExample delete_images_from_dataSet_example = new DataSetDeleteExample();
+        delete_images_from_dataSet_example.run(client);
+
+        /**
+         * DataSet management api example
+         */
+        IExample dataSet_management_api_example = new DataSetManagementApiExample();
+        dataSet_management_api_example.run(client);
+
+        /**
+         * Search service management api example
+         */
+        ServiceApiExample service_management_api_example = new ServiceApiExample();
+        service_management_api_example.setDataSetId("s5xwihok");
+        service_management_api_example.run(client);
+
+        /**
+         * Batch api examples
+         */
+        TasksExample task_example = new TasksExample();
+        task_example.run(client);
+
+        /**
+         * Color api example
+         */
+        ColorAnalysisByFileExample color_file_example = new ColorAnalysisByFileExample();
+        color_file_example.run(client);
+
+        ColorAnalysisByUrlExample color_url_example = new ColorAnalysisByUrlExample();
+        color_url_example.run(client);
+
+        /**
+         * Dressing api example
+         */
+        DressingClassifyByFileExample dressing_file_example = new DressingClassifyByFileExample();
+        dressing_file_example.run(client);
+
+        DressingClassifyByUrlExample dressing_url_example = new DressingClassifyByUrlExample();
+        dressing_url_example.run(client);
+
+        /**
+         * Filter
+         */
+        IExample filter_by_file_example = new SmartFilterExample();
+        filter_by_file_example.run(client);
+
+        IExample filter_by_image_url_example = new SmartFilterByUrlExample();
+        filter_by_image_url_example.run(client);
+
+
+        System.out.println("Done");
     }
 }
 
@@ -274,6 +314,12 @@ Process finished with exit code 0
 ```
 
 # Release Notes （更新日志）
+## 2018-01-03
+
+ - [Add batch (tasks) apis & example](https://github.com/MalongTech/productai-java-sdk/tree/master/examples/src/cn/productai/api/examples/batch_tasks) (增加批处理API及示例)
+ - [Add color apis & examples](https://github.com/MalongTech/productai-java-sdk/tree/master/examples/src/cn/productai/api/examples/color) (增加色彩标注API及示例)
+ - [Add dressing examples](https://github.com/MalongTech/productai-java-sdk/tree/master/examples/src/cn/productai/api/examples/dressing) (增加时尚分析示例)
+ - Bug fix
 
 ## 2017-12-21
 
