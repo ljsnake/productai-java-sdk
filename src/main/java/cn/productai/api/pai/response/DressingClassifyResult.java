@@ -8,6 +8,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class DressingClassifyResult {
 
+    @JsonProperty("box")
+    private double box[];
+
     @JsonProperty("textures")
     private String[] Textures;
 
@@ -60,5 +63,13 @@ public class DressingClassifyResult {
     @Deprecated
     public void setIteam(String iteam) {
         Iteam = iteam;
+    }
+
+    public double[] getBox() {
+        return box;
+    }
+
+    public void setBox(double[] box) {
+        this.box = box;
     }
 }
