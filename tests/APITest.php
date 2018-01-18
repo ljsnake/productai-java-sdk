@@ -32,7 +32,7 @@ class APITest extends TestCase
                 '短靴',
                 '牛仔裤',
                 '打底裤',
-            ], 20, 0.8);
+            ], 20, 1);
         $this->assertArrayHasKey('results', $result);
     }
 
@@ -40,7 +40,7 @@ class APITest extends TestCase
     {
         $result = $this->product_ai->searchImage(SERVICE_TYPE_SEARCH, SERVICE_ID_SEARCH, '@'.__DIR__.'/test.jpg', [
             0.1, 0.2, 0.8, 0.6
-        ], [], 10, 0);
+        ], [], 10, 2);
         $this->assertArrayHasKey('results', $result);
     }
 
