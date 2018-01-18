@@ -61,31 +61,33 @@ $product_ai->api = 'https://api-bj.productai.cn';
 ##### Search image using URL
 
 ```php
-$result = $product_ai->searchImage($service_type, $service_id, $url, $loc, $tags, $count);
+$result = $product_ai->searchImage($service_type, $service_id, $url, $loc, $tags, $count, $page);
 ```
 
 ```$loc```: Optional, default is the entire image. An area of the image which you want to search. The format is ```[$x, $y, $w, $h]```.
 
 ```$tags```: Optional, default is ```[]```. The keywords which you want to search.
 
-```$count```: Optional, default is 20. The number of results that between 0 and 100. Public services do NOT support this argument.
+```$count```: Optional, default is 20. The number of results. The maximum is 3000.
+
+```$page```: Optional, default is 1. Return results using pagination. Can be used with ```$count``` argument.
 
 ##### Search image using file
 
 ```php
-$result = $product_ai->searchImage($service_type, $service_id, '@'.$filename, $loc, $tags, $count);
+$result = $product_ai->searchImage($service_type, $service_id, '@'.$filename, $loc, $tags, $count, $page);
 ```
 
 ##### Search image using raw image
 
 ```php
-$result = $product_ai->searchImage($service_type, $service_id, file_get_contents($filename), $loc, $tags, $count);
+$result = $product_ai->searchImage($service_type, $service_id, file_get_contents($filename), $loc, $tags, $count, $page);
 ```
 
 ##### Search image using upload form
 
 ```php
-$result = $product_ai->searchImage($service_type, $service_id, '#'.$form_name, $loc, $tags, $count);
+$result = $product_ai->searchImage($service_type, $service_id, '#'.$form_name, $loc, $tags, $count, $page);
 ```
 
 #### Classify the contents of a image
@@ -346,31 +348,33 @@ $product_ai->api = 'https://api-bj.productai.cn';
 ##### 使用图像 URL 搜索
 
 ```php
-$result = $product_ai->searchImage($service_type, $service_id, $url, $loc, $tags, $count);
+$result = $product_ai->searchImage($service_type, $service_id, $url, $loc, $tags, $count, $page);
 ```
 
 ```$loc```: 可选，默认为整张图片。用于搜索的图片区域，格式为 ```[$x, $y, $w, $h]```。
 
 ```$tags```: 可选，默认为 ```[]```。用于筛选搜索结果的标签。
 
-```$count```: 可选，默认为 20。 设置返回结果的数量，值为 0 到 100，公共服务不支持此参数。
+```$count```: 可选，默认为 20。 设置返回结果的数量，最大为 3000。
+
+```$page```: 可选，默认为 1。分页返回结果，可与 ```$count``` 参数配合使用。
 
 ##### 使用图像文件搜索
 
 ```php
-$result = $product_ai->searchImage($service_type, $service_id, '@'.$filename, $loc, $tags, $count);
+$result = $product_ai->searchImage($service_type, $service_id, '@'.$filename, $loc, $tags, $count, $page);
 ```
 
 ##### 使用图像字符串搜索
 
 ```php
-$result = $product_ai->searchImage($service_type, $service_id, file_get_contents($filename), $loc, $tags, $count);
+$result = $product_ai->searchImage($service_type, $service_id, file_get_contents($filename), $loc, $tags, $count, $page);
 ```
 
 ##### 使用通过表单上传的图像搜索
 
 ```php
-$result = $product_ai->searchImage($service_type, $service_id, '#'.$form_name, $loc, $tags, $count);
+$result = $product_ai->searchImage($service_type, $service_id, '#'.$form_name, $loc, $tags, $count, $page);
 ```
 
 #### 对图像内容分类

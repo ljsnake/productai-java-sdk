@@ -19,8 +19,8 @@ class API extends Base
         }
     }
 
-    protected function searchImage($service_type, $service_id, $image, $loc = [], $tags = [], $count = 20,
-                                   $skip_dedupe=False, $threshold = 0.0)
+    protected function searchImage($service_type, $service_id, $image, $loc = [], $tags = [],
+                                   $count = 20, $page = 1)
     {
         $this->loadImage($image);
 
@@ -40,10 +40,8 @@ class API extends Base
             $this->body['count'] = intval($count);
         }
 
-        $this->body['skip_dedupe'] = $skip_dedupe ? 1 : 0;
-
-        if ($threshold && is_numeric($threshold)) {
-            $this->body['threshold'] = $threshold;
+        if ($page) {
+            $this->body['page'] = intval($page) - 1;
         }
 
         return $this->curl($service_type, $service_id);

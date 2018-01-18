@@ -1,7 +1,7 @@
 {
     "name": "malong/productai",
     "description": "Official PHP SDK for ProductAI.",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "keywords": ["MaLong", "ProductAI", "SDK"],
     "license": "MIT",
     "homepage": "https://www.productai.cn",
