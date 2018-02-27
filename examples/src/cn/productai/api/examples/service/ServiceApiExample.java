@@ -11,6 +11,8 @@ public class ServiceApiExample implements IExample {
     @Override
     public void run(IWebClient client) {
 
+        // 获取所有服务信息
+        GetAll(client);
 
         // 新增服务
         Add(client);
@@ -79,6 +81,39 @@ public class ServiceApiExample implements IExample {
 
         try {
             GetServiceInfoResponse response = client.getResponse(request);
+
+            System.out.println("==============================Result==============================");
+
+            // access the response directly
+            System.out.println(String.format("Response Json : %s", response.getResponseJsonString()));
+
+            System.out.println("==============================Result==============================");
+        } catch (cn.productai.api.core.exceptions.ServerException e) {
+            System.out.println(String.format("ServerException occurred. ErrorCode: %s \r\n ErrorMessage: %s",
+                    e.getErrorCode(),
+                    e.getErrorMessage()));
+            e.printStackTrace();
+
+        } catch (ClientException e) {
+            System.out.println(String.format("ClientException occurred. ErrorCode: %s \r\n ErrorMessage: %s \r\n RequestId: %s",
+                    e.getErrorCode(),
+                    e.getErrorMessage(),
+                    e.getRequestId()));
+            e.printStackTrace();
+
+        } catch (Exception e) {
+            System.out.println(String.format("%s occurred. ErrorMessage: %s", e.getClass().getName(), e.getMessage()));
+            e.printStackTrace();
+        }
+    }
+
+    private void GetAll(IWebClient client) {
+        System.out.println("==>  Demo - 获取所有搜索服务信息  <==");
+
+        GetAllServicesRequest request = new GetAllServicesRequest();
+
+        try {
+            GetAllServicesResponse response = client.getResponse(request);
 
             System.out.println("==============================Result==============================");
 
