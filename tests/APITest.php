@@ -126,6 +126,13 @@ class APITest extends TestCase
 
     public function testCRUDImageSet()
     {
+        $image_sets = $this->product_ai->getImageSets();
+        $this->assertArrayHasKey('results', $image_sets);
+        foreach ($image_sets['results'] as $v) {
+            if (substr($v['name'], 0, 4) === 'name')
+                $this->product_ai->removeImageSet($v['id']);
+        }
+
         $set_id = $this->product_ai->createImageSet('name1', 'desc1')['id'];
         $image_set = $this->product_ai->getImageSet($set_id);
         $this->assertSame($set_id, $image_set['id']);
@@ -146,6 +153,13 @@ class APITest extends TestCase
 
     public function testCRUDService()
     {
+        $services = $this->product_ai->getServices();
+        $this->assertArrayHasKey('results', $services);
+        foreach ($services['results'] as $v) {
+            if (substr($v['name'], 0, 4) === 'name')
+                $this->product_ai->removeService($v['id']);
+        }
+
         $service_id = $this->product_ai->createService(IMAGE_SET_ID, 'name1', SERVICE_SCENARIO)['id'];
         $service = $this->product_ai->getService($service_id);
         $this->assertSame($service_id, $service['id']);

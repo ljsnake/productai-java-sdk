@@ -108,6 +108,12 @@ The ```$image``` argument accepts the same type as the image search.
 
 ### Image Set
 
+##### Get all image sets
+
+```php
+$image_sets = $this->product_ai->getImageSets();
+```
+
 ##### Create an image set
 
 ```php
@@ -186,6 +192,12 @@ $result = $product_ai->removeImagesFromSet($set_id, $filename);
 ```
 
 #### Custom Service
+
+##### Get all custom services
+
+```php
+$services = $this->product_ai->getServices();
+```
 
 ##### Create a custom service
 
@@ -395,6 +407,12 @@ $result = $product_ai->detectImage($service_type, $service_id, $image, $loc);
 
 #### 数据集
 
+##### 获取所有数据集
+
+```php
+$image_sets = $this->product_ai->getImageSets();
+```
+
 ##### 创建数据集
 
 ```php
@@ -473,6 +491,12 @@ $result = $product_ai->removeImagesFromSet($set_id, $filename);
 ```
 
 #### 自建服务
+
+##### 获取所有自建服务
+
+```php
+$services = $this->product_ai->getServices();
+```
 
 ##### 创建自建服务
 

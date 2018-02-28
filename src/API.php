@@ -57,6 +57,13 @@ class API extends Base
         return $this->searchImage($service_type, $service_id, $image, $loc);
     }
 
+    protected function getImageSets()
+    {
+        $this->method = 'GET';
+
+        return $this->curl('image_sets', '_0000014');
+    }
+
     protected function getImageSet($set_id)
     {
         $this->method = 'GET';
@@ -87,6 +94,13 @@ class API extends Base
         $this->body['description'] = $description;
 
         return $this->curl('image_sets', "_0000014/$set_id", true);
+    }
+
+    protected function getServices()
+    {
+        $this->method = 'GET';
+
+        return $this->curl('customer_services', '_0000172');
     }
 
     protected function getService($service_id)
