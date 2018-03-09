@@ -8,17 +8,9 @@ use ProductAI\API;
 
 class SearchServiceManagementApiTest extends TestCase {
 
-    const ACCESS_KEY_ID = '';
-
-    const SECRET_KEY = '';
-    
     private $searchServiceManagementApi;
 
     private $imageSetApi;
-
-    private $imageSetID;
-
-    private $serviceID;
 
     protected function setUp()
     {
@@ -27,17 +19,38 @@ class SearchServiceManagementApiTest extends TestCase {
 
         $this->imageSetApi = new API(ACCESS_KEY_ID, SECRET_KEY);
         $this->imageSetApi->curl_opt[CURLOPT_TIMEOUT] = 120;
-        $response = $this->imageSetApi->createImageSet('name1', 'desc1');
-        $this->imageSetID = $response['id'];
-        $this->serviceID = null;
+
+        $this->cleanUpServices();
+        $this->cleanUpImageSets();
     }
 
     protected function tearDown()
     {
-        if (!is_null($this->serviceID)) {
-            $this->searchServiceManagementApi->removeService($this->serviceID);
+        $this->cleanUpServices();
+        $this->cleanUpImageSets();
+    }
+
+    private function cleanUpServices() {
+        $services = $this->searchServiceManagementApi->getServices();
+        foreach ($services['results'] as $x) {
+            if (substr($x['name'], 0, 13) === PRODUCT_SEARCH_TEST_PREFIX) {
+                $this->searchServiceManagementApi->removeService($x['id']);
+            }
+        }        
+    }
+
+    private function cleanUpImageSets()
+    {
+        $image_sets = $this->imageSetApi->getImageSets();
+        foreach ($image_sets['results'] as $x) {
+            if (substr($x['name'], 0, 13) === PRODUCT_SEARCH_TEST_PREFIX) {
+                $this->imageSetApi->removeImageSet($x['id']);
+            }
         }
-        $this->imageSetApi->removeImageSet($this->imageSetID);
+    }
+
+    private function decorateTestDataName($name) {
+        return PRODUCT_SEARCH_TEST_PREFIX."$name";
     }
 
     public function testBadMethodCall()
@@ -47,11 +60,16 @@ class SearchServiceManagementApiTest extends TestCase {
     }
 
     public function testCreateService() {
+        $name_v1 = $this->decorateTestDataName('n1');
+        $response = $this->imageSetApi->createImageSet($name_v1, 'desc1');
+        $this->assertSame(200, $this->imageSetApi->curl_info['http_code']);
+        $imageSetID = $response['id'];
+
         $response = $this->searchServiceManagementApi->getServices();
         $this->assertSame(200, $this->searchServiceManagementApi->curl_info['http_code']);
         $expected = count($response['results']);
 
-        $response = $this->imageSetApi->createService($this->imageSetID, 'name', 'material');
+        $response = $this->imageSetApi->createService($imageSetID, $name_v1, 'material');
         $this->assertSame(200, $this->imageSetApi->curl_info['http_code']);
 
         $this->serviceID = $response['id'];

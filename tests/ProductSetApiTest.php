@@ -12,10 +12,6 @@ class ProductSetApiTest extends TestCase {
 
     private $searchServiceApi;
 
-    private $productSetID;
-
-    private $serviceID;
-
     protected function setUp()
     {
         $this->productSetApi = new ProductSetApi(ACCESS_KEY_ID, SECRET_KEY);
@@ -24,19 +20,37 @@ class ProductSetApiTest extends TestCase {
         $this->searchServiceApi = new SearchServiceManagementApi(ACCESS_KEY_ID, SECRET_KEY);
         $this->searchServiceApi->curl_opt[CURLOPT_TIMEOUT] = 120;
 
-        $this->productSetID = null;
-        $this->serviceID = null;
+        $this->cleanUpServices();
+        $this->cleanUpProductSets();
     }
 
     protected function tearDown()
     {
-        if (!is_null($this->serviceID)) {
-            $this->searchServiceApi->removeService($this->serviceID);
-        }
+        $this->cleanUpServices();
+        $this->cleanUpProductSets();
+    }
 
-        if (!is_null($this->productSetID)) {
-            $this->productSetApi->deleteProductSet($this->productSetID);
+    private function cleanUpServices() {
+        $services = $this->searchServiceApi->getServices();
+        foreach ($services['results'] as $x) {
+            if (substr($x['name'], 0, 13) === PRODUCT_SEARCH_TEST_PREFIX) {
+                $this->searchServiceApi->removeService($x['id']);
+            }
+        }        
+    }
+
+    private function cleanUpProductSets()
+    {
+        $product_sets = $this->productSetApi->getProductSets();
+        foreach ($product_sets['results'] as $x) {
+            if (substr($x['name'], 0, 13) === PRODUCT_SEARCH_TEST_PREFIX) {
+                $this->productSetApi->deleteProductSet($x['id']);
+            }
         }
+    }
+
+    private function decorateTestDataName($name) {
+        return PRODUCT_SEARCH_TEST_PREFIX."$name";
     }
 
     public function testBadMethodCall()
@@ -48,32 +62,34 @@ class ProductSetApiTest extends TestCase {
     public function testCreateProductSet() {
         $response = $this->productSetApi->getProductSets();
         $this->assertSame(200, $this->productSetApi->curl_info['http_code']);
-        $this->assertSame(0, count($response['results']));
+        $expected = count($response['results']);
 
-        $response = $this->productSetApi->createProductSet('name', 'desc');
+        $name_v1 = $this->decorateTestDataName('n1');
+        $response = $this->productSetApi->createProductSet($name_v1, 'desc');
         $this->assertSame(200, $this->productSetApi->curl_info['http_code']);
         $this->productSetID = $response['id'];
 
         $response = $this->productSetApi->getProductSets();
         $this->assertSame(200, $this->productSetApi->curl_info['http_code']);
-        $this->assertSame(1, count($response['results']));
+        $this->assertSame(1 + $expected, count($response['results']));
 
         $response = $this->productSetApi->getProductSet($this->productSetID);
         $this->assertSame(200, $this->productSetApi->curl_info['http_code']);
         $this->assertSame($this->productSetID, $response['id']);
         $name = $response['name'];
-        $this->assertSame('name', $name);
+        $this->assertSame($name_v1, $name);
         $description = $response['description'];
         $this->assertSame('desc', $description);
 
-        $response = $this->productSetApi->updateProductSet($this->productSetID, 'name1', 'desc1');
+        $name_v2 = $this->decorateTestDataName('n2');
+        $response = $this->productSetApi->updateProductSet($this->productSetID, $name_v2, 'desc1');
         $this->assertSame(200, $this->productSetApi->curl_info['http_code']);
 
         $response = $this->productSetApi->getProductSet($this->productSetID);
         $this->assertSame(200, $this->productSetApi->curl_info['http_code']);
         $this->assertSame($this->productSetID, $response['id']);
         $name = $response['name'];
-        $this->assertSame('name1', $name);
+        $this->assertSame($name_v2, $name);
         $description = $response['description'];
         $this->assertSame('desc1', $description);
 
@@ -83,7 +99,7 @@ class ProductSetApiTest extends TestCase {
 
         $response = $this->productSetApi->getProductSets();
         $this->assertSame(200, $this->productSetApi->curl_info['http_code']);
-        $this->assertSame(0, count($response['results']));
+        $this->assertSame($expected, count($response['results']));
     }
 
     public function testCreateProductSetService() {
@@ -91,11 +107,13 @@ class ProductSetApiTest extends TestCase {
         $this->assertSame(200, $this->searchServiceApi->curl_info['http_code']);
         $expected = count($response['results']);
 
-        $response = $this->productSetApi->createProductSet('name', 'desc');
+        $name_v1 = $this->decorateTestDataName('n1');
+        $response = $this->productSetApi->createProductSet($name_v1, 'desc');
         $this->assertSame(200, $this->productSetApi->curl_info['http_code']);
         $this->productSetID = $response['id'];
 
-        $response = $this->productSetApi->createService($this->productSetID, 'productSetCreate', 'material');
+        $serviceName = $this->decorateTestDataName('n1');
+        $response = $this->productSetApi->createService($this->productSetID, $serviceName, 'material');
         $this->assertSame(200, $this->productSetApi->curl_info['http_code']);
         $this->serviceID = $response['id'];
 
@@ -121,7 +139,8 @@ class ProductSetApiTest extends TestCase {
     }
 
     public function testProductSetManagement() {
-        $response = $this->productSetApi->createProductSet('name', 'desc');
+        $name_v1 = $this->decorateTestDataName('n1');
+        $response = $this->productSetApi->createProductSet($name_v1, 'desc');
         $this->assertSame(200, $this->productSetApi->curl_info['http_code']);
         $this->productSetID = $response['id'];
 
@@ -155,7 +174,8 @@ class ProductSetApiTest extends TestCase {
     }
 
     public function testProductSetBatchManagement() {
-        $response = $this->productSetApi->createProductSet('name', 'desc');
+        $name_v1 = $this->decorateTestDataName('n1');
+        $response = $this->productSetApi->createProductSet($name_v1, 'desc');
         $this->assertSame(200, $this->productSetApi->curl_info['http_code']);
         $this->productSetID = $response['id'];
 
