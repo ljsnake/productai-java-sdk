@@ -52,7 +52,7 @@ class Base
         $this->headers = [
             'x-ca-version' => 1,
             'x-ca-accesskeyid' => $this->access_key_id,
-            'user-agent' => "ProductAI-SDK-PHP/{$this->version()} (+http://www.productai.cn)",
+            'user-agent' => "ProductAI-SDK-PHP/{$this->version()} (+https://www.productai.cn)",
             'accept-language' => $this->language,
         ];
 
