@@ -9,8 +9,8 @@ use ProductAI\SearchServiceManagementApi;
 class ProductSetApiTest extends TestCase {
 
     private $productSetApi;
-
     private $searchServiceApi;
+    private $product_search_test_prefix;
 
     protected function setUp()
     {
@@ -19,6 +19,9 @@ class ProductSetApiTest extends TestCase {
 
         $this->searchServiceApi = new SearchServiceManagementApi(ACCESS_KEY_ID, SECRET_KEY);
         $this->searchServiceApi->curl_opt[CURLOPT_TIMEOUT] = 120;
+
+        $this->product_search_test_prefix = defined('PRODUCT_SEARCH_TEST_PREFIX') && PRODUCT_SEARCH_TEST_PREFIX
+            ? PRODUCT_SEARCH_TEST_PREFIX : 'php_test_prd_';
 
         $this->cleanUpServices();
         $this->cleanUpProductSets();
@@ -33,24 +36,24 @@ class ProductSetApiTest extends TestCase {
     private function cleanUpServices() {
         $services = $this->searchServiceApi->getServices();
         foreach ($services['results'] as $x) {
-            if (substr($x['name'], 0, 13) === PRODUCT_SEARCH_TEST_PREFIX) {
+            if (substr($x['name'], 0, strlen($this->product_search_test_prefix)) === $this->product_search_test_prefix) {
                 $this->searchServiceApi->removeService($x['id']);
             }
-        }        
+        }
     }
 
     private function cleanUpProductSets()
     {
         $product_sets = $this->productSetApi->getProductSets();
         foreach ($product_sets['results'] as $x) {
-            if (substr($x['name'], 0, 13) === PRODUCT_SEARCH_TEST_PREFIX) {
+            if (substr($x['name'], 0, strlen($this->product_search_test_prefix)) === $this->product_search_test_prefix) {
                 $this->productSetApi->deleteProductSet($x['id']);
             }
         }
     }
 
     private function decorateTestDataName($name) {
-        return PRODUCT_SEARCH_TEST_PREFIX."$name";
+        return $this->product_search_test_prefix."$name";
     }
 
     public function testBadMethodCall()
@@ -147,7 +150,7 @@ class ProductSetApiTest extends TestCase {
         $response = $this->productSetApi->getProducts($this->productSetID, ['p1']);
         $this->assertSame(200, $this->productSetApi->curl_info['http_code']);
         $this->assertSame(0, count($response['results']));
-        
+
         $productID = 'p1';
         $price = 1.00;
         $keywords = 'fox dog pig';

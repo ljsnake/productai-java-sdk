@@ -11,7 +11,7 @@ class CURLException extends Exception {}
 
 class Base
 {
-    const VERSION = '0.3.3';
+    const VERSION = '0.4.0';
 
     public $api = 'https://api.productai.cn';
     private $access_key_id;
@@ -36,8 +36,6 @@ class Base
         $this->secret_key = $secret_key;
         $this->language = $language;
 
-        $this->initialize();
-
         $this->curl_opt = [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_TIMEOUT => 30,
@@ -57,22 +55,6 @@ class Base
         ];
 
         $this->body = [];
-
-        $this->batchSetProperties([
-            'curl_info',
-            'curl_errno',
-            'curl_error',
-            'curl_output',
-
-            'tmpfile',
-        ], null);
-    }
-
-    private function batchSetProperties($properties, $value)
-    {
-        foreach ($properties as $v) {
-            $this->$v = $value;
-        }
     }
 
     public static function version()
@@ -111,6 +93,7 @@ class Base
 
         if (isset($this->tmpfile)) {
             fclose($this->tmpfile);
+            $this->tmpfile = null;
         }
 
         if ($this->curl_errno !== 0) {
@@ -179,8 +162,7 @@ class Base
 
             default:
                 if (substr($image, 0, 4) == 'http' || substr($image, 0, 3) == 'ftp') {
-                    $this->body['url']
-                        = $image;
+                    $this->body['url'] = $image;
                 } else {
                     $this->tmpfile = tmpfile();
                     fwrite($this->tmpfile, $image);

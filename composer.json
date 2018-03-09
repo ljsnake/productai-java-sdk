@@ -1,14 +1,13 @@
 {
     "name": "malong/productai",
     "description": "Official PHP SDK for ProductAI.",
-    "version": "0.3.3",
+    "version": "0.4.0",
     "keywords": ["MaLong", "ProductAI", "SDK"],
     "license": "MIT",
     "homepage": "https://www.productai.com",
-    "time": "2017-06-30",
+    "time": "2018-03-09",
     "require": {
-        "php": ">=5.6",
-        "phpmd/phpmd": "^2.6"
+        "php": ">=5.6"
     },
     "require-dev": {
         "phpunit/phpunit": "*",

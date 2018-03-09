@@ -9,8 +9,8 @@ use ProductAI\API;
 class SearchServiceManagementApiTest extends TestCase {
 
     private $searchServiceManagementApi;
-
     private $imageSetApi;
+    private $product_search_test_prefix;
 
     protected function setUp()
     {
@@ -19,6 +19,9 @@ class SearchServiceManagementApiTest extends TestCase {
 
         $this->imageSetApi = new API(ACCESS_KEY_ID, SECRET_KEY);
         $this->imageSetApi->curl_opt[CURLOPT_TIMEOUT] = 120;
+
+        $this->product_search_test_prefix = defined('PRODUCT_SEARCH_TEST_PREFIX') && PRODUCT_SEARCH_TEST_PREFIX
+            ? PRODUCT_SEARCH_TEST_PREFIX : 'php_test_prd_';
 
         $this->cleanUpServices();
         $this->cleanUpImageSets();
@@ -33,24 +36,24 @@ class SearchServiceManagementApiTest extends TestCase {
     private function cleanUpServices() {
         $services = $this->searchServiceManagementApi->getServices();
         foreach ($services['results'] as $x) {
-            if (substr($x['name'], 0, 13) === PRODUCT_SEARCH_TEST_PREFIX) {
+            if (substr($x['name'], 0, strlen($this->product_search_test_prefix)) === $this->product_search_test_prefix) {
                 $this->searchServiceManagementApi->removeService($x['id']);
             }
-        }        
+        }
     }
 
     private function cleanUpImageSets()
     {
         $image_sets = $this->imageSetApi->getImageSets();
         foreach ($image_sets['results'] as $x) {
-            if (substr($x['name'], 0, 13) === PRODUCT_SEARCH_TEST_PREFIX) {
+            if (substr($x['name'], 0, strlen($this->product_search_test_prefix)) === $this->product_search_test_prefix) {
                 $this->imageSetApi->removeImageSet($x['id']);
             }
         }
     }
 
     private function decorateTestDataName($name) {
-        return PRODUCT_SEARCH_TEST_PREFIX."$name";
+        return $this->product_search_test_prefix."$name";
     }
 
     public function testBadMethodCall()

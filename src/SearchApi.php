@@ -4,8 +4,6 @@ namespace ProductAI;
 
 use BadMethodCallException;
 use UnexpectedValueException;
-use CURLFile;
-use ProductAI\API;
 
 class SearchApi extends Base
 {
@@ -18,8 +16,8 @@ class SearchApi extends Base
         if (method_exists($this, $name)) {
             $this->initialize();
             return call_user_func_array([$this, $name], $args);
-        } 
-        
+        }
+
         throw new BadMethodCallException('Call to undefined method '.get_class($this)."::{$name}()", 1);
     }
 
@@ -99,7 +97,7 @@ class SearchApi extends Base
         if ($maxPrice < $minPrice) {
             throw new UnexpectedValueException('max_price must be larger than min_price');
         }
-        
+
         if (array_key_exists('keywords', $options)) {
             $this->body['keywords'] = $options['keywords'];
         }
