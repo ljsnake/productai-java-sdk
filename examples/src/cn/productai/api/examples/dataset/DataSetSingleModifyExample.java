@@ -20,8 +20,8 @@ public class DataSetSingleModifyExample implements IExample {
         System.out.println("==>  Demo - 向数据集增加单条数据  <==");
         System.out.println("See https://api-doc.productai.cn/doc/pai.html#向数据集增加单条数据 for details.\r\n");
 
-        DataSetSingleAddByImageUrlRequest request = new DataSetSingleAddByImageUrlRequest("lqn2jj6z",null,null);
-        request.setImageUrl("http://test.waltercrow.co.nz/wp/wp-content/uploads/2010/06/muji-clothes.jpg");
+        DataSetSingleAddByImageUrlRequest request = new DataSetSingleAddByImageUrlRequest("654pzpxh",null,null);
+        request.setImageUrl("http://pic.chinasspp.com/News/u/717946/image/201702/02102739_8729.jpg");
         request.setLanguage(LanguageType.Chinese);
 
         try {

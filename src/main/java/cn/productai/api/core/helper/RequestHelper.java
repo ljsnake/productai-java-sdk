@@ -22,7 +22,7 @@ public class RequestHelper {
 
         if (request.getRequestMethod() == HttpMethod.GET && !request.getQueryString().isEmpty()) {
             URI uri = new URI(request.getApiUrl());
-            if (!uri.getQuery().isEmpty()) {
+            if (uri.getQuery() != null && !uri.getQuery().isEmpty()) {
                 api = api + "&" + request.getQueryString();
             } else {
                 api = api + "?" + request.getQueryString();
@@ -89,13 +89,13 @@ public class RequestHelper {
         HttpResponse httpResponse;
 
         HttpURLConnection connection = createRequest(request);
-        if (request.getRequestMethod() != HttpMethod.GET) {
-            if (request.getQueryBytes() != null) {
-                writeRequestParas(connection, request.getQueryBytes());
-            } else {
-                writeRequestParas(connection, request.getQueryString());
-            }
+//        if (request.getRequestMethod() != HttpMethod.GET) {
+        if (request.getQueryBytes() != null) {
+            writeRequestParas(connection, request.getQueryBytes());
+        } else {
+            writeRequestParas(connection, request.getQueryString());
         }
+//        }
         int statusCode = connection.getResponseCode();
 
         byte[] bytes = readStreamBytes(connection);

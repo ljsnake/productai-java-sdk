@@ -7,8 +7,12 @@ public class GetProductSetRequest extends BaseRequest<GetProductSetResponse> {
 
     private String productSetId;
 
-    public GetProductSetRequest() {
+    /**
+     * @param productSetId 商品集 ID
+     */
+    public GetProductSetRequest(String productSetId) {
         super();
+        this.setProductSetId(productSetId);
         this.setRequestMethod(HttpMethod.GET);
     }
 

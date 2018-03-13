@@ -1,19 +1,18 @@
 package cn.productai.api.pai.entity.productset;
 
 import cn.productai.api.core.base.BaseResponse;
-import cn.productai.api.pai.entity.dataset.Dataset;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GetAllProductSetsResponse extends BaseResponse {
 
     @JsonProperty("results")
-    private Dataset[] Datasets;
+    private ProductSet[] results;
 
-    public Dataset[] getDatasets() {
-        return Datasets;
+    public ProductSet[] getResults() {
+        return results;
     }
 
-    public void setDatasets(Dataset[] datasets) {
-        Datasets = datasets;
+    public void setResults(ProductSet[] results) {
+        this.results = results;
     }
 }

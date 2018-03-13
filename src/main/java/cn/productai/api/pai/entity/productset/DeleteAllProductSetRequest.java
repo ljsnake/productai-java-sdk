@@ -5,8 +5,6 @@ import cn.productai.api.core.enums.HttpMethod;
 
 public class DeleteAllProductSetRequest extends BaseRequest<DeleteAllProductSetResponse> {
 
-    private String DataSetId;
-
     public DeleteAllProductSetRequest() {
         super();
         this.setRequestMethod(HttpMethod.DELETE);
@@ -20,13 +18,5 @@ public class DeleteAllProductSetRequest extends BaseRequest<DeleteAllProductSetR
     @Override
     public String getApiUrl() {
         return String.format("https://%s/product_sets/_0000178", this.getHost());
-    }
-
-    public String getDataSetId() {
-        return DataSetId;
-    }
-
-    public void setDataSetId(String dataSetId) {
-        DataSetId = dataSetId;
     }
 }

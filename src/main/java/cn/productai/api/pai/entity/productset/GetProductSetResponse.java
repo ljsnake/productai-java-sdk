@@ -1,19 +1,40 @@
 package cn.productai.api.pai.entity.productset;
 
 import cn.productai.api.core.base.BaseResponse;
-import cn.productai.api.pai.entity.dataset.Dataset;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GetProductSetResponse extends BaseResponse {
 
-    @JsonProperty("results")
-    private Dataset[] Datasets;
+    @JsonProperty("id")
+    private String id;
 
-    public Dataset[] getDatasets() {
-        return Datasets;
+    @JsonProperty("name")
+    private String name;
+
+    @JsonProperty("description")
+    private String description;
+
+    public String getId() {
+        return id;
     }
 
-    public void setDatasets(Dataset[] datasets) {
-        Datasets = datasets;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

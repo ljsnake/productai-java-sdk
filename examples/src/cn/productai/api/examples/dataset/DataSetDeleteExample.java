@@ -22,7 +22,7 @@ public class DataSetDeleteExample implements IExample {
         System.out.println("==>  Demo - 从数据集删除多条数据  <==");
         System.out.println("See https://api-doc.productai.cn/doc/pai.html#从数据集删除多条数据 for details.\r\n");
 
-        DataSetBatchDeleteRequest request = new DataSetBatchDeleteRequest("lqn2jj6z");
+        DataSetBatchDeleteRequest request = new DataSetBatchDeleteRequest("654pzpxh");
         request.setCsvFile(new File(this.getClass().getResource("/").getPath() + "files/example.csv"));
         request.setLanguage(LanguageType.Chinese);
 

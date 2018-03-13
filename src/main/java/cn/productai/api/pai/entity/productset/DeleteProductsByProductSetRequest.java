@@ -1,28 +1,34 @@
 package cn.productai.api.pai.entity.productset;
 
+import cn.productai.api.core.attribute.ParaSignAttribute;
 import cn.productai.api.core.base.ManagementAPIBaseRequest;
 import cn.productai.api.core.enums.HttpMethod;
 
-public class DeleteProductsByProductSetRequest extends ManagementAPIBaseRequest<AddProductResponse> {
+public class DeleteProductsByProductSetRequest extends ManagementAPIBaseRequest<DeleteProductsByProductSetResponse> {
 
     private String productSetId;
 
+    @ParaSignAttribute(Name = "ids")
+    private String[] productIds;
+
     public DeleteProductsByProductSetRequest() {
         super();
-        this.setRequestMethod(HttpMethod.PUT);
+        this.setRequestMethod(HttpMethod.DELETE);
     }
 
     /**
      * @param productSetId 商品集ID
      */
-    public DeleteProductsByProductSetRequest(String productSetId) {
+    public DeleteProductsByProductSetRequest(String productSetId, String[] productIds) {
         this();
+        this.setProductSetId(productSetId);
+        this.setProductIds(productIds);
         this.setProductSetId(productSetId);
     }
 
     @Override
-    public Class<AddProductResponse> getResponseClass() {
-        return AddProductResponse.class;
+    public Class<DeleteProductsByProductSetResponse> getResponseClass() {
+        return DeleteProductsByProductSetResponse.class;
     }
 
     @Override
@@ -36,5 +42,13 @@ public class DeleteProductsByProductSetRequest extends ManagementAPIBaseRequest<
 
     public void setProductSetId(String productSetId) {
         this.productSetId = productSetId;
+    }
+
+    public String[] getProductIds() {
+        return productIds;
+    }
+
+    public void setProductIds(String[] productIds) {
+        this.productIds = productIds;
     }
 }
