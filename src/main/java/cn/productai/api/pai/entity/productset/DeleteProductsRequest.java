@@ -3,7 +3,7 @@ package cn.productai.api.pai.entity.productset;
 import cn.productai.api.core.enums.HttpMethod;
 import cn.productai.api.pai.base.ProductBatchDeleteByFileBaseRequest;
 
-public class DeleteProductsRequest extends ProductBatchDeleteByFileBaseRequest<AddProductResponse> {
+public class DeleteProductsRequest extends ProductBatchDeleteByFileBaseRequest<DeleteProductsResponse> {
 
     private String productSetId;
 
@@ -21,8 +21,8 @@ public class DeleteProductsRequest extends ProductBatchDeleteByFileBaseRequest<A
     }
 
     @Override
-    public Class<AddProductResponse> getResponseClass() {
-        return AddProductResponse.class;
+    public Class<DeleteProductsResponse> getResponseClass() {
+        return DeleteProductsResponse.class;
     }
 
     @Override

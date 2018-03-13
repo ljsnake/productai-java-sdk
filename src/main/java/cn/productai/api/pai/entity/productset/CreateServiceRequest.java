@@ -3,13 +3,15 @@ package cn.productai.api.pai.entity.productset;
 import cn.productai.api.core.attribute.ParaSignAttribute;
 import cn.productai.api.core.base.ManagementAPIBaseRequest;
 
-public class CreateServiceRequest extends ManagementAPIBaseRequest<CreateProductSetResponse> {
+public class CreateServiceRequest extends ManagementAPIBaseRequest<CreateServiceResponse> {
 
     @ParaSignAttribute(Name = "name")
     public String name;
 
     @ParaSignAttribute(Name = "scenario")
     public String scenario;
+
+    private String productSetId;
 
     public CreateServiceRequest() {
         super();
@@ -19,15 +21,16 @@ public class CreateServiceRequest extends ManagementAPIBaseRequest<CreateProduct
      * @param name     the name of the dataset
      * @param scenario the scenario
      */
-    public CreateServiceRequest(String name, String scenario) {
+    public CreateServiceRequest(String productSetId, String name, String scenario) {
         this();
+        this.setProductSetId(productSetId);
         this.setName(name);
         this.setScenario(scenario);
     }
 
     @Override
-    public Class<CreateProductSetResponse> getResponseClass() {
-        return CreateProductSetResponse.class;
+    public Class<CreateServiceResponse> getResponseClass() {
+        return CreateServiceResponse.class;
     }
 
     @Override
@@ -49,5 +52,13 @@ public class CreateServiceRequest extends ManagementAPIBaseRequest<CreateProduct
 
     public void setScenario(String scenario) {
         this.scenario = scenario;
+    }
+
+    public String getProductSetId() {
+        return productSetId;
+    }
+
+    public void setProductSetId(String productSetId) {
+        this.productSetId = productSetId;
     }
 }

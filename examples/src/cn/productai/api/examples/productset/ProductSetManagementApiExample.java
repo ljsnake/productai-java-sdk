@@ -14,17 +14,17 @@ public class ProductSetManagementApiExample implements IExample {
     @Override
     public void run(IWebClient client) {
         // 创建商品集
-        //productSetId = createProductSet(client);
+        productSetId = createProductSet(client);
 
         // 获取所有商品集
-        //getProductSets(client);
+        getProductSets(client);
 
         // 更新商品集
-        //updateProductSet(client, productSetId);
+        updateProductSet(client, productSetId);
 
         // 通过商品集 ID 删除商品集
         // TODO: now backend has bug
-        //deleteProductSet(client, productSetId);
+        // deleteProductSet(client, productSetId);
 
         // 删除所有商品集
         // TODO: now backend has bug
@@ -33,13 +33,12 @@ public class ProductSetManagementApiExample implements IExample {
         /*
          * 通过商品集 ID 获取商品集
          */
-        //getProductSet(client, productSetId);
+        getProductSet(client, productSetId);
 
         /**
          * 添加商品到商品集中
          */
-        productSetId = "0as4ocve";
-        //addProduct(client, productSetId);
+        addProduct(client, productSetId);
 
         // 获取商品集中的所有商品
         getProducts(client, productSetId, new String[]{"_001"});
@@ -48,12 +47,12 @@ public class ProductSetManagementApiExample implements IExample {
         /**
          * 批量添加商品到商品集中
          */
-//        addProducts();
+        batchAddProducts(client, productSetId);
 
         /**
          * 批量删除商品
          */
-//        deleteProducts();
+        batchDeleteProducts(client);
 
         /**
          * 通过商品 IDs 删除商品
@@ -66,7 +65,106 @@ public class ProductSetManagementApiExample implements IExample {
         createService(client, productSetId);
     }
 
+    private void batchDeleteProducts(IWebClient client) {
+        System.out.println("==>  Demo - 通过商品 IDs 删除商品  <==");
+
+        DeleteProductsRequest request = new DeleteProductsRequest();
+
+        try {
+            DeleteProductsResponse response = client.getResponse(request);
+
+            System.out.println("==============================Result==============================");
+
+            // access the response directly
+            System.out.println(String.format("Response Json : %s", response.getResponseJsonString()));
+            System.out.println("==============================Result==============================");
+
+        } catch (cn.productai.api.core.exceptions.ServerException e) {
+            System.out.println(
+                    String.format("ServerException occurred. ErrorCode: %s \r\n ErrorMessage: %s",
+                            e.getErrorCode(),
+                            e.getErrorMessage()));
+            e.printStackTrace();
+        } catch (ClientException e) {
+            System.out.println(
+                    String.format("ClientException occurred. ErrorCode: %s \r\n ErrorMessage: %s \r\n RequestId: %s",
+                            e.getErrorCode(),
+                            e.getErrorMessage(),
+                            e.getRequestId()));
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println(String.format("%s occurred. ErrorMessage: %s", e.getClass().getName(), e.getMessage()));
+            e.printStackTrace();
+        }
+    }
+
+    private void batchAddProducts(IWebClient client, String productSetId) {
+        System.out.println("==>  Demo - 批量删除商品  <==");
+
+        AddProductsBatchRequest request = new AddProductsBatchRequest(productSetId);
+
+        try {
+            AddProductsBatchResponse response = client.getResponse(request);
+
+            System.out.println("==============================Result==============================");
+
+            // access the response directly
+            System.out.println(String.format("Response Json : %s", response.getResponseJsonString()));
+            System.out.println("==============================Result==============================");
+
+        } catch (cn.productai.api.core.exceptions.ServerException e) {
+            System.out.println(
+                    String.format("ServerException occurred. ErrorCode: %s \r\n ErrorMessage: %s",
+                            e.getErrorCode(),
+                            e.getErrorMessage()));
+            e.printStackTrace();
+        } catch (ClientException e) {
+            System.out.println(
+                    String.format("ClientException occurred. ErrorCode: %s \r\n ErrorMessage: %s \r\n RequestId: %s",
+                            e.getErrorCode(),
+                            e.getErrorMessage(),
+                            e.getRequestId()));
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println(String.format("%s occurred. ErrorMessage: %s", e.getClass().getName(), e.getMessage()));
+            e.printStackTrace();
+        }
+    }
+
     private void createService(IWebClient client, String productSetId) {
+        System.out.println("==>  Demo - 创建服务  <==");
+
+        CreateServiceRequest request = new CreateServiceRequest(
+                productSetId,
+                "product-service",
+                "fashion_v3");
+
+        try {
+            CreateServiceResponse response = client.getResponse(request);
+
+            System.out.println("==============================Result==============================");
+
+            // access the response directly
+            System.out.println(String.format("Response Json : %s", response.getResponseJsonString()));
+            System.out.println("==============================Result==============================");
+
+        } catch (cn.productai.api.core.exceptions.ServerException e) {
+            System.out.println(
+                    String.format("ServerException occurred. ErrorCode: %s \r\n ErrorMessage: %s",
+                            e.getErrorCode(),
+                            e.getErrorMessage()));
+            e.printStackTrace();
+        } catch (ClientException e) {
+            System.out.println(
+                    String.format("ClientException occurred. ErrorCode: %s \r\n ErrorMessage: %s \r\n RequestId: %s",
+                            e.getErrorCode(),
+                            e.getErrorMessage(),
+                            e.getRequestId()));
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println(String.format("%s occurred. ErrorMessage: %s", e.getClass().getName(), e.getMessage()));
+            e.printStackTrace();
+        }
     }
 
     private void deleteProductsByProductIDs(IWebClient client, String productSetId, String[] ids) {
