@@ -30,8 +30,8 @@ public class Main {
     public static void main(String[] args) {
 
         IProfile profile = new DefaultProfile();
-        profile.setAccessKeyId("***");
-        profile.setSecretKey("***");
+        profile.setAccessKeyId("****");
+        profile.setSecretKey("****");
         profile.setVersion("1");
         profile.setGlobalLanguage(LanguageType.Chinese);
 
