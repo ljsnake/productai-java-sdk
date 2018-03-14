@@ -2,6 +2,7 @@ package cn.productai.api.pai.entity.productset;
 
 import cn.productai.api.core.attribute.ParaSignAttribute;
 import cn.productai.api.core.base.ManagementAPIBaseRequest;
+import cn.productai.api.core.enums.ServiceTypeId;
 
 public class CreateProductSetRequest extends ManagementAPIBaseRequest<CreateProductSetResponse> {
 
@@ -35,7 +36,7 @@ public class CreateProductSetRequest extends ManagementAPIBaseRequest<CreateProd
 
     @Override
     public String getApiUrl() {
-        return String.format("https://%s/product_sets/_0000178", this.getHost());
+        return String.format("https://%s/product_sets/%s", this.getHost(), ServiceTypeId.PRODUCT_SET);
     }
 
     public String getName() {

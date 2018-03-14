@@ -3,6 +3,7 @@ package cn.productai.api.pai.base;
 import cn.productai.api.core.attribute.IgnoreExtraParasAttribute;
 import cn.productai.api.core.base.BaseRequest;
 import cn.productai.api.core.base.BaseResponse;
+import cn.productai.api.core.enums.ServiceTypeId;
 import cn.productai.api.core.helper.FileHelper;
 
 import java.io.File;
@@ -53,7 +54,8 @@ public abstract class ProductBatchAddByFileBaseRequest<T extends BaseResponse> e
 
     @Override
     public String getApiUrl() {
-        return String.format("https://%s/product_sets/_0000178/%s/products", this.getHost(), this.getProductSetId());
+        return String.format("https://%s/product_sets/%s/%s/products",
+                this.getHost(), ServiceTypeId.PRODUCT_SET, this.getProductSetId());
     }
 
     @Override
