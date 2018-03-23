@@ -31,8 +31,6 @@ public class RequestHelper {
 
         URL url = new URL(api);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setDoOutput(true);
-        connection.setDoInput(true);
         connection.setRequestMethod(request.getRequestMethodHeader());
         connection.setUseCaches(false);
         connection.setInstanceFollowRedirects(true);
@@ -89,13 +87,13 @@ public class RequestHelper {
         HttpResponse httpResponse;
 
         HttpURLConnection connection = createRequest(request);
-//        if (request.getRequestMethod() != HttpMethod.GET) {
-        if (request.getQueryBytes() != null) {
-            writeRequestParas(connection, request.getQueryBytes());
-        } else {
-            writeRequestParas(connection, request.getQueryString());
+        if (request.getRequestMethod() != HttpMethod.GET) {
+            if (request.getQueryBytes() != null) {
+                writeRequestParas(connection, request.getQueryBytes());
+            } else {
+                writeRequestParas(connection, request.getQueryString());
+            }
         }
-//        }
         int statusCode = connection.getResponseCode();
 
         byte[] bytes = readStreamBytes(connection);

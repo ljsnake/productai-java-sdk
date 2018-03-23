@@ -18,7 +18,6 @@ public class GetAllProductSetsRequest extends BaseRequest<GetAllProductSetsRespo
 
     @Override
     public String getApiUrl() {
-        return String.format("https://%s/product_sets/%s",
-                this.getHost(), ServiceTypeId.PRODUCT_SET);
+        return String.format("https://%s/product_sets/%s", this.getHost(), ServiceTypeId.PRODUCT_SET);
     }
 }
