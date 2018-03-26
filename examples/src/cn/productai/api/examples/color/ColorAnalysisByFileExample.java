@@ -23,7 +23,7 @@ public class ColorAnalysisByFileExample implements IExample {
         request.setSubType(SubType.EveryThing);
         request.setGranularity(Granularity.Major);
         request.setReturnType(ColorReturnType.CNCS);
-        request.setImageFile(new File(this.getClass().getResource("/").getPath() + "images/f10.jpg"));
+        request.setImageFile(new File(this.getClass().getResource("/").getPath() + "cn/productai/api/examples/files/f10.jpg"));
         request.setLanguage(LanguageType.Chinese);
 
         // option paras

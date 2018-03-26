@@ -23,7 +23,7 @@ public class DataSetManagementExample implements IExample {
         System.out.println("See https://api-doc.productai.cn/doc/pai.html#向数据集增加多条数据 for details.\r\n");
 
         DataSetBatchAddRequest request = new DataSetBatchAddRequest("lqn2jj6z");
-        request.setCsvFile(new File(this.getClass().getResource("/").getPath() + "files/example.csv"));
+        request.setCsvFile(new File(this.getClass().getResource("/").getPath() + "cn/productai/api/examples/files/example.csv"));
         request.setLanguage(LanguageType.Chinese);
 
         try {

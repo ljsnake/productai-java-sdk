@@ -312,6 +312,11 @@ Process finished with exit code 0
 ```
 
 # Release Notes （更新日志）
+
+## 2018-03-26
+
+- 添加了 ProductSet 相关接口 
+
 ## 2018-01-03
 
  - [Add batch (tasks) apis & example](https://github.com/MalongTech/productai-java-sdk/tree/master/examples/src/cn/productai/api/examples/batch_tasks) (增加批处理API及示例)

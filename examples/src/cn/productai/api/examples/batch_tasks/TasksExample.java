@@ -74,7 +74,7 @@ public class TasksExample implements IExample {
      * @return TaskId
      */
     private String CreateTaskByCsvFile(IWebClient client) {
-        CreateTaskByFileRequest request = new CreateTaskByFileRequest("_0000039", new File(this.getClass().getResource("/").getPath() + "files/urls-001.csv"));
+        CreateTaskByFileRequest request = new CreateTaskByFileRequest("_0000039", new File(this.getClass().getResource("/").getPath() + "cn/productai/api/examples/files/urls-001.csv"));
 
         try {
             CreateTaskByFileResponse response = client.getResponse(request);

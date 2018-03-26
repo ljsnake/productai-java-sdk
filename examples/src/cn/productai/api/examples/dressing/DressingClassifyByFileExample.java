@@ -21,7 +21,7 @@ public class DressingClassifyByFileExample implements IExample {
         System.out.println("    2. 判断出图中的服饰、人物所包含的服装款式、图案花型等时尚元素，并以标签的形式返回。");
 
         DressingClassifyByImageFileRequest request = new   DressingClassifyByImageFileRequest("0-0-1-1");
-        request.setImageFile(new File(this.getClass().getResource("/").getPath() + "images/f10.jpg"));
+        request.setImageFile(new File(this.getClass().getResource("/").getPath() + "cn/productai/api/examples/files/f10.jpg"));
         request.setLanguage(LanguageType.Chinese);
 
         // 可选参数列表，不需要请注释掉

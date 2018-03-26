@@ -23,7 +23,7 @@ public class SmartFilterExample implements IExample {
         System.out.println("See https://api-doc.productai.cn/doc/pai.html#智能滤镜 for details.\r\n");
 
         IntelligentFilterByImageFileRequest request = new IntelligentFilterByImageFileRequest();
-        request.setImageFile(new File(this.getClass().getResource("/").getPath() + "images/f12.jpg"));
+        request.setImageFile(new File(this.getClass().getResource("/").getPath() + "cn/productai/api/examples/files/f12.jpg"));
         request.setLanguage(LanguageType.Chinese);
 
         // you can pass the extra paras to the request

@@ -25,7 +25,7 @@ public class ClassifyByFileExample implements IExample {
         System.out.println("See https://api-doc.productai.cn/doc/pai.html#场景分析与标注 for details.\r\n");
 
         ClassifyByImageFileRequest request = new ClassifyByImageFileRequest(ServiceType.Classify, "_0000039");
-        request.setImageFile(new File(this.getClass().getResource("/").getPath() + "images/f10.jpg"));
+        request.setImageFile(new File(this.getClass().getResource("/").getPath() + "cn/productai/api/examples/files/f10.jpg"));
         request.setLanguage(LanguageType.Chinese);
 
         // you can pass the extra paras to the request

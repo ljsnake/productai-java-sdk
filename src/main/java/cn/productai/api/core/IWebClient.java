@@ -12,6 +12,10 @@ import java.nio.charset.Charset;
  *
  */
 public interface IWebClient {
+
+    void setScheme(String scheme);
+    String getScheme();
+
     void setHost(String host);
     String getHost();
 

@@ -22,7 +22,7 @@ public class RequestHelper {
 
         if (request.getRequestMethod() == HttpMethod.GET && !request.getQueryString().isEmpty()) {
             URI uri = new URI(request.getApiUrl());
-            if (!uri.getQuery().isEmpty()) {
+            if (uri.getQuery() != null && !uri.getQuery().isEmpty()) {
                 api = api + "&" + request.getQueryString();
             } else {
                 api = api + "?" + request.getQueryString();
@@ -31,9 +31,9 @@ public class RequestHelper {
 
         URL url = new URL(api);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setDoOutput(true);
-        connection.setDoInput(true);
         connection.setRequestMethod(request.getRequestMethodHeader());
+        connection.setDoInput(true);
+        connection.setDoOutput(true);
         connection.setUseCaches(false);
         connection.setInstanceFollowRedirects(true);
         connection.setRequestProperty("Content-Type", request.getContentTypeHeader());

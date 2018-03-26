@@ -46,7 +46,7 @@ public class ImageSearchExample implements IExample {
         System.out.println(searchTag.toString());
 
         ImageSearchByImageFileRequest request = new ImageSearchByImageFileRequest("k7h9fail");
-        request.setImageFile(new File(this.getClass().getResource("/").getPath() + "images/f10.jpg"));
+        request.setImageFile(new File(this.getClass().getResource("/").getPath() + "cn/productai/api/examples/files/f10.jpg"));
         request.setLanguage(LanguageType.Chinese);
         request.setSearchTag(searchTag);
         request.setCount(50);

@@ -1,18 +1,29 @@
 package cn.productai.api.examples;
 
-import cn.productai.api.core.*;
-import cn.productai.api.core.enums.*;
+import cn.productai.api.core.DefaultProductAIClient;
+import cn.productai.api.core.DefaultProfile;
+import cn.productai.api.core.IProfile;
+import cn.productai.api.core.IWebClient;
+import cn.productai.api.core.enums.LanguageType;
 import cn.productai.api.examples.batch_tasks.TasksExample;
-import cn.productai.api.examples.classify.*;
+import cn.productai.api.examples.classify.ClassifyByFileExample;
+import cn.productai.api.examples.classify.ClassifyByUrlExample;
 import cn.productai.api.examples.color.ColorAnalysisByFileExample;
 import cn.productai.api.examples.color.ColorAnalysisByUrlExample;
-import cn.productai.api.examples.dataset.*;
-import cn.productai.api.examples.detect.*;
+import cn.productai.api.examples.dataset.DataSetDeleteExample;
+import cn.productai.api.examples.dataset.DataSetManagementApiExample;
+import cn.productai.api.examples.dataset.DataSetManagementExample;
+import cn.productai.api.examples.dataset.DataSetSingleModifyExample;
+import cn.productai.api.examples.detect.DetectByUrlExample;
+import cn.productai.api.examples.detect.DetectExample;
 import cn.productai.api.examples.dressing.DressingClassifyByFileExample;
 import cn.productai.api.examples.dressing.DressingClassifyByUrlExample;
-import cn.productai.api.examples.filter.*;
-import cn.productai.api.examples.search.*;
-import cn.productai.api.examples.service.*;
+import cn.productai.api.examples.filter.SmartFilterByUrlExample;
+import cn.productai.api.examples.filter.SmartFilterExample;
+import cn.productai.api.examples.productset.ProductSetManagementApiExample;
+import cn.productai.api.examples.search.ImageSearchByUrlExample;
+import cn.productai.api.examples.search.ImageSearchExample;
+import cn.productai.api.examples.service.ServiceApiExample;
 
 public class Main {
 
@@ -25,6 +36,7 @@ public class Main {
         profile.setGlobalLanguage(LanguageType.Chinese);
 
         IWebClient client = new DefaultProductAIClient(profile);
+        client.setHost("api.productai.cn");
 
         /**
          * Classify
@@ -117,6 +129,11 @@ public class Main {
         IExample filter_by_image_url_example = new SmartFilterByUrlExample();
         filter_by_image_url_example.run(client);
 
+        /**
+         * ProductSet Example
+         */
+        IExample productSetManagementApiExample = new ProductSetManagementApiExample();
+        productSetManagementApiExample.run(client);
 
         System.out.println("Done");
     }
