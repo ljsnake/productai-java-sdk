@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DefaultProductAIClient implements IWebClient {
 
+    private String scheme = "https";
     private String host = "api.productai.cn";
     private Charset charset = Charset.forName("UTF-8");
     private IProfile profile = null;
@@ -32,6 +33,16 @@ public class DefaultProductAIClient implements IWebClient {
 
     public DefaultProductAIClient(IProfile profile) {
         this.profile = profile;
+    }
+
+    @Override
+    public String getScheme() {
+        return scheme;
+    }
+
+    @Override
+    public void setScheme(String scheme) {
+        this.scheme = scheme;
     }
 
     @Override
@@ -91,6 +102,7 @@ public class DefaultProductAIClient implements IWebClient {
             request.setHeader(key, dics.get(key));
         }
 
+        request.setScheme(this.scheme);
         request.setHost(this.host);
 
         if (this.profile.getGlobalLanguage() != null) {

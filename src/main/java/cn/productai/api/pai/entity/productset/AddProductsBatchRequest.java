@@ -7,11 +7,11 @@ import java.io.File;
 public class AddProductsBatchRequest extends ProductBatchAddByFileBaseRequest<AddProductsBatchResponse> {
 
     public AddProductsBatchRequest(String productSetId) {
-        super(productSetId, "urls_to_add");
+        super(productSetId, "products_to_add");
     }
 
     public AddProductsBatchRequest(String productSetId, File csvFile) {
-        super(productSetId, csvFile, "urls_to_add");
+        super(productSetId, csvFile, "products_to_add");
     }
 
     @Override

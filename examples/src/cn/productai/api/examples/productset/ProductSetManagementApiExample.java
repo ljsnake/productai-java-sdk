@@ -1,9 +1,12 @@
 package cn.productai.api.examples.productset;
 
 import cn.productai.api.core.IWebClient;
+import cn.productai.api.core.enums.LanguageType;
 import cn.productai.api.core.exceptions.ClientException;
 import cn.productai.api.examples.IExample;
 import cn.productai.api.pai.entity.productset.*;
+
+import java.io.File;
 
 public class ProductSetManagementApiExample implements IExample {
 
@@ -23,52 +26,45 @@ public class ProductSetManagementApiExample implements IExample {
         updateProductSet(client, productSetId);
 
         // 通过商品集 ID 删除商品集
-        // TODO: now backend has bug
-        // deleteProductSet(client, productSetId);
+        deleteProductSet(client, productSetId);
 
-        // 删除所有商品集
-        // TODO: now backend has bug
-        //deleteAllProductSets(client);
+        sleep(500L);
 
-        /*
-         * 通过商品集 ID 获取商品集
-         */
+        // 通过商品集 ID 获取商品集
+        productSetId = createProductSet(client);
         getProductSet(client, productSetId);
 
-        /**
-         * 添加商品到商品集中
-         */
+        // 添加商品到商品集中
         addProduct(client, productSetId);
 
-        // 获取商品集中的所有商品
-        getProducts(client, productSetId, new String[]{"_001"});
-        getProducts(client, productSetId, new String[]{"_002"});
-
-        /**
-         * 批量添加商品到商品集中
-         */
+        // 批量添加商品到商品集中
         batchAddProducts(client, productSetId);
 
-        /**
-         * 批量删除商品
-         */
-        batchDeleteProducts(client);
+        // 获取商品集中的所有商品
+        getProducts(client, productSetId, new String[]{"_001", "_002"});
 
-        /**
-         * 通过商品 IDs 删除商品
-         */
-        deleteProductsByProductIDs(client, productSetId, new String[]{"_001"});
+        // 批量删除商品
+        batchDeleteProducts(client, productSetId);
 
-        /**
-         * 创建服务
-         */
+        // 通过商品 IDs 删除商品
+        deleteProductsByProductIDs(client, productSetId, new String[]{"_001", "_002"});
+
+        // 创建服务
         createService(client, productSetId);
+
+        sleep(500L);
+
+        // 删除所有商品集
+        deleteAllProductSets(client);
     }
 
-    private void batchDeleteProducts(IWebClient client) {
+    private void batchDeleteProducts(IWebClient client, String productSetId) {
         System.out.println("==>  Demo - 通过商品 IDs 删除商品  <==");
 
-        DeleteProductsRequest request = new DeleteProductsRequest();
+        String filePath = "cn/productai/api/examples/files/batch_delete_products.csv";
+        DeleteProductsRequest request = new DeleteProductsRequest(productSetId);
+        request.setCsvFile(new File(ClassLoader.getSystemResource(filePath).getFile()));
+        request.setLanguage(LanguageType.Chinese);
 
         try {
             DeleteProductsResponse response = client.getResponse(request);
@@ -99,9 +95,12 @@ public class ProductSetManagementApiExample implements IExample {
     }
 
     private void batchAddProducts(IWebClient client, String productSetId) {
-        System.out.println("==>  Demo - 批量删除商品  <==");
+        System.out.println("==>  Demo - 批量添加商品  <==");
 
+        String filePath = "cn/productai/api/examples/files/batch_add_products.csv";
         AddProductsBatchRequest request = new AddProductsBatchRequest(productSetId);
+        request.setCsvFile(new File(ClassLoader.getSystemResource(filePath).getFile()));
+        request.setLanguage(LanguageType.Chinese);
 
         try {
             AddProductsBatchResponse response = client.getResponse(request);
@@ -170,7 +169,7 @@ public class ProductSetManagementApiExample implements IExample {
     private void deleteProductsByProductIDs(IWebClient client, String productSetId, String[] ids) {
         System.out.println("==>  Demo - 删除商品  <==");
 
-        DeleteProductsByProductSetRequest request = new DeleteProductsByProductSetRequest();
+        DeleteProductsByProductSetRequest request = new DeleteProductsByProductSetRequest(productSetId, ids);
 
         try {
             DeleteProductsByProductSetResponse response = client.getResponse(request);
@@ -202,7 +201,7 @@ public class ProductSetManagementApiExample implements IExample {
 
     private void addProduct(IWebClient client,
                             String productSetId) {
-        System.out.println("==>  Demo - 添加商品到商品集  <==");
+        System.out.println("==>  Demo - 添加两个商品到商品集  <==");
 
         String productId = "_001";
         String price = "35.6";
@@ -213,18 +212,12 @@ public class ProductSetManagementApiExample implements IExample {
 
         AddProductRequest request1 = new AddProductRequest(
                 productSetId, productId, price, keywords, imageUrl, meta, tags);
-        AddProductRequest request2 = new AddProductRequest(
-                productSetId, "_002", price, keywords, imageUrl, meta, tags);
 
         try {
-            AddProductResponse response = client.getResponse(request1);
-            client.getResponse(request1);
-
-
             System.out.println("==============================Result==============================");
 
             // access the response directly
-            System.out.println(String.format("Response Json : %s", response.getResponseJsonString()));
+            System.out.println(String.format("Response Json : %s", client.getResponse(request1).getResponseJsonString()));
             System.out.println("==============================Result==============================");
 
         } catch (cn.productai.api.core.exceptions.ServerException e) {
@@ -248,6 +241,7 @@ public class ProductSetManagementApiExample implements IExample {
 
     private void getProducts(IWebClient client, String productSetId, String[] productIds) {
         System.out.println("==>  Demo - 获取商品集中所有商品  <==");
+        System.out.println(String.format("ProductSetId: %s", productSetId));
 
         GetProductsByProductSetRequest request = new GetProductsByProductSetRequest(productSetId, productIds);
 
@@ -356,24 +350,17 @@ public class ProductSetManagementApiExample implements IExample {
     private void deleteAllProductSets(IWebClient client) {
         System.out.println("==>  Demo - 删除所有商品集  <==");
 
-        DeleteAllProductSetRequest request = new DeleteAllProductSetRequest();
+        String token = "token";
+        String b64Token = "dG9rZW4=";
+        DeleteAllProductSetRequest request = new DeleteAllProductSetRequest(token, b64Token);
 
         try {
-//            DeleteAllProductSetResponse response = client.getResponse(request);
-
-            // TODO 暂时逐个删除
-            GetAllProductSetsRequest response = new GetAllProductSetsRequest();
-            GetAllProductSetsResponse allProductsResponse = client.getResponse(response);
-
-            for (ProductSet ps : allProductsResponse.getResults()) {
-                DeleteProductSetRequest deleteRequest = new DeleteProductSetRequest(ps.getId());
-                client.getResponse(deleteRequest);
-            }
+            DeleteAllProductSetResponse response = client.getResponse(request);
 
             System.out.println("==============================Result==============================");
 
             // access the response directly
-//            System.out.println(String.format("Response Json : %s", response.getResponseJsonString()));
+            System.out.println(String.format("Response Json : %s", response.getResponseJsonString()));
             System.out.println("==============================Result==============================");
 
         } catch (cn.productai.api.core.exceptions.ServerException e) {
@@ -503,6 +490,14 @@ public class ProductSetManagementApiExample implements IExample {
             e.printStackTrace();
         } catch (Exception e) {
             System.out.println(String.format("%s occurred. ErrorMessage: %s", e.getClass().getName(), e.getMessage()));
+            e.printStackTrace();
+        }
+    }
+
+    private void sleep(Long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }

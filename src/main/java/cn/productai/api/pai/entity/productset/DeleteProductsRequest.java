@@ -8,6 +8,8 @@ public class DeleteProductsRequest extends ProductBatchDeleteByFileBaseRequest<D
 
     private String productSetId;
 
+    private String[] productIds;
+
     public DeleteProductsRequest() {
         super();
         this.setRequestMethod(HttpMethod.POST);
@@ -19,6 +21,7 @@ public class DeleteProductsRequest extends ProductBatchDeleteByFileBaseRequest<D
     public DeleteProductsRequest(String productSetId) {
         this();
         this.productSetId = productSetId;
+        this.setProductIds(productIds);
     }
 
     @Override
@@ -28,8 +31,8 @@ public class DeleteProductsRequest extends ProductBatchDeleteByFileBaseRequest<D
 
     @Override
     public String getApiUrl() {
-        return String.format("https://%s/product_sets/%s/%s/products",
-                this.getHost(), ServiceTypeId.PRODUCT_SET, this.getProductSetId());
+        return String.format("%s://%s/product_sets/%s/%s/products",
+                this.getScheme(), this.getHost(), ServiceTypeId.PRODUCT_SET, this.getProductSetId());
     }
 
     public String getProductSetId() {
@@ -38,5 +41,13 @@ public class DeleteProductsRequest extends ProductBatchDeleteByFileBaseRequest<D
 
     public void setProductSetId(String productSetId) {
         this.productSetId = productSetId;
+    }
+
+    public String[] getProductIds() {
+        return productIds;
+    }
+
+    public void setProductIds(String[] productIds) {
+        this.productIds = productIds;
     }
 }

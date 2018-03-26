@@ -3,10 +3,15 @@ package cn.productai.api.pai.base;
 import cn.productai.api.core.attribute.IgnoreExtraParasAttribute;
 import cn.productai.api.core.base.BaseRequest;
 import cn.productai.api.core.base.BaseResponse;
+import cn.productai.api.core.enums.ServiceTypeId;
 import cn.productai.api.core.helper.FileHelper;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * modify your image set using a csv file
@@ -20,6 +25,7 @@ public abstract class ProductBatchDeleteByFileBaseRequest<T extends BaseResponse
     private String opType = "products_to_delete";
     private String _boundary = FileHelper.getBoundary();
     private File csvFile;
+    private String ids;
 
     /**
      * @param productSetId your productSetId
@@ -44,7 +50,7 @@ public abstract class ProductBatchDeleteByFileBaseRequest<T extends BaseResponse
      */
     public ProductBatchDeleteByFileBaseRequest(String productSetId, File csvFile, String opType) {
         this(productSetId, opType);
-        this.csvFile = csvFile;
+        this.setCsvFile(csvFile);
     }
 
     public ProductBatchDeleteByFileBaseRequest() {
@@ -53,22 +59,13 @@ public abstract class ProductBatchDeleteByFileBaseRequest<T extends BaseResponse
 
     @Override
     public String getApiUrl() {
-        return String.format("https://%s/product_sets/_0000178/%s/products", this.getHost(), this.getProductSetId());
+        return String.format("%s://%s/product_sets/%s/%s/products?ids=%s",
+                this.getScheme(), this.getHost(), ServiceTypeId.PRODUCT_SET, this.getProductSetId(), this.getIds());
     }
 
     @Override
     public String getQueryString() {
         return "";
-    }
-
-    @Override
-    public byte[] getQueryBytes() {
-        try {
-            return FileHelper.getMultipartBytes(this.csvFile, this._boundary, null, this.opType);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     @Override
@@ -90,5 +87,34 @@ public abstract class ProductBatchDeleteByFileBaseRequest<T extends BaseResponse
 
     public void setCsvFile(File csvFile) {
         this.csvFile = csvFile;
+
+        // Parse file to string like '1,2,3'
+        try {
+            this.setIds(String.join(",", parseCsvToLine(csvFile)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getIds() {
+        return ids;
+    }
+
+    public void setIds(String ids) {
+        this.ids = ids;
+    }
+
+    private List<String> parseCsvToLine(File csv) throws Exception {
+        List<String> lines = new ArrayList<>();
+        try {
+            Scanner scanner = new Scanner(csv);
+            while (scanner.hasNext()) {
+                lines.add(scanner.nextLine());
+            }
+            scanner.close();
+            return lines;
+        } catch (Exception e) {
+            throw new Exception("Parse csv error");
+        }
     }
 }

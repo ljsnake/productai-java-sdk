@@ -65,8 +65,8 @@ public class AddProductRequest extends ManagementAPIBaseRequest<AddProductRespon
 
     @Override
     public String getApiUrl() {
-        return String.format("https://%s/product_sets/%s/%s/products",
-                this.getHost(), ServiceTypeId.PRODUCT_SET, this.getProductSetId());
+        return String.format("%s://%s/product_sets/%s/%s/products",
+                this.getScheme(), this.getHost(), ServiceTypeId.PRODUCT_SET, this.getProductSetId());
     }
 
     public String getProductSetId() {

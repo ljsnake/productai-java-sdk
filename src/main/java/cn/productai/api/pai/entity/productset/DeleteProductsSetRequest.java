@@ -28,8 +28,8 @@ public class DeleteProductsSetRequest extends BaseRequest<DeleteProductSetRespon
 
     @Override
     public String getApiUrl() {
-        return String.format("https://%s/product_sets/%s/%s",
-                this.getHost(), ServiceTypeId.PRODUCT_SET, this.getProductSetId());
+        return String.format("%s://%s/product_sets/%s/%s",
+                this.getScheme(), this.getHost(), ServiceTypeId.PRODUCT_SET, this.getProductSetId());
     }
 
     public String getProductSetId() {

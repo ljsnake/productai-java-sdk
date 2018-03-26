@@ -9,8 +9,9 @@ public class DeleteProductsByProductSetRequest extends ManagementAPIBaseRequest<
 
     private String productSetId;
 
-    @ParaSignAttribute(Name = "ids")
     private String[] productIds;
+
+    private String ids;
 
     public DeleteProductsByProductSetRequest() {
         super();
@@ -25,6 +26,7 @@ public class DeleteProductsByProductSetRequest extends ManagementAPIBaseRequest<
         this.setProductSetId(productSetId);
         this.setProductIds(productIds);
         this.setProductSetId(productSetId);
+        this.setIds(String.join(",", productIds));
     }
 
     @Override
@@ -34,8 +36,8 @@ public class DeleteProductsByProductSetRequest extends ManagementAPIBaseRequest<
 
     @Override
     public String getApiUrl() {
-        return String.format("https://%s/product_sets/%s/%s/products",
-                this.getHost(), ServiceTypeId.PRODUCT_SET, this.getProductSetId());
+        return String.format("%s://%s/product_sets/%s/%s/products?ids=%s",
+                this.getScheme(), this.getHost(), ServiceTypeId.PRODUCT_SET, this.getProductSetId(), this.getIds());
     }
 
     public String getProductSetId() {
@@ -52,5 +54,13 @@ public class DeleteProductsByProductSetRequest extends ManagementAPIBaseRequest<
 
     public void setProductIds(String[] productIds) {
         this.productIds = productIds;
+    }
+
+    public String getIds() {
+        return ids;
+    }
+
+    public void setIds(String ids) {
+        this.ids = ids;
     }
 }

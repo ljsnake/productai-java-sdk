@@ -36,7 +36,7 @@ public class CreateProductSetRequest extends ManagementAPIBaseRequest<CreateProd
 
     @Override
     public String getApiUrl() {
-        return String.format("https://%s/product_sets/%s", this.getHost(), ServiceTypeId.PRODUCT_SET);
+        return String.format("%s://%s/product_sets/%s", this.getScheme(), this.getHost(), ServiceTypeId.PRODUCT_SET);
     }
 
     public String getName() {

@@ -19,6 +19,8 @@ public abstract class BaseRequest<T extends BaseResponse> {
     private static HashMap<Integer, String> _httpMethodDicts = EnumHelper.toHashMap(HttpMethod.class);
     private HashMap<String, String> _headers = new HashMap<>();
 
+    private String scheme = "https";
+
     private String host = "api.productai.cn";
 
     private String userAgent = "Product AI java SDK-jdk1.8 V2.1.1";
@@ -51,6 +53,14 @@ public abstract class BaseRequest<T extends BaseResponse> {
      */
     public String getRequestMethodHeader(){
         return _httpMethodDicts.get(this.requestMethod.ordinal());
+    }
+
+    public String getScheme() {
+        return scheme;
+    }
+
+    public void setScheme(String scheme) {
+        this.scheme = scheme;
     }
 
     public String getHost() {
