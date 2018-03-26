@@ -25,7 +25,7 @@ public class DetectExample implements IExample {
         System.out.println("See https://api-doc.productai.cn/doc/pai.html#3C电器检测与定位 for details.\r\n");
 
         DetectByImageFileRequest request = new DetectByImageFileRequest(DetectType.ThreeCAndElectronics);
-        request.setImageFile(new File(this.getClass().getResource("/").getPath() + "images/iphone.jpg"));
+        request.setImageFile(new File(this.getClass().getResource("/").getPath() + "cn/productai/api/examples/files/iphone.jpg"));
         request.setLanguage(LanguageType.Chinese);
         request.setLoc("0.2-0.2-1-1");
 
