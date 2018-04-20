@@ -275,12 +275,6 @@ See https://developers.productai.cn/zh/reference/detect#宠物检测与定位-v1
 ==============================Result==============================
 狗 - 0.980624258518219
 ==============================Result==============================
-==>  Demo - 智能滤镜  <==
-See https://api-doc.productai.cn/doc/pai.html#智能滤镜 for details.
-
-==============================Result==============================
-http://productai-query.oss-cn-hangzhou.aliyuncs.com/style-transfer/result/comic5/9e773d38b7b2aedd2cf1a4b46929ef2a.jpg?x-oss-process=image/resize,w_850,limit_0 - 0.919928
-==============================Result==============================
 ==>  Demo - 向数据集增加多条数据  <==
 See https://developers.productai.cn/zh/reference/image_search#向图片集批量上传图片 for details.
 
