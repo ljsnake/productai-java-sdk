@@ -12,7 +12,7 @@ import java.io.File;
 /**
  * Created by Zhong Wang on 2017/7/5.
  * 数据集操作 - 向数据集增加多条数据
- * https://api-doc.productai.cn/doc/pai.html#向数据集增加多条数据
+ * https://developers.productai.cn/zh/reference/image_search#向图片集批量上传图片
  */
 public class DataSetManagementExample implements IExample {
 
@@ -20,7 +20,7 @@ public class DataSetManagementExample implements IExample {
     public void run(IWebClient client) {
 
         System.out.println("==>  Demo - 向数据集增加多条数据  <==");
-        System.out.println("See https://api-doc.productai.cn/doc/pai.html#向数据集增加多条数据 for details.\r\n");
+        System.out.println("See https://developers.productai.cn/zh/reference/image_search#向图片集批量上传图片 for details.\r\n");
 
         DataSetBatchAddRequest request = new DataSetBatchAddRequest("lqn2jj6z");
         request.setCsvFile(new File(this.getClass().getResource("/").getPath() + "cn/productai/api/examples/files/example.csv"));

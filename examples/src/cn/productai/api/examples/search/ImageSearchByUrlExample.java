@@ -25,7 +25,7 @@ public class ImageSearchByUrlExample implements IExample {
     public void run(IWebClient client) {
 
         System.out.println("==>  Demo - 通用图像搜索  <==");
-        System.out.println("See https://api-doc.productai.cn/doc/pai.html#通用图像搜索 for details.\r\n");
+        System.out.println("See https://developers.productai.com/zh/reference/image_search for details.\r\n");
 
         // 复杂Tag查询示例
         ISearchTag andTag = new AndTag();

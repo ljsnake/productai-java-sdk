@@ -11,8 +11,8 @@ import cn.productai.api.pai.response.DetectResult;
 
 /**
  * Created by Zhong Wang on 2017/8/15.
- * 3C电器检测与定位
- * https://api-doc.productai.cn/doc/pai.html#宠物检测与定位
+ * 宠物检测与定位
+ * https://developers.productai.cn/zh/reference/detect#宠物检测与定位-v1-0
  */
 public class DetectByUrlExample implements IExample {
 
@@ -20,7 +20,7 @@ public class DetectByUrlExample implements IExample {
     public void run(IWebClient client) {
 
         System.out.println("==>  Demo - 宠物检测与定位  <==");
-        System.out.println("See https://api-doc.productai.cn/doc/pai.html#宠物检测与定位 for details.\r\n");
+        System.out.println("See https://developers.productai.cn/zh/reference/detect#宠物检测与定位-v1-0 for details.\r\n");
 
         // DetectByImageUrlRequest request = new DetectByImageUrlRequest(DetectType.Pet);
         DetectByImageUrlRequest request = new DetectByImageUrlRequest(ServiceType.Detect,

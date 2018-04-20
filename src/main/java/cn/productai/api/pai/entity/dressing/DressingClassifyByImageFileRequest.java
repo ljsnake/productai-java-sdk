@@ -7,7 +7,7 @@ import java.io.File;
 /**
  * Created by Thinkpad on 2017/7/4.
  * 时尚智能分析
- * https://api-doc.productai.cn/doc/pai.html#时尚智能分析
+ * https://developers.productai.cn/zh/reference/fashion_analysis
  */
 public class DressingClassifyByImageFileRequest extends CallApiByImageFileBaseRequest<DressingClassifyResponse> {
 

@@ -7,7 +7,7 @@
 <br>For more details about ProductAI, view
 - [ProductAI Global offcial site](http://www.productai.com)
 - [ProductAI China offcial site](http://www.productai.cn)
-- [ProductAI Documentation](https://api-doc.productai.cn/doc/pai.html)
+- [ProductAI Documentation](https://developers.productai.cn/zh/reference/)
 
 # Usage（用法）:
 
@@ -150,7 +150,7 @@ See project examples. (请参考工程中的examples目录，可以使用IDE打�
 ```
 "C:\Program Files (x86)\Java\jdk1.8.0_131\bin\java" "-javaagent:D:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2017.1.4\lib\idea_rt.jar=56193:D:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2017.1.4\bin" -Dfile.encoding=UTF-8 -classpath "C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\charsets.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\deploy.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\ext\access-bridge-32.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\ext\cldrdata.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\ext\dnsns.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\ext\jaccess.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\ext\jfxrt.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\ext\localedata.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\ext\nashorn.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\ext\sunec.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\ext\sunjce_provider.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\ext\sunmscapi.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\ext\sunpkcs11.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\ext\zipfs.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\javaws.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\jce.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\jfr.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\jfxswt.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\jsse.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\management-agent.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\plugin.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\resources.jar;C:\Program Files (x86)\Java\jdk1.8.0_131\jre\lib\rt.jar;D:\Git\productai-java-sdk\examples\out\production\examples;D:\Git\productai-java-sdk\out\artifacts\productai_java_sdk_jar\productai-java-sdk.jar" cn.productai.api.examples.Main
 ==>  Demo - 场景分析与标注  <==
-See https://api-doc.productai.cn/doc/pai.html#场景分析与标注 for details.
+See https://developers.productai.cn/zh/reference/classify#场景分析与标注-v1-0 for details.
 
 ==============================Result==============================
 人 - 1.0
@@ -195,7 +195,7 @@ See https://api-doc.productai.cn/doc/pai.html#场景分析与标注 for details.
 女人 - 0.7
 ==============================Result==============================
 ==>  Demo - 场景分析与标注  <==
-See https://api-doc.productai.cn/doc/pai.html#场景分析与标注 for details.
+See https://developers.productai.cn/zh/reference/classify#场景分析与标注-v1-0 for details.
 
 ==============================Result==============================
 远景 - 1.0
@@ -240,7 +240,7 @@ See https://api-doc.productai.cn/doc/pai.html#场景分析与标注 for details.
 晴朗 - 0.8514084662510503
 ==============================Result==============================
 ==>  Demo - 通用图像搜索  <==
-See https://api-doc.productai.cn/doc/pai.html#通用图像搜索 for details.
+See https://developers.productai.com/zh/reference/image_search for details.
 
 ==============================Result==============================
 http://static.esobing.com/images/pai/4.jpg - 0.46116530895233154
@@ -252,7 +252,7 @@ http://static.esobing.com/images/pai/1.jpg - 0.4243323802947998
 http://static.esobing.com/images/pai/7.jpg - 0.4092801809310913
 ==============================Result==============================
 ==>  Demo - 通用图像搜索  <==
-See https://api-doc.productai.cn/doc/pai.html#通用图像搜索 for details.
+See https://developers.productai.com/zh/reference/image_search for details.
 
 ==============================Result==============================
 http://static.esobing.com/images/pai/5.jpg - 0.639316976070404
@@ -264,13 +264,13 @@ http://static.esobing.com/images/pai/3.jpg - 0.3851330876350403
 http://static.esobing.com/images/pai/7.jpg - 0.3792150020599365
 ==============================Result==============================
 ==>  Demo - 3C电器检测与定位  <==
-See https://api-doc.productai.cn/doc/pai.html#3C电器检测与定位 for details.
+See https://developers.productai.cn/zh/reference/detect#3C电器检测与定位-v1-0 for details.
 
 ==============================Result==============================
 手机 - 0.9511141180992126
 ==============================Result==============================
 ==>  Demo - 宠物检测与定位  <==
-See https://api-doc.productai.cn/doc/pai.html#宠物检测与定位 for details.
+See https://developers.productai.cn/zh/reference/detect#宠物检测与定位-v1-0 for details.
 
 ==============================Result==============================
 狗 - 0.980624258518219
@@ -281,26 +281,20 @@ See https://api-doc.productai.cn/doc/pai.html#智能滤镜 for details.
 ==============================Result==============================
 http://productai-query.oss-cn-hangzhou.aliyuncs.com/style-transfer/result/comic5/9e773d38b7b2aedd2cf1a4b46929ef2a.jpg?x-oss-process=image/resize,w_850,limit_0 - 0.919928
 ==============================Result==============================
-==>  Demo - 智能滤镜  <==
-See https://api-doc.productai.cn/doc/pai.html#智能滤镜 for details.
-
-==============================Result==============================
-http://productai-query.oss-cn-hangzhou.aliyuncs.com/style-transfer/result/comic5/9e773d38b7b2aedd2cf1a4b46929ef2a.jpg?x-oss-process=image/resize,w_850,limit_0 - 0.919928
-==============================Result==============================
 ==>  Demo - 向数据集增加多条数据  <==
-See https://api-doc.productai.cn/doc/pai.html#向数据集增加多条数据 for details.
+See https://developers.productai.cn/zh/reference/image_search#向图片集批量上传图片 for details.
 
 ==============================Result==============================
 LastModifiedTime - 2017-07-11T06:41:16Z
 ==============================Result==============================
 ==>  Demo - 向数据集增加单条数据  <==
-See https://api-doc.productai.cn/doc/pai.html#向数据集增加单条数据 for details.
+See https://developers.productai.cn/zh/reference/image_search#向图片集上传单张图片 for details.
 
 ==============================Result==============================
 LastModifiedTime - 2017-07-11T06:41:16Z
 ==============================Result==============================
 ==>  Demo - 从数据集删除多条数据  <==
-See https://api-doc.productai.cn/doc/pai.html#从数据集删除多条数据 for details.
+See https://developers.productai.cn/zh/reference/image_search#从图片集中批量删除图片 for details.
 
 ==============================Result==============================
 LastModifiedTime - 2017-07-11T06:41:16Z
