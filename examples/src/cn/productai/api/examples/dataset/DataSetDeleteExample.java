@@ -12,7 +12,7 @@ import java.io.File;
 /**
  * Created by Zhong Wang on 2017/8/15.
  * 数据集操作 - 从数据集删除多条数据
- * https://api-doc.productai.cn/doc/pai.html#向数据集增加多条数据
+ * https://developers.productai.cn/zh/reference/image_search#从图片集中批量删除图片
  */
 public class DataSetDeleteExample implements IExample {
 
@@ -20,7 +20,7 @@ public class DataSetDeleteExample implements IExample {
     public void run(IWebClient client) {
 
         System.out.println("==>  Demo - 从数据集删除多条数据  <==");
-        System.out.println("See https://api-doc.productai.cn/doc/pai.html#从数据集删除多条数据 for details.\r\n");
+        System.out.println("See https://developers.productai.cn/zh/reference/image_search#从图片集中批量删除图片 for details.\r\n");
 
         DataSetBatchDeleteRequest request = new DataSetBatchDeleteRequest("lqn2jj6z");
         request.setCsvFile(new File(this.getClass().getResource("/").getPath() + "cn/productai/api/examples/files/example.csv"));

@@ -12,7 +12,7 @@ import cn.productai.api.pai.response.ClassifyResult;
 /**
  * Created by Zhong Wang on 2017/7/5.
  * 场景分析与标注
- * https://api-doc.productai.cn/doc/pai.html#场景分析与标注
+ * https://developers.productai.cn/zh/reference/classify#场景分析与标注-v1-0
  */
 public class ClassifyByUrlExample implements IExample {
 
@@ -20,7 +20,7 @@ public class ClassifyByUrlExample implements IExample {
     public void run(IWebClient client) {
 
         System.out.println("==>  Demo - 场景分析与标注  <==");
-        System.out.println("See https://api-doc.productai.cn/doc/pai.html#场景分析与标注 for details.\r\n");
+        System.out.println("See https://developers.productai.cn/zh/reference/classify#场景分析与标注-v1-0 for details.\r\n");
 
         ClassifyByImageUrlRequest request = new ClassifyByImageUrlRequest(ServiceType.Classify, "_0000039");
         request.setUrl("http://productai.cn/img/f10.jpg");

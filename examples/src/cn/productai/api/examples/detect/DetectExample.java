@@ -14,7 +14,7 @@ import java.io.File;
 /**
  * Created by Zhong Wang on 2017/7/5.
  * 3C电器检测与定位
- * https://api-doc.productai.cn/doc/pai.html#3C电器检测与定位
+ * https://developers.productai.cn/zh/reference/detect#3C电器检测与定位-v1-0
  */
 public class DetectExample implements IExample {
 
@@ -22,7 +22,7 @@ public class DetectExample implements IExample {
     public void run(IWebClient client) {
 
         System.out.println("==>  Demo - 3C电器检测与定位  <==");
-        System.out.println("See https://api-doc.productai.cn/doc/pai.html#3C电器检测与定位 for details.\r\n");
+        System.out.println("See https://developers.productai.cn/zh/reference/detect#3C电器检测与定位-v1-0 for details.\r\n");
 
         DetectByImageFileRequest request = new DetectByImageFileRequest(DetectType.ThreeCAndElectronics);
         request.setImageFile(new File(this.getClass().getResource("/").getPath() + "cn/productai/api/examples/files/iphone.jpg"));

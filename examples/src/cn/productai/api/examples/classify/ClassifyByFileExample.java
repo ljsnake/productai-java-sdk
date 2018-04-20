@@ -14,7 +14,7 @@ import java.io.File;
 /**
  * Created by Zhong Wang on 2017/7/5.
  * 场景分析与标注
- * https://api-doc.productai.cn/doc/pai.html#场景分析与标注
+ * https://developers.productai.cn/zh/reference/classify#场景分析与标注-v1-0
  */
 public class ClassifyByFileExample implements IExample {
 
@@ -22,7 +22,7 @@ public class ClassifyByFileExample implements IExample {
     public void run(IWebClient client) {
 
         System.out.println("==>  Demo - 场景分析与标注  <==");
-        System.out.println("See https://api-doc.productai.cn/doc/pai.html#场景分析与标注 for details.\r\n");
+        System.out.println("See https://developers.productai.cn/zh/reference/classify#场景分析与标注-v1-0 for details.\r\n");
 
         ClassifyByImageFileRequest request = new ClassifyByImageFileRequest(ServiceType.Classify, "_0000039");
         request.setImageFile(new File(this.getClass().getResource("/").getPath() + "cn/productai/api/examples/files/f10.jpg"));

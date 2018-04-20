@@ -18,8 +18,6 @@ import cn.productai.api.examples.detect.DetectByUrlExample;
 import cn.productai.api.examples.detect.DetectExample;
 import cn.productai.api.examples.dressing.DressingClassifyByFileExample;
 import cn.productai.api.examples.dressing.DressingClassifyByUrlExample;
-import cn.productai.api.examples.filter.SmartFilterByUrlExample;
-import cn.productai.api.examples.filter.SmartFilterExample;
 import cn.productai.api.examples.productset.ProductSetManagementApiExample;
 import cn.productai.api.examples.search.ImageSearchByUrlExample;
 import cn.productai.api.examples.search.ImageSearchExample;
@@ -119,15 +117,6 @@ public class Main {
 
         DressingClassifyByUrlExample dressing_url_example = new DressingClassifyByUrlExample();
         dressing_url_example.run(client);
-
-        /**
-         * Filter
-         */
-        IExample filter_by_file_example = new SmartFilterExample();
-        filter_by_file_example.run(client);
-
-        IExample filter_by_image_url_example = new SmartFilterByUrlExample();
-        filter_by_image_url_example.run(client);
 
         /**
          * ProductSet Example

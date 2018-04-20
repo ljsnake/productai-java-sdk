@@ -10,7 +10,7 @@ import cn.productai.api.pai.entity.dataset.DataSetSingleAddByImageUrlRequest;
 /**
  * Created by Zhong Wang on 2017/8/15.
  * 数据集操作 - 向数据集增加单条数据
- * https://api-doc.productai.cn/doc/pai.html#向数据集增加单条数据
+ * https://developers.productai.cn/zh/reference/image_search#向图片集上传单张图片
  */
 public class DataSetSingleModifyExample implements IExample {
 
@@ -18,7 +18,7 @@ public class DataSetSingleModifyExample implements IExample {
     public void run(IWebClient client) {
 
         System.out.println("==>  Demo - 向数据集增加单条数据  <==");
-        System.out.println("See https://api-doc.productai.cn/doc/pai.html#向数据集增加单条数据 for details.\r\n");
+        System.out.println("See https://developers.productai.cn/zh/reference/image_search#向图片集上传单张图片 for details.\r\n");
 
         DataSetSingleAddByImageUrlRequest request = new DataSetSingleAddByImageUrlRequest("lqn2jj6z",null,null);
         request.setImageUrl("http://pic.chinasspp.com/News/u/717946/image/201702/02102739_8729.jpg");
