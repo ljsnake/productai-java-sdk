@@ -4,7 +4,6 @@ import cn.productai.api.core.DefaultProductAIClient;
 import cn.productai.api.core.DefaultProfile;
 import cn.productai.api.core.IProfile;
 import cn.productai.api.core.IWebClient;
-import cn.productai.api.core.enums.ClassifyType;
 import cn.productai.api.core.exceptions.ClientException;
 import cn.productai.api.pai.entity.classify.ClassifyByImageUrlRequest;
 import cn.productai.api.pai.entity.classify.ClassifyResponse;
@@ -17,7 +16,6 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Thinkpad on 2017/7/5.
- *
  */
 public class SdkUnitTest {
 
@@ -47,7 +45,7 @@ public class SdkUnitTest {
      */
     @Test
     public void testClassify() {
-        ClassifyByImageUrlRequest request = new ClassifyByImageUrlRequest(ClassifyType.Pornography);
+        ClassifyByImageUrlRequest request = new ClassifyByImageUrlRequest("classify", "_0000039");
 
         try {
             ClassifyResponse response = client.getResponse(request);
@@ -59,8 +57,8 @@ public class SdkUnitTest {
     }
 
     @Test
-    public void testRequestUrl(){
-        ClassifyByImageUrlRequest request = new ClassifyByImageUrlRequest(ClassifyType.Pornography);
-        assertTrue(request.getApiUrl().equals("https://api.productai.cn/classify/_0000024"));
+    public void testRequestUrl() {
+        ClassifyByImageUrlRequest request = new ClassifyByImageUrlRequest("classify", "_0000039");
+        assertTrue(request.getApiUrl().equals("https://api.productai.cn/classify/_0000039"));
     }
 }
