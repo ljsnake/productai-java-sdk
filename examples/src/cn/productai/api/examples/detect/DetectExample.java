@@ -23,7 +23,7 @@ public class DetectExample implements IExample {
         System.out.println("==>  Demo - 家具检测与定位  <==");
         System.out.println("See https://developers.productai.cn/zh/reference/detect#%E5%AE%B6%E5%85%B7%E6%A3%80%E6%B5%8B%E4%B8%8E%E5%AE%9A%E4%BD%8D-v3-0 for details.\r\n");
 
-        DetectByImageFileRequest request = new DetectByImageFileRequest('detect', '_0000171');
+        DetectByImageFileRequest request = new DetectByImageFileRequest("detect", "_0000171");
         request.setImageFile(new File(this.getClass().getResource("/").getPath() + "cn/productai/api/examples/files/bed.jpg"));
         request.setLanguage(LanguageType.Chinese);
         request.setLoc("0.2-0.2-1-1");
