@@ -2,7 +2,6 @@ package cn.productai.api.examples.classify;
 
 import cn.productai.api.core.IWebClient;
 import cn.productai.api.core.enums.LanguageType;
-import cn.productai.api.core.enums.ServiceType;
 import cn.productai.api.core.exceptions.ClientException;
 import cn.productai.api.examples.IExample;
 import cn.productai.api.pai.entity.classify.ClassifyByImageUrlRequest;
@@ -22,7 +21,7 @@ public class ClassifyByUrlExample implements IExample {
         System.out.println("==>  Demo - 场景分析与标注  <==");
         System.out.println("See https://developers.productai.cn/zh/reference/classify#场景分析与标注-v1-0 for details.\r\n");
 
-        ClassifyByImageUrlRequest request = new ClassifyByImageUrlRequest(ServiceType.Classify, "_0000039");
+        ClassifyByImageUrlRequest request = new ClassifyByImageUrlRequest("classify", "_0000039");
         request.setUrl("http://productai.cn/img/f10.jpg");
         request.setLanguage(LanguageType.Chinese);
         request.setLoc("0.1-0.1-1-1");

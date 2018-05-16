@@ -4,7 +4,6 @@ package cn.productai.api.pai.base;
 import cn.productai.api.core.attribute.ParaSignAttribute;
 import cn.productai.api.core.base.BaseRequest;
 import cn.productai.api.core.base.BaseResponse;
-import cn.productai.api.core.enums.ServiceType;
 import cn.productai.api.core.helper.EnumHelper;
 import cn.productai.api.core.helper.FileHelper;
 import cn.productai.api.core.helper.WebQueryHelper;
@@ -15,16 +14,9 @@ import java.util.HashMap;
 
 public abstract class CallApiByImageFileBaseRequest<T extends BaseResponse> extends BaseRequest<T> {
 
-    private static HashMap<Integer, String> _serviceTypeDicts = EnumHelper.toHashMap(ServiceType.class);
-
     private String serviceType;
     private String serviceId;
-    private ServiceType serviceTypeValue;
 
-    public void setServiceTypeValue(ServiceType serviceTypeValue) {
-        this.serviceTypeValue = serviceTypeValue;
-        this.serviceType = _serviceTypeDicts.get(serviceTypeValue.ordinal());
-    }
 
     public String getServiceType() {
         return serviceType;

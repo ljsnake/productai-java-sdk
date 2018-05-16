@@ -2,7 +2,6 @@ package cn.productai.api.examples.classify;
 
 import cn.productai.api.core.IWebClient;
 import cn.productai.api.core.enums.LanguageType;
-import cn.productai.api.core.enums.ServiceType;
 import cn.productai.api.core.exceptions.ClientException;
 import cn.productai.api.examples.IExample;
 import cn.productai.api.pai.entity.classify.ClassifyByImageFileRequest;
@@ -24,7 +23,7 @@ public class ClassifyByFileExample implements IExample {
         System.out.println("==>  Demo - 场景分析与标注  <==");
         System.out.println("See https://developers.productai.cn/zh/reference/classify#场景分析与标注-v1-0 for details.\r\n");
 
-        ClassifyByImageFileRequest request = new ClassifyByImageFileRequest(ServiceType.Classify, "_0000039");
+        ClassifyByImageFileRequest request = new ClassifyByImageFileRequest("classify", "_0000039");
         request.setImageFile(new File(this.getClass().getResource("/").getPath() + "cn/productai/api/examples/files/f10.jpg"));
         request.setLanguage(LanguageType.Chinese);
 
