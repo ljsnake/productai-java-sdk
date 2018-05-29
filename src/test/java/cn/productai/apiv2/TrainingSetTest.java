@@ -2,7 +2,7 @@ package cn.productai.apiv2;
 
 import cn.productai.api.core.DefaultProfile;
 import cn.productai.api.core.IProfile;
-import cn.productai.apiv2.impl.ProductSearchImpl;
+import cn.productai.apiv2.impl.TrainingSetImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,55 +10,76 @@ import org.junit.jupiter.api.Test;
 public class TrainingSetTest {
 
     private static IProfile profile = new DefaultProfile();
-    private static ProductSearch productSearch = new ProductSearchImpl();
+    private static TrainingSet trainingSet = new TrainingSetImpl();
 
     @BeforeAll
     static void initAll() {
         profile.setAccessKeyId("249f5ce644aae36b6eb138e87af9e2fd");
-        productSearch.setProfile(profile);
+        trainingSet.setProfile(profile);
     }
 
+
     @Test
-    @DisplayName("List all services")
-    void testListAllService() {
-        String result = productSearch.listAllService();
-        System.out.println("List services");
+    @DisplayName("Create")
+    void testCreate() {
+        String result = trainingSet.create("Foo Name", "Bar Description");
+        System.out.println("create");
         System.out.println(result);
     }
 
     @Test
-    @DisplayName("Create service")
-    void testCreateService() {
-        String productSetId = "0ingz90g";
-        String result = productSearch.createService("Name", "general", productSetId);
-        System.out.println("Create service");
+    @DisplayName("List all")
+    void testListAll() {
+        String result = trainingSet.listAll();
+        System.out.println("List all");
         System.out.println(result);
     }
 
     @Test
     @DisplayName("Get service by Id")
-    void testGetServiceById() {
-        String productSetId = "0ingz90g";
-        String result = productSearch.getServiceById(productSetId);
-        System.out.println("Get service by Id");
+    void testGetById() {
+        String trainingSetId = "0ingz90g";
+        String result = trainingSet.getById(trainingSetId);
+        System.out.println("Get by Id");
         System.out.println(result);
     }
 
     @Test
-    @DisplayName("Update service")
-    void testUpdateService() {
-        String productSetId = "0ingz90g";
-        String result = productSearch.updateServiceName(productSetId, "new name");
-        System.out.println("Update service");
+    @DisplayName("Update")
+    void testUpdate() {
+        String trainingSetId = "0ingz90g";
+        String result = trainingSet.update(trainingSetId,
+                "new name", "new description");
+        System.out.println("Update");
         System.out.println(result);
     }
 
     @Test
-    @DisplayName("Delete service")
-    void testDeleteService() {
-        String productSetId = "0ingz90g";
-        String result = productSearch.deleteServiceById(productSetId);
-        System.out.println("Delete service");
+    @DisplayName("Delete")
+    void testDelete() {
+        String trainingSetId = "0ingz90g";
+        String result = trainingSet.delete(trainingSetId);
+        System.out.println("Delete");
+        System.out.println(result);
+    }
+
+    @Test
+    @DisplayName("Delete")
+    void testBulkAddTrainingData() {
+        String trainingSetId = "0ingz90g";
+        String file = "";
+        String result = trainingSet.bulkAddTrainingData(trainingSetId, file);
+        System.out.println("bulkAddTrainingData");
+        System.out.println(result);
+    }
+
+    @Test
+    @DisplayName("Delete")
+    void testBulkDeleteTrainingData() {
+        String trainingSetId = "0ingz90g";
+        String file = "";
+        String result = trainingSet.bulkDeleteTrainingData(trainingSetId, file);
+        System.out.println("bulkDeleteTrainingData");
         System.out.println(result);
     }
 }

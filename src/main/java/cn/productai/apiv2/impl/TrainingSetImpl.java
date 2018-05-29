@@ -77,7 +77,7 @@ public class TrainingSetImpl extends AbstractService implements TrainingSet {
     }
 
     @Override
-    public String bulkAddTrainingData(String fileContent) {
+    public String bulkAddTrainingData(String trainingSetId, String fileContent) {
         try {
             String url = URL + "/file";
             String json = "{"
@@ -91,7 +91,7 @@ public class TrainingSetImpl extends AbstractService implements TrainingSet {
     }
 
     @Override
-    public String bulkDeleteTrainingData(String fileContent) {
+    public String bulkDeleteTrainingData(String trainingSetId, String fileContent) {
         try {
             String url = URL + "/file";
             String json = "{"

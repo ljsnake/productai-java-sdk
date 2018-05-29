@@ -16,5 +16,5 @@ public interface CustomTraining {
 
     String deleteServiceById(String serviceId);
 
-    String predict(String serviceId, String imageUrl, File image);
+    String predict(String serviceId, String imageUrl, String image);
 }

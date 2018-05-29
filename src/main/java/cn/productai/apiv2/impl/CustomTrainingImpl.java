@@ -8,8 +8,6 @@ import cn.productai.apiv2.lib.Http;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.File;
-
 
 public class CustomTrainingImpl extends AbstractService implements CustomTraining {
 
@@ -62,7 +60,7 @@ public class CustomTrainingImpl extends AbstractService implements CustomTrainin
     }
 
     @Override
-    public String predict(String serviceId, String imageUrl, File image) {
+    public String predict(String serviceId, String imageUrl, String image) {
         try {
             if (imageUrl == null && image == null) {
                 throw new PAIException("imageUrl and image can be null at the same time.");
