@@ -18,7 +18,6 @@ public class TrainingSetTest {
         trainingSet.setProfile(profile);
     }
 
-
     @Test
     @DisplayName("Create")
     void testCreate() {

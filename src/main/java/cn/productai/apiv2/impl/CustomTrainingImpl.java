@@ -14,7 +14,6 @@ public class CustomTrainingImpl extends AbstractService implements CustomTrainin
     private static final Logger logger = LogManager.getLogger(CustomTrainingImpl.class);
     private static final String URL = BASE_URL + "/custom_training/_0000194";
 
-
     @Override
     public String listAllService() {
         try {
