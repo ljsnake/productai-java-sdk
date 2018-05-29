@@ -37,6 +37,15 @@ public class ProductSearchTest {
     }
 
     @Test
+    @DisplayName("Get service by Id")
+    void testGetServiceById() {
+        String productSetId = "0ingz90g";
+        String result = productSearch.getServiceById(productSetId);
+        System.out.println("Get service by Id");
+        System.out.println(result);
+    }
+
+    @Test
     @DisplayName("Update service")
     void testUpdateService() {
         String productSetId = "0ingz90g";

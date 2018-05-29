@@ -1,13 +1,11 @@
 package cn.productai.apiv2.lib;
 
 import cn.productai.api.core.enums.HttpMethod;
-import cn.productai.apiv2.exceptions.HttpException;
 import cn.productai.apiv2.exceptions.PAIException;
 import okhttp3.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
 import java.util.Map;
 
 public class Http {
@@ -16,25 +14,6 @@ public class Http {
     private static final OkHttpClient client = new OkHttpClient();
     private static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
-
-    public static String get(String url, Map<String, String> headers) throws IOException {
-        Request.Builder request = new Request.Builder()
-                .url(url);
-        headers.forEach(request::addHeader);
-        Response response = client.newCall(request.build()).execute();
-        return response.body().string();
-    }
-
-    public static String post(String url, String json) throws IOException {
-        RequestBody body = RequestBody.create(JSON, json);
-
-        Request request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .build();
-        Response response = client.newCall(request).execute();
-        return response.body().string();
-    }
 
     public static String request(HttpMethod httpMethod,
                                  String url,
@@ -72,11 +51,20 @@ public class Http {
         }
 
         try {
-            Response reponse = client.newCall(request.build()).execute();
-            return reponse.body().string();
+            Response response = client.newCall(request.build()).execute();
+            String resBody = null;
+            if (response.body() != null) {
+                resBody = response.body().string();
+            }
+            if (response.code() >= 400) {
+                logger.error("Request error, response code is "
+                        + response.code() + ", response body: " + resBody);
+            }
+
+            return resBody;
         } catch (Exception e) {
-            logger.error("Http Error", e.getMessage());
-            throw new HttpException();
+            logger.error("Http error", e.getMessage());
+            throw new PAIException(e);
         }
     }
 
