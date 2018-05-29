@@ -26,7 +26,7 @@ public class ProductSearchTest {
         String result = productSearch.query(serviceId, imageUrl,
                 null, null, null, null, null, null,
                 null);
-        System.out.println("List services");
+        System.out.println("query");
         System.out.println(result);
     }
 
