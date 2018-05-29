@@ -23,8 +23,8 @@ public class ProductSearchImpl extends AbstractService implements ProductSearch 
                     + "}";
 
             return Http.request(HttpMethod.POST, URL, getHeaders(), json);
-        } catch (PAIException pai) {
-            logger.error("createService request error", pai);
+        } catch (PAIException paie) {
+            logger.error("ProductSearch createService request error", paie);
             return null;
         }
     }
@@ -33,8 +33,8 @@ public class ProductSearchImpl extends AbstractService implements ProductSearch 
     public String listAllService() {
         try {
             return Http.request(HttpMethod.GET, URL, getHeaders());
-        } catch (PAIException pai) {
-            logger.error("listAllService request error", pai);
+        } catch (PAIException paie) {
+            logger.error("ProductSearch listAllService request error", paie);
             return null;
         }
     }
@@ -44,8 +44,8 @@ public class ProductSearchImpl extends AbstractService implements ProductSearch 
         try {
             String url = URL + "/" + productSetId;
             return Http.request(HttpMethod.GET, url, getHeaders());
-        } catch (PAIException pai) {
-            logger.error("getServiceById request error", pai);
+        } catch (PAIException paie) {
+            logger.error("ProductSearch getServiceById request error", paie);
             return null;
         }
     }
@@ -56,8 +56,8 @@ public class ProductSearchImpl extends AbstractService implements ProductSearch 
             String url = URL + "/" + productSetId;
             String json = "{\"name\":\"" + name + "\"}";
             return Http.request(HttpMethod.PATCH, url, getHeaders(), json);
-        } catch (PAIException pai) {
-            logger.error("updateServiceName request error", pai);
+        } catch (PAIException paie) {
+            logger.error("ProductSearch updateServiceName request error", paie);
             return null;
         }
     }
@@ -67,8 +67,8 @@ public class ProductSearchImpl extends AbstractService implements ProductSearch 
         try {
             String url = URL + "/" + productSetId;
             return Http.request(HttpMethod.DELETE, url, getHeaders());
-        } catch (PAIException pai) {
-            logger.error("deleteServiceById request error", pai);
+        } catch (PAIException paie) {
+            logger.error("ProductSearch deleteServiceById request error", paie);
             return null;
         }
     }
