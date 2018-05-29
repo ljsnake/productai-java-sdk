@@ -19,6 +19,18 @@ public class ProductSearchTest {
     }
 
     @Test
+    @DisplayName("Service query")
+    void testQuery() {
+        String serviceId = "70vr47ka";
+        String imageUrl = "https://styleai-shopping.oss-cn-beijing.aliyuncs.com/14d1b1e8a38ae767cc67834799be5ef9ed4595b9.jpg";
+        String result = productSearch.query(serviceId, imageUrl,
+                null, null, null, null, null, null,
+                null);
+        System.out.println("List services");
+        System.out.println(result);
+    }
+
+    @Test
     @DisplayName("List all services")
     void testListAllService() {
         String result = productSearch.listAllService();
