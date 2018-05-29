@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class ProductSearchTest {
+public class TrainingSetTest {
 
     private static IProfile profile = new DefaultProfile();
     private static ProductSearch productSearch = new ProductSearchImpl();

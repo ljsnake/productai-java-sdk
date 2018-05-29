@@ -7,14 +7,14 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class ProductSearchTest {
+public class CustomTrainingTest {
 
     private static IProfile profile = new DefaultProfile();
     private static ProductSearch productSearch = new ProductSearchImpl();
 
     @BeforeAll
     static void initAll() {
-        profile.setAccessKeyId("249f5ce644aae36b6eb138e87af9e2fd");
+        profile.setAccessKeyId(System.getenv("X_CA_ACCESS_KEY_ID"));
         productSearch.setProfile(profile);
     }
 
