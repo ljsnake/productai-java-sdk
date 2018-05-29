@@ -6,6 +6,7 @@ import okhttp3.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.util.Map;
 
 public class Http {
@@ -18,7 +19,8 @@ public class Http {
     public static String request(HttpMethod httpMethod,
                                  String url,
                                  Map<String, String> headers,
-                                 String json) throws PAIException {
+                                 String json,
+                                 String fileFieldName, File file) throws PAIException {
         // Set URL
         Request.Builder request = new Request.Builder()
                 .url(url);
@@ -32,6 +34,16 @@ public class Http {
         RequestBody body = null;
         if (json != null) {
             body = RequestBody.create(JSON, json);
+        }
+
+        if (fileFieldName != null && file != null) {
+            body = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart(
+                            fileFieldName,
+                            file.getName(),
+                            RequestBody.create(MediaType.parse("text/csv"), file))
+                    .build();
         }
 
         if (httpMethod.equals(HttpMethod.POST)) {
@@ -68,9 +80,22 @@ public class Http {
         }
     }
 
+
+    public static String request(HttpMethod httpMethod,
+                                 String url,
+                                 Map<String, String> headers, String json) throws PAIException {
+        return request(httpMethod, url, headers, json, null, null);
+    }
+
     public static String request(HttpMethod httpMethod,
                                  String url,
                                  Map<String, String> headers) throws PAIException {
-        return request(httpMethod, url, headers, null);
+        return request(httpMethod, url, headers, null, null, null);
+    }
+
+    public static String request(HttpMethod httpMethod,
+                                 String url,
+                                 Map<String, String> headers, String fileFieldName, File file) throws PAIException {
+        return request(httpMethod, url, headers, null, fileFieldName, file);
     }
 }

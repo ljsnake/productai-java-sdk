@@ -2,6 +2,8 @@ package cn.productai.apiv2;
 
 import cn.productai.api.core.IProfile;
 
+import java.io.File;
+
 public interface TrainingSet {
 
     void setProfile(IProfile profile);
@@ -16,9 +18,9 @@ public interface TrainingSet {
 
     String delete(String trainingSetId);
 
-    String bulkAddTrainingData(String trainingSetId, String fileContent);
+    String bulkAddTrainingData(String trainingSetId, File file);
 
-    String bulkDeleteTrainingData(String trainingSetId, String fileContent);
+    String bulkDeleteTrainingData(String trainingSetId, File file);
 
     String clearTrainingSet(String trainingSetId, String name);
 }

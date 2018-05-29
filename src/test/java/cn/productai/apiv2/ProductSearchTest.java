@@ -14,7 +14,7 @@ public class ProductSearchTest {
 
     @BeforeAll
     static void initAll() {
-        profile.setAccessKeyId("249f5ce644aae36b6eb138e87af9e2fd");
+        profile.setAccessKeyId(System.getenv("X_CA_ACCESS_KEY_ID"));
         productSearch.setProfile(profile);
     }
 

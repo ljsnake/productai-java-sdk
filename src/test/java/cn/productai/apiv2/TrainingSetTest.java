@@ -14,7 +14,7 @@ public class TrainingSetTest {
 
     @BeforeAll
     static void initAll() {
-        profile.setAccessKeyId("249f5ce644aae36b6eb138e87af9e2fd");
+        profile.setAccessKeyId(System.getenv("X_CA_ACCESS_KEY_ID"));
         trainingSet.setProfile(profile);
     }
 
@@ -65,20 +65,20 @@ public class TrainingSetTest {
     @Test
     @DisplayName("Delete")
     void testBulkAddTrainingData() {
-        String trainingSetId = "0ingz90g";
-        String file = "";
-        String result = trainingSet.bulkAddTrainingData(trainingSetId, file);
-        System.out.println("bulkAddTrainingData");
-        System.out.println(result);
+//        String trainingSetId = "0ingz90g";
+//        String file = "";
+//        String result = trainingSet.bulkAddTrainingData(trainingSetId, file);
+//        System.out.println("bulkAddTrainingData");
+//        System.out.println(result);
     }
 
     @Test
     @DisplayName("Delete")
     void testBulkDeleteTrainingData() {
-        String trainingSetId = "0ingz90g";
-        String file = "";
-        String result = trainingSet.bulkDeleteTrainingData(trainingSetId, file);
-        System.out.println("bulkDeleteTrainingData");
-        System.out.println(result);
+//        String trainingSetId = "0ingz90g";
+//        String file = "";
+//        String result = trainingSet.bulkDeleteTrainingData(trainingSetId, file);
+//        System.out.println("bulkDeleteTrainingData");
+//        System.out.println(result);
     }
 }

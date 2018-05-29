@@ -8,6 +8,7 @@ import cn.productai.apiv2.lib.Http;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.util.Base64;
 
 public class TrainingSetImpl extends AbstractService implements TrainingSet {
@@ -42,7 +43,8 @@ public class TrainingSetImpl extends AbstractService implements TrainingSet {
     @Override
     public String getById(String trainingSetId) {
         try {
-            String url = URL + "/" + trainingSetId;
+            String url = BASE_URL + "/custom_training/_0000194/" + trainingSetId + "/training_set";
+            System.out.println("getById URL: " + url);
             return Http.request(HttpMethod.GET, url, getHeaders());
         } catch (PAIException paie) {
             logger.error("TrainingSet getById request error", paie);
@@ -53,7 +55,7 @@ public class TrainingSetImpl extends AbstractService implements TrainingSet {
     @Override
     public String update(String trainingSetId, String name, String description) {
         try {
-            String url = URL + "/" + trainingSetId;
+            String url = BASE_URL + "/custom_training/_0000194/" + trainingSetId + "/training_set";
             String json = "{"
                     + "\"name\":\"" + name + "\","
                     + "\"description\":\"" + description + "\""
@@ -68,7 +70,7 @@ public class TrainingSetImpl extends AbstractService implements TrainingSet {
     @Override
     public String delete(String trainingSetId) {
         try {
-            String url = URL + "/" + trainingSetId;
+            String url = BASE_URL + "/custom_training/_0000194/" + trainingSetId + "/training_set";
             return Http.request(HttpMethod.DELETE, url, getHeaders());
         } catch (PAIException paie) {
             logger.error("TrainingSet delete request error", paie);
@@ -77,13 +79,10 @@ public class TrainingSetImpl extends AbstractService implements TrainingSet {
     }
 
     @Override
-    public String bulkAddTrainingData(String trainingSetId, String fileContent) {
+    public String bulkAddTrainingData(String trainingSetId, File file) {
         try {
-            String url = URL + "/file";
-            String json = "{"
-                    + "\"csv_file\":\"" + fileContent + "\""
-                    + "}";
-            return Http.request(HttpMethod.POST, url, getHeaders(), json);
+            String url = BASE_URL + "/custom_training/_0000194/" + trainingSetId + "/training_set/file";
+            return Http.request(HttpMethod.POST, url, getHeaders(), "csv_file", file);
         } catch (PAIException paie) {
             logger.error("TrainingSet bulkAddTrainingData request error", paie);
             return null;
@@ -91,13 +90,10 @@ public class TrainingSetImpl extends AbstractService implements TrainingSet {
     }
 
     @Override
-    public String bulkDeleteTrainingData(String trainingSetId, String fileContent) {
+    public String bulkDeleteTrainingData(String trainingSetId, File file) {
         try {
             String url = URL + "/file";
-            String json = "{"
-                    + "\"csv_file\":\"" + fileContent + "\""
-                    + "}";
-            return Http.request(HttpMethod.DELETE, url, getHeaders(), json);
+            return Http.request(HttpMethod.DELETE, url, getHeaders(), "csv_file", file);
         } catch (PAIException paie) {
             logger.error("TrainingSet bulkDeleteTrainingData request error", paie);
             return null;
@@ -113,7 +109,8 @@ public class TrainingSetImpl extends AbstractService implements TrainingSet {
                     + "\"name\":\"" + name + "\","
                     + "\"token\":\"" + token + "\""
                     + "}";
-            return Http.request(HttpMethod.DELETE, URL, getHeaders(), json);
+            String url = BASE_URL + "/custom_training/_0000194/" + trainingSetId + "/training_set";
+            return Http.request(HttpMethod.DELETE, url, getHeaders(), json);
         } catch (PAIException paie) {
             logger.error("TrainingSet delete request error", paie);
             return null;
