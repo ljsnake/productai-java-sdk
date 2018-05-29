@@ -7,12 +7,11 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 
-public class CustomTrainingImpl implements CustomTraining {
 
-    private static final Logger logger = LogManager.getLogger(ProductSearchImpl.class);
-    private static final String BASE_URL = "https://api.productai.cn/product_sets/_0000178/services";
-    private static final String X_CA_ACCESS_KEY_ID = "x-ca-accesskeyid";
-    private IProfile profile;
+public class CustomTrainingImpl extends AbstractService implements CustomTraining {
+
+    private static final Logger logger = LogManager.getLogger(CustomTrainingImpl.class);
+    private static final String URL = BASE_URL + "/custom_training/_0000194";
 
     @Override
     public void setProfile(IProfile profile) {

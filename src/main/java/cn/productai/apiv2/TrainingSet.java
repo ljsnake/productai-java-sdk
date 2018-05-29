@@ -8,7 +8,7 @@ public interface TrainingSet {
 
     void setProfile(IProfile profile);
 
-    String create(String name, String scenario, String productSetId);
+    String create(String name, String description);
 
     String listAll();
 
