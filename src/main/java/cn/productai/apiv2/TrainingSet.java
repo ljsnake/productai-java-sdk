@@ -18,9 +18,9 @@ public interface TrainingSet {
 
     String delete(String trainingSetId);
 
-    String bulkAddTrainingData(File file);
+    String bulkAddTrainingData(String fileContent);
 
-    String bulkDeleteTrainingData(File file);
+    String bulkDeleteTrainingData(String fileContent);
 
     String clearTrainingSet(String trainingSetId, String name);
 }
