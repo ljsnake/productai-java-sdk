@@ -59,7 +59,11 @@ public class Http {
         }
 
         if (httpMethod.equals(HttpMethod.DELETE)) {
-            request.delete();
+            if (body != null) {
+                request.delete(body);
+            } else {
+                request.delete();
+            }
         }
 
         try {

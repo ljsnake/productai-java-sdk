@@ -14,7 +14,8 @@ import java.util.Base64;
 public class TrainingSetImpl extends AbstractService implements TrainingSet {
 
     private static final Logger logger = LogManager.getLogger(TrainingSetImpl.class);
-    private static final String URL = BASE_URL + "/custom_training/_0000194/training_set";
+    //    private static final String URL = BASE_URL + "/custom_training/_0000194/training_set";
+    private static final String URL = BASE_URL + "/custom_training/_0000194/";
 
     @Override
     public String create(String name, String description) {
@@ -33,7 +34,8 @@ public class TrainingSetImpl extends AbstractService implements TrainingSet {
     @Override
     public String listAll() {
         try {
-            return Http.request(HttpMethod.GET, URL, getHeaders());
+            String url = URL + "training_set";
+            return Http.request(HttpMethod.GET, url, getHeaders());
         } catch (PAIException paie) {
             logger.error("TrainingSet listAll request error", paie);
             return null;
@@ -43,7 +45,7 @@ public class TrainingSetImpl extends AbstractService implements TrainingSet {
     @Override
     public String getById(String trainingSetId) {
         try {
-            String url = BASE_URL + "/custom_training/_0000194/" + trainingSetId + "/training_set";
+            String url = URL + trainingSetId + "/training_set";
             System.out.println("getById URL: " + url);
             return Http.request(HttpMethod.GET, url, getHeaders());
         } catch (PAIException paie) {
@@ -55,7 +57,7 @@ public class TrainingSetImpl extends AbstractService implements TrainingSet {
     @Override
     public String update(String trainingSetId, String name, String description) {
         try {
-            String url = BASE_URL + "/custom_training/_0000194/" + trainingSetId + "/training_set";
+            String url = URL + trainingSetId + "/training_set";
             String json = "{"
                     + "\"name\":\"" + name + "\","
                     + "\"description\":\"" + description + "\""
@@ -70,7 +72,7 @@ public class TrainingSetImpl extends AbstractService implements TrainingSet {
     @Override
     public String delete(String trainingSetId) {
         try {
-            String url = BASE_URL + "/custom_training/_0000194/" + trainingSetId + "/training_set";
+            String url = URL + trainingSetId + "/training_set";
             return Http.request(HttpMethod.DELETE, url, getHeaders());
         } catch (PAIException paie) {
             logger.error("TrainingSet delete request error", paie);
@@ -81,7 +83,7 @@ public class TrainingSetImpl extends AbstractService implements TrainingSet {
     @Override
     public String bulkAddTrainingData(String trainingSetId, File file) {
         try {
-            String url = BASE_URL + "/custom_training/_0000194/" + trainingSetId + "/training_set/file";
+            String url = URL + trainingSetId + "/training_set/file";
             return Http.request(HttpMethod.POST, url, getHeaders(), "csv_file", file);
         } catch (PAIException paie) {
             logger.error("TrainingSet bulkAddTrainingData request error", paie);
@@ -92,7 +94,7 @@ public class TrainingSetImpl extends AbstractService implements TrainingSet {
     @Override
     public String bulkDeleteTrainingData(String trainingSetId, File file) {
         try {
-            String url = URL + "/file";
+            String url = URL + trainingSetId + "/training_set/file";
             return Http.request(HttpMethod.DELETE, url, getHeaders(), "csv_file", file);
         } catch (PAIException paie) {
             logger.error("TrainingSet bulkDeleteTrainingData request error", paie);
@@ -109,7 +111,7 @@ public class TrainingSetImpl extends AbstractService implements TrainingSet {
                     + "\"name\":\"" + name + "\","
                     + "\"token\":\"" + token + "\""
                     + "}";
-            String url = BASE_URL + "/custom_training/_0000194/" + trainingSetId + "/training_set";
+            String url = URL + trainingSetId + "/training_set";
             return Http.request(HttpMethod.DELETE, url, getHeaders(), json);
         } catch (PAIException paie) {
             logger.error("TrainingSet delete request error", paie);

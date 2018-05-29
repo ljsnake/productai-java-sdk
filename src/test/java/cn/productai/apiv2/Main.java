@@ -54,30 +54,37 @@ public class Main {
 //        result = trainingSet.create("foo name", "bar of description");
 //        System.out.println(">>> Create result: " + result);
 
-//        result = trainingSet.listAll();
-//        System.out.println(">>> List all result: " + result);
+        result = trainingSet.listAll();
+        System.out.println(">>> List all result: " + result);
 
-//        result = trainingSet.getById("gd2a2sf3");
-//        System.out.println(">>> Get by id result: " + result);
+        result = trainingSet.getById("gd2a2sf3");
+        System.out.println(">>> Get by id result: " + result);
+
+        result = trainingSet.update("gd2a2sf3", "new name", "new desc");
+        System.out.println(">>> Update by id result: " + result);
+
+        result = trainingSet.delete("gd2a2sf3");
+        System.out.println(">>> Delete by id result: " + result);
+
+//        try {
+//            ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+//            File file = new File(classloader.getResource("raw_data.csv").getFile());
+//            result = trainingSet.bulkAddTrainingData("gd2a2sf3", file);
+//            System.out.println(">>> bulkAddTrainingData result: " + result);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 //
-//        result = trainingSet.update("gd2a2sf3", "new name", "new desc");
-//        System.out.println(">>> Update by id result: " + result);
+//        try {
+//            ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+//            File file = new File(classloader.getResource("raw_data_delete.csv").getFile());
+//            result = trainingSet.bulkDeleteTrainingData("gd2a2sf3", file);
+//            System.out.println(">>> bulkDeleteTrainingData result: " + result);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
-//        result = trainingSet.delete("2kt1uc5p");
-//        System.out.println(">>> Delete by id result: " + result);
-
-        try {
-            ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-            File file = new File(classloader.getResource("raw_data.csv").getFile());
-            result = trainingSet.bulkAddTrainingData("2kt1uc5p", file);
-            System.out.println(">>> Delete by id result: " + result);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // TODO: bulkDeleteTrainingData
-
-//        result = trainingSet.clearTrainingSet("antvpwdp", "foo name");
-//        System.out.println(">>> clearTrainingSet by id result: " + result);
+        result = trainingSet.clearTrainingSet("antvpwdp", "foo name");
+        System.out.println(">>> clearTrainingSet by id result: " + result);
     }
 }
