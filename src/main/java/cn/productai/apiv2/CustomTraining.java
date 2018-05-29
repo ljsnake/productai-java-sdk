@@ -2,8 +2,6 @@ package cn.productai.apiv2;
 
 import cn.productai.api.core.IProfile;
 
-import java.io.File;
-
 public interface CustomTraining {
 
     void setProfile(IProfile profile);
@@ -17,4 +15,6 @@ public interface CustomTraining {
     String deleteServiceById(String serviceId);
 
     String predict(String serviceId, String imageUrl, String image);
+
+    String createService(String trainingSetId, String name, String description, String scenario);
 }
