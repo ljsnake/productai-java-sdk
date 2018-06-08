@@ -84,7 +84,6 @@ public class CustomTrainingImpl extends AbstractService implements CustomTrainin
             }
 
             String url = BASE_URL + "/custom_training/" + serviceId;
-            System.out.println("Predict URL: " + url);
             String json;
             if (image != null) {
                 json = "{\"image\":\"" + image + "\"}";

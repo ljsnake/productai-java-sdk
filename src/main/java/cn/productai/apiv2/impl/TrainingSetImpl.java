@@ -46,7 +46,6 @@ public class TrainingSetImpl extends AbstractService implements TrainingSet {
     public String getById(String trainingSetId) {
         try {
             String url = URL + "/training_sets/" + trainingSetId;
-            System.out.println("getById URL: " + url);
             return Http.request(HttpMethod.GET, url, getHeaders());
         } catch (PAIException paie) {
             logger.error("TrainingSet getById request error", paie);

@@ -26,27 +26,33 @@ public class Test {
         customTraining.setProfile(profile);
 
         String result;
+        String serviceId = "avhiclgf";
 
-        result = customTraining.createService("gd2a2sf3",
+        result = customTraining.createService(serviceId,
                 "Foo Service", "Foo Description", "classifier");
         System.out.println(">>> createService result: " + result);
 
         result = customTraining.listAllService();
         System.out.println(">>> listAllService result: " + result);
 
-        result = customTraining.getServiceById("xdku0jqm");
+        result = customTraining.getServiceById(serviceId);
         System.out.println(">>> getServiceById result: " + result);
 
-        result = customTraining.updateServiceName("xdku0jqm", "Bar name");
+        result = customTraining.updateServiceName(serviceId, "Bar name");
         System.out.println(">>> updateServiceName result: " + result);
 
-        result = customTraining.deleteServiceById("xdku0jqm");
+        result = customTraining.predict(serviceId, "https://styleai-shopping.oss-cn-beijing.aliyuncs.com/14d1b1e8a38ae767cc67834799be5ef9ed4595b9.jpg", null);
+        System.out.println(">>> predict result: " + result);
+
+        result = customTraining.deleteServiceById(serviceId);
         System.out.println(">>> deleteServiceById result: " + result);
     }
 
     static void trainingSetExamples(IProfile profile) {
         TrainingSet trainingSet = new TrainingSetImpl();
         trainingSet.setProfile(profile);
+
+        String trainingSetId = "cx42ut7z";
 
         String result;
 
@@ -56,19 +62,16 @@ public class Test {
         result = trainingSet.listAll();
         System.out.println(">>> List all result: " + result);
 
-        result = trainingSet.getById("gd2a2sf3");
+        result = trainingSet.getById(trainingSetId);
         System.out.println(">>> Get by id result: " + result);
 
-        result = trainingSet.update("gd2a2sf3", "new name", "new desc");
+        result = trainingSet.update(trainingSetId, "new name", "new desc");
         System.out.println(">>> Update by id result: " + result);
-
-        result = trainingSet.delete("gd2a2sf3");
-        System.out.println(">>> Delete by id result: " + result);
 
         try {
             ClassLoader classloader = Thread.currentThread().getContextClassLoader();
             File file = new File(classloader.getResource("raw_data.csv").getFile());
-            result = trainingSet.bulkAddTrainingData("gd2a2sf3", file);
+            result = trainingSet.bulkAddTrainingData(trainingSetId, file);
             System.out.println(">>> bulkAddTrainingData result: " + result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,13 +80,16 @@ public class Test {
         try {
             ClassLoader classloader = Thread.currentThread().getContextClassLoader();
             File file = new File(classloader.getResource("raw_data_delete.csv").getFile());
-            result = trainingSet.bulkDeleteTrainingData("gd2a2sf3", file);
+            result = trainingSet.bulkDeleteTrainingData(trainingSetId, file);
             System.out.println(">>> bulkDeleteTrainingData result: " + result);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        result = trainingSet.clearTrainingSet("antvpwdp", "foo name");
+        result = trainingSet.clearTrainingSet(trainingSetId, "Foo Name");
         System.out.println(">>> clearTrainingSet by id result: " + result);
+
+        result = trainingSet.delete(trainingSetId);
+        System.out.println(">>> Delete by id result: " + result);
     }
 }
