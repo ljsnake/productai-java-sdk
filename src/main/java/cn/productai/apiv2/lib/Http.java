@@ -75,6 +75,7 @@ public class Http {
             if (response.code() >= 400) {
                 logger.error("Request error, response code is "
                         + response.code() + ", response body: " + resBody);
+                throw new PAIException("Request fail, response: " + resBody);
             }
 
             return resBody;

@@ -16,7 +16,7 @@ public class CustomTrainingImpl extends AbstractService implements CustomTrainin
 
     @Override
     public String createService(String trainingSetId, String name, String description,
-                                String scenario) {
+                                String scenario) throws PAIException {
         try {
             String json = "{"
                     + "\"name\":\"" + name + "\","
@@ -27,23 +27,23 @@ public class CustomTrainingImpl extends AbstractService implements CustomTrainin
             return Http.request(HttpMethod.POST, url, getHeaders(), json);
         } catch (PAIException paie) {
             logger.error("TrainingSet delete request error", paie);
-            return null;
+            throw paie;
         }
     }
 
     @Override
-    public String listAllService() {
+    public String listAllService() throws PAIException {
         try {
             String url = URL + "/services";
             return Http.request(HttpMethod.GET, url, getHeaders());
         } catch (PAIException paie) {
             logger.error("CustomTraining listAllService request error", paie);
-            return null;
+            throw paie;
         }
     }
 
     @Override
-    public String getServiceById(String serviceId) {
+    public String getServiceById(String serviceId) throws PAIException {
         try {
             String url = URL + "/services/" + serviceId;
             return Http.request(HttpMethod.GET, url, getHeaders());
@@ -54,30 +54,30 @@ public class CustomTrainingImpl extends AbstractService implements CustomTrainin
     }
 
     @Override
-    public String updateServiceName(String serviceId, String name) {
+    public String updateServiceName(String serviceId, String name) throws PAIException {
         try {
             String url = URL + "/services/" + serviceId;
             String json = "{\"name\":\"" + name + "\"}";
             return Http.request(HttpMethod.PUT, url, getHeaders(), json);
         } catch (PAIException paie) {
             logger.error("CustomTraining updateServiceName request error", paie);
-            return null;
+            throw paie;
         }
     }
 
     @Override
-    public String deleteServiceById(String serviceId) {
+    public String deleteServiceById(String serviceId) throws PAIException {
         try {
             String url = URL + "/services/" + serviceId;
             return Http.request(HttpMethod.DELETE, url, getHeaders());
         } catch (PAIException paie) {
             logger.error("CustomTraining deleteServiceById request error", paie);
-            return null;
+            throw paie;
         }
     }
 
     @Override
-    public String predict(String serviceId, String imageUrl, String image) {
+    public String predict(String serviceId, String imageUrl, String image) throws PAIException {
         try {
             if (imageUrl == null && image == null) {
                 throw new PAIException("imageUrl and image can be null at the same time.");
@@ -94,7 +94,7 @@ public class CustomTrainingImpl extends AbstractService implements CustomTrainin
             return Http.request(HttpMethod.POST, url, getHeaders(), json);
         } catch (PAIException paie) {
             logger.error("CustomTraining predict request error", paie);
-            return null;
+            throw paie;
         }
     }
 

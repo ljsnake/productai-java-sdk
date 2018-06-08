@@ -2,6 +2,7 @@ package cn.productai.apiv2;
 
 import cn.productai.api.core.DefaultProfile;
 import cn.productai.api.core.IProfile;
+import cn.productai.apiv2.exceptions.PAIException;
 import cn.productai.apiv2.impl.TrainingSetImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -20,7 +21,7 @@ public class TrainingSetTest {
 
     @Test
     @DisplayName("Create")
-    void testCreate() {
+    void testCreate() throws PAIException {
         String result = trainingSet.create("Foo Name", "Bar Description");
         System.out.println("create");
         System.out.println(result);
@@ -28,7 +29,7 @@ public class TrainingSetTest {
 
     @Test
     @DisplayName("List all")
-    void testListAll() {
+    void testListAll() throws PAIException {
         String result = trainingSet.listAll();
         System.out.println("List all");
         System.out.println(result);
@@ -36,7 +37,7 @@ public class TrainingSetTest {
 
     @Test
     @DisplayName("Get service by Id")
-    void testGetById() {
+    void testGetById() throws PAIException {
         String trainingSetId = "0ingz90g";
         String result = trainingSet.getById(trainingSetId);
         System.out.println("Get by Id");
@@ -45,7 +46,7 @@ public class TrainingSetTest {
 
     @Test
     @DisplayName("Update")
-    void testUpdate() {
+    void testUpdate() throws PAIException {
         String trainingSetId = "0ingz90g";
         String result = trainingSet.update(trainingSetId,
                 "new name", "new description");
@@ -55,7 +56,7 @@ public class TrainingSetTest {
 
     @Test
     @DisplayName("Delete")
-    void testDelete() {
+    void testDelete() throws PAIException {
         String trainingSetId = "0ingz90g";
         String result = trainingSet.delete(trainingSetId);
         System.out.println("Delete");

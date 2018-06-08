@@ -2,6 +2,7 @@ package cn.productai.apiv2;
 
 import cn.productai.api.core.DefaultProfile;
 import cn.productai.api.core.IProfile;
+import cn.productai.apiv2.exceptions.PAIException;
 import cn.productai.apiv2.impl.CustomTrainingImpl;
 import cn.productai.apiv2.impl.TrainingSetImpl;
 import org.apache.logging.log4j.LogManager;
@@ -17,11 +18,15 @@ public class Test {
         IProfile profile = new DefaultProfile();
         profile.setAccessKeyId(System.getenv("X_CA_ACCESS_KEY_ID"));
 
-        trainingSetExamples(profile);
-        customTrainingExamples(profile);
+        try {
+            trainingSetExamples(profile);
+            customTrainingExamples(profile);
+        } catch (PAIException e) {
+            e.printStackTrace();
+        }
     }
 
-    static void customTrainingExamples(IProfile profile) {
+    static void customTrainingExamples(IProfile profile) throws PAIException {
         CustomTraining customTraining = new CustomTrainingImpl();
         customTraining.setProfile(profile);
 
@@ -48,7 +53,7 @@ public class Test {
         System.out.println(">>> deleteServiceById result: " + result);
     }
 
-    static void trainingSetExamples(IProfile profile) {
+    static void trainingSetExamples(IProfile profile) throws PAIException {
         TrainingSet trainingSet = new TrainingSetImpl();
         trainingSet.setProfile(profile);
 
