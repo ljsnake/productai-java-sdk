@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 public class CustomTrainingImpl extends AbstractService implements CustomTraining {
 
     private static final Logger logger = LogManager.getLogger(CustomTrainingImpl.class);
-    private static final String URL = BASE_URL + "/custom_training/_0000194/";
+    private static final String URL = BASE_URL + "/custom_training/_0000194";
 
     @Override
     public String createService(String trainingSetId, String name, String description,
@@ -23,7 +23,7 @@ public class CustomTrainingImpl extends AbstractService implements CustomTrainin
                     + "\"description\":\"" + description + "\","
                     + "\"scenario\":\"" + scenario + "\""
                     + "}";
-            String url = URL + trainingSetId + "/service";
+            String url = URL + "/training_sets/" + trainingSetId + "/services";
             return Http.request(HttpMethod.POST, url, getHeaders(), json);
         } catch (PAIException paie) {
             logger.error("TrainingSet delete request error", paie);
@@ -34,7 +34,7 @@ public class CustomTrainingImpl extends AbstractService implements CustomTrainin
     @Override
     public String listAllService() {
         try {
-            String url = URL + "service/list";
+            String url = URL + "/services";
             return Http.request(HttpMethod.GET, url, getHeaders());
         } catch (PAIException paie) {
             logger.error("CustomTraining listAllService request error", paie);
@@ -45,7 +45,7 @@ public class CustomTrainingImpl extends AbstractService implements CustomTrainin
     @Override
     public String getServiceById(String serviceId) {
         try {
-            String url = URL + serviceId + "/service/view";
+            String url = URL + "/services/" + serviceId;
             return Http.request(HttpMethod.GET, url, getHeaders());
         } catch (PAIException paie) {
             logger.error("CustomTraining getServiceById request error", paie);
@@ -56,7 +56,7 @@ public class CustomTrainingImpl extends AbstractService implements CustomTrainin
     @Override
     public String updateServiceName(String serviceId, String name) {
         try {
-            String url = URL + serviceId + "/service";
+            String url = URL + "/services/" + serviceId;
             String json = "{\"name\":\"" + name + "\"}";
             return Http.request(HttpMethod.PUT, url, getHeaders(), json);
         } catch (PAIException paie) {
@@ -68,7 +68,7 @@ public class CustomTrainingImpl extends AbstractService implements CustomTrainin
     @Override
     public String deleteServiceById(String serviceId) {
         try {
-            String url = URL + serviceId + "/service";
+            String url = URL + "/services/" + serviceId;
             return Http.request(HttpMethod.DELETE, url, getHeaders());
         } catch (PAIException paie) {
             logger.error("CustomTraining deleteServiceById request error", paie);
@@ -83,7 +83,8 @@ public class CustomTrainingImpl extends AbstractService implements CustomTrainin
                 throw new PAIException("imageUrl and image can be null at the same time.");
             }
 
-            String url = URL + "/" + serviceId;
+            String url = BASE_URL + "/custom_training/" + serviceId;
+            System.out.println("Predict URL: " + url);
             String json;
             if (image != null) {
                 json = "{\"image\":\"" + image + "\"}";
