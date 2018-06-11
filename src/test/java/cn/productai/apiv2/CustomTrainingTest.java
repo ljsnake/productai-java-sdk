@@ -21,46 +21,66 @@ public class CustomTrainingTest {
 
     @Test
     @DisplayName("List all services")
-    void testListAllService() throws PAIException {
-        String result = customTraining.listAllService();
-        System.out.println("List services");
-        System.out.println(result);
+    void testListAllService() {
+        try {
+            String result = customTraining.listAllService();
+            System.out.println("List services");
+            System.out.println(result);
+        } catch (PAIException e) {
+            System.out.println("Fail");
+        }
     }
 
     @Test
     @DisplayName("Get service by Id")
-    void testGetServiceById() throws PAIException {
-        String productSetId = "0ingz90g";
-        String result = customTraining.getServiceById(productSetId);
-        System.out.println("Get service by Id");
-        System.out.println(result);
+    void testGetServiceById() {
+        try {
+            String productSetId = "0ingz90g";
+            String result = customTraining.getServiceById(productSetId);
+            System.out.println("Get service by Id");
+            System.out.println(result);
+        } catch (PAIException e) {
+            System.out.println("Fail");
+        }
     }
 
     @Test
     @DisplayName("Update service")
-    void testUpdateService() throws PAIException {
-        String productSetId = "0ingz90g";
-        String result = customTraining.updateServiceName(productSetId, "new name");
-        System.out.println("Update service");
-        System.out.println(result);
+    void testUpdateService() {
+        try {
+            String productSetId = "0ingz90g";
+            String result = customTraining.updateServiceName(productSetId, "new name");
+            System.out.println("Update service");
+            System.out.println(result);
+        } catch (PAIException e) {
+            System.out.println("Fail");
+        }
     }
 
     @Test
     @DisplayName("Delete service")
-    void testDeleteService() throws PAIException {
-        String productSetId = "0ingz90g";
-        String result = customTraining.deleteServiceById(productSetId);
-        System.out.println("Delete service");
-        System.out.println(result);
+    void testDeleteService() {
+        try {
+            String productSetId = "0ingz90g";
+            String result = customTraining.deleteServiceById(productSetId);
+            System.out.println("Delete service");
+            System.out.println(result);
+        } catch (PAIException e) {
+            System.out.println("Fail");
+        }
     }
 
     @Test
     @DisplayName("Predict")
-    void testPredict() throws PAIException {
-        String serviceId = "0ingz90g";
-        String image = "";
-        String result = customTraining.predict(serviceId, null, image);
-        System.out.println("Delete service");
-        System.out.println(result);
+    void testPredict() {
+        try {
+            String serviceId = "0ingz90g";
+            String image = "";
+            String result = customTraining.predict(serviceId, null, image);
+            System.out.println("Delete service");
+            System.out.println(result);
+        } catch (PAIException e) {
+            System.out.println("Fail");
+        }
     }
 }

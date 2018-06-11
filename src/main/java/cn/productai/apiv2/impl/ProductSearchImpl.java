@@ -17,7 +17,7 @@ public class ProductSearchImpl extends AbstractService implements ProductSearch 
 
     @Override
     public String query(String serviceId, String imageUrl, String loc, Integer count, String tags,
-                        String keywords, String minPrice, String maxPrice, Map<String, String> params) {
+                        String keywords, String minPrice, String maxPrice, Map<String, String> params) throws PAIException {
         if (loc == null) {
             loc = "0-0-1-1";
         }
@@ -53,12 +53,12 @@ public class ProductSearchImpl extends AbstractService implements ProductSearch 
             return Http.request(HttpMethod.POST, url, getHeaders(), json);
         } catch (PAIException paie) {
             logger.log(Level.SEVERE, "ProductSearch createService request error", paie);
-            return null;
+            throw paie;
         }
     }
 
     @Override
-    public String createService(String name, String scenario, String productSetId) {
+    public String createService(String name, String scenario, String productSetId) throws PAIException {
         try {
             String json = "{"
                     + "\"name\":\"" + name + "\","
@@ -69,51 +69,51 @@ public class ProductSearchImpl extends AbstractService implements ProductSearch 
             return Http.request(HttpMethod.POST, URL, getHeaders(), json);
         } catch (PAIException paie) {
             logger.log(Level.SEVERE, "ProductSearch createService request error", paie);
-            return null;
+            throw paie;
         }
     }
 
     @Override
-    public String listAllService() {
+    public String listAllService() throws PAIException {
         try {
             return Http.request(HttpMethod.GET, URL, getHeaders());
         } catch (PAIException paie) {
             logger.log(Level.SEVERE, "ProductSearch listAllService request error", paie);
-            return null;
+            throw paie;
         }
     }
 
     @Override
-    public String getServiceById(String productSetId) {
+    public String getServiceById(String productSetId) throws PAIException {
         try {
             String url = URL + "/" + productSetId;
             return Http.request(HttpMethod.GET, url, getHeaders());
         } catch (PAIException paie) {
             logger.log(Level.SEVERE, "ProductSearch getServiceById request error", paie);
-            return null;
+            throw paie;
         }
     }
 
     @Override
-    public String updateServiceName(String productSetId, String name) {
+    public String updateServiceName(String productSetId, String name) throws PAIException {
         try {
             String url = URL + "/" + productSetId;
             String json = "{\"name\":\"" + name + "\"}";
             return Http.request(HttpMethod.PATCH, url, getHeaders(), json);
         } catch (PAIException paie) {
             logger.log(Level.SEVERE, "ProductSearch updateServiceName request error", paie);
-            return null;
+            throw paie;
         }
     }
 
     @Override
-    public String deleteServiceById(String productSetId) {
+    public String deleteServiceById(String productSetId) throws PAIException {
         try {
             String url = URL + "/" + productSetId;
             return Http.request(HttpMethod.DELETE, url, getHeaders());
         } catch (PAIException paie) {
             logger.log(Level.SEVERE, "ProductSearch deleteServiceById request error", paie);
-            return null;
+            throw paie;
         }
     }
 
