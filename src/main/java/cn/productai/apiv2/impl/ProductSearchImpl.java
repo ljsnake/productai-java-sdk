@@ -5,14 +5,14 @@ import cn.productai.api.core.enums.HttpMethod;
 import cn.productai.apiv2.ProductSearch;
 import cn.productai.apiv2.exceptions.PAIException;
 import cn.productai.apiv2.lib.Http;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ProductSearchImpl extends AbstractService implements ProductSearch {
 
-    private static final Logger logger = LogManager.getLogger(ProductSearchImpl.class);
+    private static final Logger logger = Logger.getLogger(ProductSearchImpl.class.getName());
     private static final String URL = BASE_URL + "/product_sets/_0000178/services";
 
     @Override
@@ -52,7 +52,7 @@ public class ProductSearchImpl extends AbstractService implements ProductSearch 
             String url = BASE_URL + "/product_search/" + serviceId;
             return Http.request(HttpMethod.POST, url, getHeaders(), json);
         } catch (PAIException paie) {
-            logger.error("ProductSearch createService request error", paie);
+            logger.log(Level.SEVERE, "ProductSearch createService request error", paie);
             return null;
         }
     }
@@ -68,7 +68,7 @@ public class ProductSearchImpl extends AbstractService implements ProductSearch 
 
             return Http.request(HttpMethod.POST, URL, getHeaders(), json);
         } catch (PAIException paie) {
-            logger.error("ProductSearch createService request error", paie);
+            logger.log(Level.SEVERE, "ProductSearch createService request error", paie);
             return null;
         }
     }
@@ -78,7 +78,7 @@ public class ProductSearchImpl extends AbstractService implements ProductSearch 
         try {
             return Http.request(HttpMethod.GET, URL, getHeaders());
         } catch (PAIException paie) {
-            logger.error("ProductSearch listAllService request error", paie);
+            logger.log(Level.SEVERE, "ProductSearch listAllService request error", paie);
             return null;
         }
     }
@@ -89,7 +89,7 @@ public class ProductSearchImpl extends AbstractService implements ProductSearch 
             String url = URL + "/" + productSetId;
             return Http.request(HttpMethod.GET, url, getHeaders());
         } catch (PAIException paie) {
-            logger.error("ProductSearch getServiceById request error", paie);
+            logger.log(Level.SEVERE, "ProductSearch getServiceById request error", paie);
             return null;
         }
     }
@@ -101,7 +101,7 @@ public class ProductSearchImpl extends AbstractService implements ProductSearch 
             String json = "{\"name\":\"" + name + "\"}";
             return Http.request(HttpMethod.PATCH, url, getHeaders(), json);
         } catch (PAIException paie) {
-            logger.error("ProductSearch updateServiceName request error", paie);
+            logger.log(Level.SEVERE, "ProductSearch updateServiceName request error", paie);
             return null;
         }
     }
@@ -112,7 +112,7 @@ public class ProductSearchImpl extends AbstractService implements ProductSearch 
             String url = URL + "/" + productSetId;
             return Http.request(HttpMethod.DELETE, url, getHeaders());
         } catch (PAIException paie) {
-            logger.error("ProductSearch deleteServiceById request error", paie);
+            logger.log(Level.SEVERE, "ProductSearch deleteServiceById request error", paie);
             return null;
         }
     }

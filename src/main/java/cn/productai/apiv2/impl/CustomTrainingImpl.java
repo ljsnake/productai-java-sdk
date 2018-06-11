@@ -5,13 +5,14 @@ import cn.productai.api.core.enums.HttpMethod;
 import cn.productai.apiv2.CustomTraining;
 import cn.productai.apiv2.exceptions.PAIException;
 import cn.productai.apiv2.lib.Http;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class CustomTrainingImpl extends AbstractService implements CustomTraining {
 
-    private static final Logger logger = LogManager.getLogger(CustomTrainingImpl.class);
+    private static final Logger logger = Logger.getLogger(CustomTrainingImpl.class.getName());
     private static final String URL = BASE_URL + "/custom_training/_0000194";
 
     @Override
@@ -26,7 +27,7 @@ public class CustomTrainingImpl extends AbstractService implements CustomTrainin
             String url = URL + "/training_sets/" + trainingSetId + "/services";
             return Http.request(HttpMethod.POST, url, getHeaders(), json);
         } catch (PAIException paie) {
-            logger.error("TrainingSet delete request error", paie);
+            logger.log(Level.SEVERE, "TrainingSet delete request error", paie);
             throw paie;
         }
     }
@@ -37,7 +38,7 @@ public class CustomTrainingImpl extends AbstractService implements CustomTrainin
             String url = URL + "/services";
             return Http.request(HttpMethod.GET, url, getHeaders());
         } catch (PAIException paie) {
-            logger.error("CustomTraining listAllService request error", paie);
+            logger.log(Level.SEVERE, "CustomTraining listAllService request error", paie);
             throw paie;
         }
     }
@@ -48,7 +49,7 @@ public class CustomTrainingImpl extends AbstractService implements CustomTrainin
             String url = URL + "/services/" + serviceId;
             return Http.request(HttpMethod.GET, url, getHeaders());
         } catch (PAIException paie) {
-            logger.error("CustomTraining getServiceById request error", paie);
+            logger.log(Level.SEVERE, "CustomTraining getServiceById request error", paie);
             return null;
         }
     }
@@ -60,7 +61,7 @@ public class CustomTrainingImpl extends AbstractService implements CustomTrainin
             String json = "{\"name\":\"" + name + "\"}";
             return Http.request(HttpMethod.PUT, url, getHeaders(), json);
         } catch (PAIException paie) {
-            logger.error("CustomTraining updateServiceName request error", paie);
+            logger.log(Level.SEVERE, "CustomTraining updateServiceName request error", paie);
             throw paie;
         }
     }
@@ -71,7 +72,7 @@ public class CustomTrainingImpl extends AbstractService implements CustomTrainin
             String url = URL + "/services/" + serviceId;
             return Http.request(HttpMethod.DELETE, url, getHeaders());
         } catch (PAIException paie) {
-            logger.error("CustomTraining deleteServiceById request error", paie);
+            logger.log(Level.SEVERE, "CustomTraining deleteServiceById request error", paie);
             throw paie;
         }
     }
@@ -93,7 +94,7 @@ public class CustomTrainingImpl extends AbstractService implements CustomTrainin
 
             return Http.request(HttpMethod.POST, url, getHeaders(), json);
         } catch (PAIException paie) {
-            logger.error("CustomTraining predict request error", paie);
+            logger.log(Level.SEVERE, "CustomTraining predict request error", paie);
             throw paie;
         }
     }

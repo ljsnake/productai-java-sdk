@@ -5,15 +5,11 @@ import cn.productai.api.core.IProfile;
 import cn.productai.apiv2.exceptions.PAIException;
 import cn.productai.apiv2.impl.CustomTrainingImpl;
 import cn.productai.apiv2.impl.TrainingSetImpl;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 
 
 public class Test {
-    private static final Logger logger = LogManager.getLogger(Test.class);
-
     public static void main(String[] args) {
         IProfile profile = new DefaultProfile();
         profile.setAccessKeyId(System.getenv("X_CA_ACCESS_KEY_ID"));
