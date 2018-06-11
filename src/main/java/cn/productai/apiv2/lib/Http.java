@@ -3,15 +3,15 @@ package cn.productai.apiv2.lib;
 import cn.productai.api.core.enums.HttpMethod;
 import cn.productai.apiv2.exceptions.PAIException;
 import okhttp3.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Http {
 
-    private static final Logger logger = LogManager.getLogger(Http.class);
+    private static final Logger logger = Logger.getLogger(Http.class.getName());
     private static final OkHttpClient client = new OkHttpClient();
     private static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
@@ -73,13 +73,14 @@ public class Http {
                 resBody = response.body().string();
             }
             if (response.code() >= 400) {
-                logger.error("Request error, response code is "
+                logger.log(Level.SEVERE, "Request error, response code is "
                         + response.code() + ", response body: " + resBody);
+                throw new PAIException("Request fail, response: " + resBody);
             }
 
             return resBody;
         } catch (Exception e) {
-            logger.error("Http error", e.getMessage());
+            logger.log(Level.SEVERE, "Http error", e.getMessage());
             throw new PAIException(e);
         }
     }
