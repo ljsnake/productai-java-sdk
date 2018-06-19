@@ -72,4 +72,4 @@ fabric.properties
 /target
 
 .gradle
-build
+/build
