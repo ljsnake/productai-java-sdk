@@ -1,0 +1,31 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'cn.productai.api'
+version = '2.1.7'
+
+description = """productai-java-sdk"""
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+
+
+repositories {
+        
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+dependencies {
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.8'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.8.8'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.8.0'
+    compile 'com.squareup.okhttp3:okhttp:3.10.0'
+    compile 'commons-codec:commons-codec:1.11'
+
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
+    testCompile 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
+    testCompile 'org.junit.vintage:junit-vintage-engine:5.2.0'
+}
