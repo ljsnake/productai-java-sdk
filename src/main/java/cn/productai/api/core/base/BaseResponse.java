@@ -1,10 +1,10 @@
 package cn.productai.api.core.base;
 
 import cn.productai.api.core.enums.ResponseType;
-import com.fasterxml.jackson.annotation.*;
+import cn.productai.util.Base64;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.IOException;
-import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +17,29 @@ public abstract class BaseResponse {
     private String responseBase64String;
     private Integer statusCode;
     private Map<String, List<String>> headers;
-    private String responseJsonString;
+
+    @JsonProperty("is_err")
+    private Integer isError;
+    @JsonProperty("err_msg")
+    private String errorMsg;
+    @JsonProperty("time")
+    private Double time;
+    @JsonProperty("time_detail")
+    private Double[] timeDetails;
+    @JsonProperty("request_id")
+    private String requestId;
+    @JsonProperty("error_code")
+    private String errorCode;
+    @JsonProperty("message")
+    private String message;
+    @JsonProperty("ver")
+    private String version;
+    @JsonProperty("msg")
+    private String msg;
+
+    public BaseResponse() {
+
+    }
 
     public String getResponseJsonString() throws IOException {
         if (this.getResponseBase64String() != null && !this.getResponseBase64String().isEmpty()) {
@@ -26,23 +48,23 @@ public abstract class BaseResponse {
         return "";
     }
 
-    public ResponseType getResponseType(){
+    public ResponseType getResponseType() {
         return this.responseType;
     }
 
-    public String getResponseBase64String(){
+    public String getResponseBase64String() {
         return this.responseBase64String;
     }
 
-    public void setResponseBase64String(String base64String){
+    public void setResponseBase64String(String base64String) {
         this.responseBase64String = base64String;
     }
 
-    public Integer getStatusCode(){
+    public Integer getStatusCode() {
         return this.statusCode;
     }
 
-    public void setStatusCode(Integer httpStatus){
+    public void setStatusCode(Integer httpStatus) {
         this.statusCode = httpStatus;
     }
 
@@ -54,33 +76,6 @@ public abstract class BaseResponse {
         this.headers = headers;
     }
 
-    @JsonProperty("is_err")
-    private Integer isError;
-
-    @JsonProperty("err_msg")
-    private String errorMsg;
-
-    @JsonProperty("time")
-    private Double time;
-
-    @JsonProperty("time_detail")
-    private Double[] timeDetails;
-
-    @JsonProperty("request_id")
-    private String requestId;
-
-    @JsonProperty("error_code")
-    private String errorCode;
-
-    @JsonProperty("message")
-    private String message;
-
-    @JsonProperty("ver")
-    private String version;
-
-    @JsonProperty("msg")
-    private String msg;
-
     public String getMsg() {
         return msg;
     }
@@ -89,15 +84,15 @@ public abstract class BaseResponse {
         this.msg = msg;
     }
 
-    public Integer getIsError(){
+    public Integer getIsError() {
         return this.isError;
     }
 
-    public void setIsError(Integer value){
+    public void setIsError(Integer value) {
         this.isError = value;
     }
 
-    public String getErrorMsg(){
+    public String getErrorMsg() {
         return this.errorMsg;
     }
 
@@ -151,9 +146,5 @@ public abstract class BaseResponse {
 
     public void setVersion(String version) {
         this.version = version;
-    }
-
-    public BaseResponse(){
-
     }
 }

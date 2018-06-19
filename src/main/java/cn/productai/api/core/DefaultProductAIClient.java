@@ -7,9 +7,10 @@ import cn.productai.api.core.exceptions.ClientException;
 import cn.productai.api.core.exceptions.ServerException;
 import cn.productai.api.core.helper.RequestHelper;
 import cn.productai.api.core.internal.HttpResponse;
+import cn.productai.util.Base64;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.codec.binary.Base64;
+
 import java.nio.charset.Charset;
 import java.util.HashMap;
 
@@ -19,8 +20,6 @@ public class DefaultProductAIClient implements IWebClient {
     private String host = "api.productai.cn";
     private Charset charset = Charset.forName("UTF-8");
     private IProfile profile = null;
-
-    private static Base64 base64 = new Base64();
 
     public DefaultProductAIClient() {
 
@@ -124,7 +123,7 @@ public class DefaultProductAIClient implements IWebClient {
             T _t = mapper.readValue(httpResponse.getResponseString(), request.getResponseClass());
             _t.setHeaders(httpResponse.getHeaders());
             _t.setStatusCode(httpResponse.getStatusCode());
-            _t.setResponseBase64String(new String(base64.encode(httpResponse.getResponseBytes())));
+            _t.setResponseBase64String(Base64.getEncoder().encodeToString(httpResponse.getResponseBytes()));
 
 
             if (httpResponse.getStatusCode() >= 500) {

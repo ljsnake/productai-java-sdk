@@ -1,8 +1,8 @@
 package cn.productai.api.core.helper;
 
 
+import cn.productai.util.Base64;
 import cn.productai.util.StrUtil;
-import org.apache.commons.codec.binary.Base64;
 
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
@@ -13,8 +13,6 @@ import java.util.*;
  * Created by Thinkpad on 2017/7/3.
  */
 public class SignatureHelper {
-
-    private static Base64 base64 = new Base64();
 
     public static String signature(String secretKey, HashMap<String, String> paras) throws Exception {
         ArrayList<String> excludeKeys = new ArrayList<>();
@@ -56,6 +54,6 @@ public class SignatureHelper {
         mac.init(secretKey1);
         byte[] textBytes = urlPairs.getBytes("UTF-8");
 
-        return new String(base64.encode(mac.doFinal(textBytes)));
+        return new String(Base64.getEncoder().encode(mac.doFinal(textBytes)));
     }
 }
