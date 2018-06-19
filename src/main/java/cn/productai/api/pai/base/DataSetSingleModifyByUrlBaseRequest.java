@@ -4,6 +4,7 @@ import cn.productai.api.core.attribute.IgnoreExtraParasAttribute;
 import cn.productai.api.core.attribute.ParaSignAttribute;
 import cn.productai.api.core.base.BaseRequest;
 import cn.productai.api.core.base.BaseResponse;
+import cn.productai.util.StrUtil;
 
 import java.util.ArrayList;
 
@@ -69,7 +70,7 @@ public abstract class DataSetSingleModifyByUrlBaseRequest<T extends BaseResponse
 
     public String getTags() {
         if (this.searchTags != null && this.searchTags.size() > 0) {
-            return String.join("|", this.searchTags);
+            return StrUtil.join("|", this.searchTags);
         }
 
         return null;

@@ -4,6 +4,7 @@ import cn.productai.api.core.attribute.ParaSignAttribute;
 import cn.productai.api.core.base.ManagementAPIBaseRequest;
 import cn.productai.api.core.enums.HttpMethod;
 import cn.productai.api.core.enums.ServiceTypeId;
+import cn.productai.util.StrUtil;
 
 public class DeleteProductsByProductSetRequest extends ManagementAPIBaseRequest<DeleteProductsByProductSetResponse> {
 
@@ -26,7 +27,7 @@ public class DeleteProductsByProductSetRequest extends ManagementAPIBaseRequest<
         this.setProductSetId(productSetId);
         this.setProductIds(productIds);
         this.setProductSetId(productSetId);
-        this.setIds(String.join(",", productIds));
+        this.setIds(StrUtil.join(",", productIds));
     }
 
     @Override

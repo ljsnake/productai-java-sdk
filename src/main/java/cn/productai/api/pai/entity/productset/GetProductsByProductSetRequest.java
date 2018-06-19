@@ -5,6 +5,7 @@ import cn.productai.api.core.base.ManagementAPIBaseRequest;
 import cn.productai.api.core.enums.ContentType;
 import cn.productai.api.core.enums.HttpMethod;
 import cn.productai.api.core.enums.ServiceTypeId;
+import cn.productai.util.StrUtil;
 
 public class GetProductsByProductSetRequest extends ManagementAPIBaseRequest<GetProductsByProductSetResponse> {
 
@@ -18,7 +19,7 @@ public class GetProductsByProductSetRequest extends ManagementAPIBaseRequest<Get
         super();
         this.setProductSetId(productSetId);
         this.setProductIds(productIds);
-        this.setIds(String.join(",", productIds));
+        this.setIds(StrUtil.join(",", productIds));
 
         this.setRequestMethod(HttpMethod.GET);
         this.setContentType(ContentType.Default);

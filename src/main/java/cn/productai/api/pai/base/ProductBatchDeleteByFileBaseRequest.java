@@ -5,6 +5,7 @@ import cn.productai.api.core.base.BaseRequest;
 import cn.productai.api.core.base.BaseResponse;
 import cn.productai.api.core.enums.ServiceTypeId;
 import cn.productai.api.core.helper.FileHelper;
+import cn.productai.util.StrUtil;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -90,7 +91,7 @@ public abstract class ProductBatchDeleteByFileBaseRequest<T extends BaseResponse
 
         // Parse file to string like '1,2,3'
         try {
-            this.setIds(String.join(",", parseCsvToLine(csvFile)));
+            this.setIds(StrUtil.join(",", parseCsvToLine(csvFile)));
         } catch (Exception e) {
             e.printStackTrace();
         }

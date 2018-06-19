@@ -41,7 +41,7 @@ public class DressingClassifyResult {
 
     /**
      * 如果您在使用旧的Dressing服务，请使用 getIteam()
-     * @return String
+     * @return StrUtil
      */
     public String getItem() {
         return Item;
@@ -53,7 +53,7 @@ public class DressingClassifyResult {
 
     /**
      * 如果您在使用新的Dressing服务，请使用 getItem()
-     * @return String
+     * @return StrUtil
      */
     @Deprecated
     public String getIteam() {

@@ -6,6 +6,7 @@ import cn.productai.api.core.enums.HttpMethod;
 import cn.productai.api.core.enums.LanguageType;
 import cn.productai.api.core.helper.EnumHelper;
 import cn.productai.api.core.helper.WebQueryHelper;
+import cn.productai.util.StrUtil;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public abstract class BaseRequest<T extends BaseResponse> {
     /**
      * get the content-type header, e.g. application/x-www-form-urlencoded; charset=UTF-8
      *
-     * @return String
+     * @return StrUtil
      */
     public String getContentTypeHeader() {
         return _contentTypeDicts.get(this.contentType.ordinal());
@@ -58,7 +59,7 @@ public abstract class BaseRequest<T extends BaseResponse> {
     /**
      * get the HTTP Method header, e.g. POST or GET
      *
-     * @return String
+     * @return StrUtil
      */
     public String getRequestMethodHeader() {
         return _httpMethodDicts.get(this.requestMethod.ordinal());
@@ -108,7 +109,7 @@ public abstract class BaseRequest<T extends BaseResponse> {
         return language;
     }
 
-//    public abstract String getQueryString();
+//    public abstract StrUtil getQueryString();
 
     public void setLanguage(LanguageType language) {
         this.language = language;
@@ -141,7 +142,7 @@ public abstract class BaseRequest<T extends BaseResponse> {
                 }
             }
         }
-        return String.join("&", list);
+        return StrUtil.join("&", list);
     }
 
     public byte[] getQueryBytes() {

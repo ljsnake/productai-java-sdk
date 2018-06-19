@@ -9,8 +9,7 @@ import cn.productai.api.core.helper.RequestHelper;
 import cn.productai.api.core.internal.HttpResponse;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import sun.misc.BASE64Encoder;
-
+import org.apache.commons.codec.binary.Base64;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 
@@ -123,7 +122,8 @@ public class DefaultProductAIClient implements IWebClient {
             T _t = mapper.readValue(httpResponse.getResponseString(), request.getResponseClass());
             _t.setHeaders(httpResponse.getHeaders());
             _t.setStatusCode(httpResponse.getStatusCode());
-            _t.setResponseBase64String(new BASE64Encoder().encode(httpResponse.getResponseBytes()));
+            _t.setResponseBase64String(Base64.encodeBase64String(httpResponse.getResponseBytes()));
+
 
             if (httpResponse.getStatusCode() >= 500) {
                 throw new ServerException(String.format("%s", _t.getErrorCode()),

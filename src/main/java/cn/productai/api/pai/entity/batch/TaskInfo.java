@@ -19,7 +19,7 @@ public class TaskInfo {
     private Integer estimatedWaitingTime;
 
     /**
-     *  当前任务状态(String)
+     *  当前任务状态(StrUtil)
      *         RECEIVED    任务被接受
      *         PENDING     任务等待中
      *         STARTED     任务启动

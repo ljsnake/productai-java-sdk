@@ -67,7 +67,7 @@ public class ImageSearchByUrlExample implements IExample {
 
             for (SearchResult r : response.getResults()) {
                 // access the response directly
-                System.out.println(String.format("%s - %s - %s", r.getUrl(), r.getScore(), String.join("|", r.getTags())));
+                System.out.println(String.format("%s - %s - %s", r.getUrl(), r.getScore(), StrUtil.join("|", r.getTags())));
             }
 
             System.out.println("==============================Result==============================");
