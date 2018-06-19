@@ -1,7 +1,11 @@
 package cn.productai.apiv2;
 
+import cn.productai.api.core.DefaultProductAIClient;
 import cn.productai.api.core.DefaultProfile;
 import cn.productai.api.core.IProfile;
+import cn.productai.api.core.IWebClient;
+import cn.productai.api.pai.entity.classify.ClassifyByImageUrlRequest;
+import cn.productai.api.pai.entity.classify.ClassifyResponse;
 import cn.productai.apiv2.exceptions.PAIException;
 import cn.productai.apiv2.impl.CustomTrainingImpl;
 import cn.productai.apiv2.impl.TrainingSetImpl;
@@ -12,14 +16,30 @@ import java.io.File;
 public class Test {
     public static void main(String[] args) {
         IProfile profile = new DefaultProfile();
-        profile.setAccessKeyId(System.getenv("X_CA_ACCESS_KEY_ID"));
+        profile.setAccessKeyId("xxx");
+        profile.setSecretKey("secret");
 
         try {
             trainingSetExamples(profile);
             customTrainingExamples(profile);
+            classifyExamples(profile);
         } catch (PAIException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
+
+    static void classifyExamples(IProfile profile) throws Exception {
+        IWebClient client = new DefaultProductAIClient(profile);
+
+        ClassifyByImageUrlRequest request = new ClassifyByImageUrlRequest("classify", "_0000159");
+        request.setUrl("https://img.alicdn.com/imgextra/i2/196993935/TB2bTfMqeOSBuNjy0FdXXbDnVXa-196993935.jpg");
+        request.setCount(38);
+
+        ClassifyResponse response = client.getResponse(request);
+        String json = response.getResponseJsonString();
+        System.out.println("json\n" + json);
     }
 
     static void customTrainingExamples(IProfile profile) throws PAIException {

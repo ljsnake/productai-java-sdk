@@ -9,7 +9,6 @@ import java.util.HashMap;
 
 /**
  * Created by Thinkpad on 2017/7/3.
- *
  */
 public abstract class TagBase implements ISearchTag {
     private static HashMap<Integer, String> _tagOperatorDic = EnumHelper.toHashMap(TagOperator.class);
@@ -47,8 +46,8 @@ public abstract class TagBase implements ISearchTag {
     public String toString() {
         StringBuilder sb = new StringBuilder(String.format("\"%s\":[", this._operator));
         for (Object tag : tags) {
-            String typeName = tag.getClass().getTypeName();
-            if (typeName.equals(String.class.getTypeName())) {
+            String typeName = tag.getClass().getName();
+            if (typeName.equals(String.class.getName())) {
                 sb.append(String.format("\"%s\",", tag));
             } else if (ISearchTag.class.isAssignableFrom(tag.getClass())) {
                 sb.append(String.format("{%s}", tag.toString()));

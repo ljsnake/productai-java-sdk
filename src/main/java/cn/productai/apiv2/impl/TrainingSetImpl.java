@@ -5,9 +5,9 @@ import cn.productai.api.core.enums.HttpMethod;
 import cn.productai.apiv2.TrainingSet;
 import cn.productai.apiv2.exceptions.PAIException;
 import cn.productai.apiv2.lib.Http;
+import sun.misc.BASE64Encoder;
 
 import java.io.File;
-import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -104,7 +104,7 @@ public class TrainingSetImpl extends AbstractService implements TrainingSet {
     @Override
     public String clearTrainingSet(String trainingSetId, String name) throws PAIException {
         try {
-            String token = Base64.getEncoder().encodeToString(("selfserve_admin:" + name).getBytes());
+            String token = new BASE64Encoder().encode(("selfserve_admin:" + name).getBytes());
             String json = "{"
                     + "\"training_set_id\":\"" + trainingSetId + "\","
                     + "\"name\":\"" + name + "\","

@@ -7,13 +7,12 @@ import cn.productai.api.core.exceptions.ClientException;
 import cn.productai.api.core.exceptions.ServerException;
 import cn.productai.api.core.helper.RequestHelper;
 import cn.productai.api.core.internal.HttpResponse;
-
-import java.nio.charset.Charset;
-import java.util.Base64;
-import java.util.HashMap;
-
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import sun.misc.BASE64Encoder;
+
+import java.nio.charset.Charset;
+import java.util.HashMap;
 
 public class DefaultProductAIClient implements IWebClient {
 
@@ -22,7 +21,7 @@ public class DefaultProductAIClient implements IWebClient {
     private Charset charset = Charset.forName("UTF-8");
     private IProfile profile = null;
 
-    public DefaultProductAIClient(){
+    public DefaultProductAIClient() {
 
     }
 
@@ -46,18 +45,13 @@ public class DefaultProductAIClient implements IWebClient {
     }
 
     @Override
-    public void setHost(String host) {
-        this.host = host;
-    }
-
-    @Override
     public String getHost() {
         return this.host;
     }
 
     @Override
-    public void setEncoding(Charset charset) {
-        this.charset = charset;
+    public void setHost(String host) {
+        this.host = host;
     }
 
     @Override
@@ -66,13 +60,18 @@ public class DefaultProductAIClient implements IWebClient {
     }
 
     @Override
-    public void setProfile(IProfile profile) {
-        this.profile = profile;
+    public void setEncoding(Charset charset) {
+        this.charset = charset;
     }
 
     @Override
     public IProfile getProfile() {
         return this.profile;
+    }
+
+    @Override
+    public void setProfile(IProfile profile) {
+        this.profile = profile;
     }
 
     @Override
@@ -124,7 +123,7 @@ public class DefaultProductAIClient implements IWebClient {
             T _t = mapper.readValue(httpResponse.getResponseString(), request.getResponseClass());
             _t.setHeaders(httpResponse.getHeaders());
             _t.setStatusCode(httpResponse.getStatusCode());
-            _t.setResponseBase64String(Base64.getEncoder().encodeToString(httpResponse.getResponseBytes()));
+            _t.setResponseBase64String(new BASE64Encoder().encode(httpResponse.getResponseBytes()));
 
             if (httpResponse.getStatusCode() >= 500) {
                 throw new ServerException(String.format("%s", _t.getErrorCode()),

@@ -27,7 +27,9 @@ public class Http {
 
         // Set headers
         if (headers != null) {
-            headers.forEach(request::addHeader);
+            for (Map.Entry<String, String> entry : headers.entrySet()) {
+                request.addHeader(entry.getKey(), entry.getValue());
+            }
         }
 
         // Set body

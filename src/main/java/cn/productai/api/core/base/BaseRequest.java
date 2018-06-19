@@ -32,15 +32,23 @@ public abstract class BaseRequest<T extends BaseResponse> {
     private LanguageType language = LanguageType.English;
 
     private String[] builtinKeywords = new String[]{"url", "loc", "count", "search", "tags", "urls_to_delete", "image_url", "meta", "urls_to_add"};
+    private HashMap<String, String> options = new HashMap<>();
+
+    public BaseRequest() {
+        this.setHeader("Accept-Encoding", "gzip, deflate");
+        this.setLanguage(LanguageType.English);
+    }
 
     /**
      * get the reponse class type
+     *
      * @return Class
      */
     public abstract Class<T> getResponseClass();
 
     /**
      * get the content-type header, e.g. application/x-www-form-urlencoded; charset=UTF-8
+     *
      * @return String
      */
     public String getContentTypeHeader() {
@@ -49,9 +57,10 @@ public abstract class BaseRequest<T extends BaseResponse> {
 
     /**
      * get the HTTP Method header, e.g. POST or GET
+     *
      * @return String
      */
-    public String getRequestMethodHeader(){
+    public String getRequestMethodHeader() {
         return _httpMethodDicts.get(this.requestMethod.ordinal());
     }
 
@@ -99,14 +108,14 @@ public abstract class BaseRequest<T extends BaseResponse> {
         return language;
     }
 
+//    public abstract String getQueryString();
+
     public void setLanguage(LanguageType language) {
         this.language = language;
         this.setHeader("Accept-Language", _languageDicts.get(language.ordinal()));
     }
 
     public abstract String getApiUrl();
-
-//    public abstract String getQueryString();
 
     public String getQueryString() {
         ArrayList<String> list = new ArrayList<>();
@@ -157,13 +166,6 @@ public abstract class BaseRequest<T extends BaseResponse> {
         }
     }
 
-    public BaseRequest(){
-        this.setHeader("Accept-Encoding", "gzip, deflate");
-        this.setLanguage(LanguageType.English);
-    }
-
-    private HashMap<String, String> options = new HashMap<>();
-
     public HashMap<String, String> getOptions() {
         if (options == null || options.size() == 0)
             return options;
@@ -179,6 +181,7 @@ public abstract class BaseRequest<T extends BaseResponse> {
 
     /**
      * you can pass the extra paras to the request, but you can't pass these paras to data set related apis
+     *
      * @param options the extra paras you want to pass to the request
      */
     public void setOptions(HashMap<String, String> options) {

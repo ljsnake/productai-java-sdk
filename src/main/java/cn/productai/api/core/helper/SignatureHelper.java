@@ -1,5 +1,7 @@
 package cn.productai.api.core.helper;
 
+import sun.misc.BASE64Encoder;
+
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -49,7 +51,7 @@ public class SignatureHelper {
         mac.init(secretKey1);
         byte[] textBytes = urlPairs.getBytes("UTF-8");
 
-        return Base64.getEncoder().encodeToString(mac.doFinal(textBytes));
+        return new BASE64Encoder().encode(mac.doFinal(textBytes));
 
     }
 }
