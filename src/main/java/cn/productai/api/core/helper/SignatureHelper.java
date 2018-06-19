@@ -13,6 +13,9 @@ import java.util.*;
  * Created by Thinkpad on 2017/7/3.
  */
 public class SignatureHelper {
+
+    private static Base64 base64 = new Base64();
+
     public static String signature(String secretKey, HashMap<String, String> paras) throws Exception {
         ArrayList<String> excludeKeys = new ArrayList<>();
         excludeKeys.add("x-ca-signature");
@@ -53,7 +56,6 @@ public class SignatureHelper {
         mac.init(secretKey1);
         byte[] textBytes = urlPairs.getBytes("UTF-8");
 
-        return Base64.encodeBase64String(mac.doFinal(textBytes));
-
+        return new String(base64.encode(mac.doFinal(textBytes)));
     }
 }

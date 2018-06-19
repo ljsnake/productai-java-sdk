@@ -20,6 +20,8 @@ public class DefaultProductAIClient implements IWebClient {
     private Charset charset = Charset.forName("UTF-8");
     private IProfile profile = null;
 
+    private static Base64 base64 = new Base64();
+
     public DefaultProductAIClient() {
 
     }
@@ -122,7 +124,7 @@ public class DefaultProductAIClient implements IWebClient {
             T _t = mapper.readValue(httpResponse.getResponseString(), request.getResponseClass());
             _t.setHeaders(httpResponse.getHeaders());
             _t.setStatusCode(httpResponse.getStatusCode());
-            _t.setResponseBase64String(Base64.encodeBase64String(httpResponse.getResponseBytes()));
+            _t.setResponseBase64String(new String(base64.encode(httpResponse.getResponseBytes())));
 
 
             if (httpResponse.getStatusCode() >= 500) {
