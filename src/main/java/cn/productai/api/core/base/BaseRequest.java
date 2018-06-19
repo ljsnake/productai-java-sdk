@@ -157,7 +157,7 @@ public abstract class BaseRequest<T extends BaseResponse> {
         if (!_headers.containsKey(key)) {
             _headers.put(key, value);
         } else {
-            _headers.replace(key, value);
+            _headers.put(key, value);
         }
     }
 
