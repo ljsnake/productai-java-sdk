@@ -4,6 +4,7 @@ import cn.productai.api.core.DefaultProductAIClient;
 import cn.productai.api.core.DefaultProfile;
 import cn.productai.api.core.IProfile;
 import cn.productai.api.core.IWebClient;
+import cn.productai.api.core.enums.LanguageType;
 import cn.productai.api.pai.entity.classify.ClassifyByImageUrlRequest;
 import cn.productai.api.pai.entity.classify.ClassifyResponse;
 import cn.productai.apiv2.exceptions.PAIException;
@@ -18,6 +19,7 @@ public class Test {
         IProfile profile = new DefaultProfile();
         profile.setAccessKeyId("xxx");
         profile.setSecretKey("secret");
+        profile.setGlobalLanguage(LanguageType.English);
 
         try {
             trainingSetExamples(profile);
