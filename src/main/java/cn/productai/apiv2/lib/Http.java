@@ -2,6 +2,8 @@ package cn.productai.apiv2.lib;
 
 import cn.productai.api.core.enums.HttpMethod;
 import cn.productai.apiv2.exceptions.PAIException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 
 import java.io.File;
@@ -77,10 +79,17 @@ public class Http {
             if (response.code() >= 400) {
                 logger.log(Level.SEVERE, "Request error, response code is "
                         + response.code() + ", response body: " + resBody);
-                throw new PAIException("Request fail, response: " + resBody);
+
+                ObjectMapper om = new ObjectMapper();
+                JsonNode jsonNode = om.readTree(resBody);
+                Integer errorCode = jsonNode.path("error_code").asInt();
+                String message = jsonNode.path("message").asText();
+                throw new PAIException(errorCode, message);
             }
 
             return resBody;
+        } catch (PAIException paie) {
+            throw paie;
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Http error", e.getMessage());
             throw new PAIException(e);
