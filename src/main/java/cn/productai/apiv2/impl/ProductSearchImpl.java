@@ -6,6 +6,7 @@ import cn.productai.apiv2.ProductSearch;
 import cn.productai.apiv2.exceptions.PAIException;
 import cn.productai.apiv2.lib.Http;
 
+import java.io.File;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,36 +19,8 @@ public class ProductSearchImpl extends AbstractService implements ProductSearch 
     @Override
     public String query(String serviceId, String imageUrl, String loc, Integer count, String tags,
                         String keywords, String minPrice, String maxPrice, Map<String, String> params) throws PAIException {
-        if (loc == null) {
-            loc = "0-0-1-1";
-        }
-        if (count == null) {
-            count = 20;
-        }
         try {
-            String json = "{";
-            if (tags != null) {
-                json += "\"tags\":\"" + tags + "\",";
-            }
-            if (minPrice != null) {
-                json += "\"min_price\":\"" + minPrice + "\",";
-            }
-            if (maxPrice != null) {
-                json += "\"max_price\":\"" + maxPrice + "\",";
-            }
-            if (keywords != null) {
-                json += "\"keywords\":\"" + keywords + "\",";
-            }
-
-            if (params != null) {
-                for (Map.Entry<String, String> entry : params.entrySet()) {
-                    json += "\"" + entry.getKey() + "\":\"" + entry.getValue() + "\",";
-                }
-            }
-            json += "\"loc\":\"" + loc + "\","
-                    + "\"count\":\"" + count + "\","
-                    + "\"url\":\"" + imageUrl + "\""
-                    + "}";
+            String json = generateQueryJson(imageUrl, loc, count, tags, keywords, minPrice, maxPrice, params);
 
             String url = BASE_URL + "/product_search/" + serviceId;
             return Http.request(HttpMethod.POST, url, getHeaders(), json);
@@ -55,6 +28,59 @@ public class ProductSearchImpl extends AbstractService implements ProductSearch 
             logger.log(Level.SEVERE, "ProductSearch createService request error", paie);
             throw paie;
         }
+    }
+
+    @Override
+    public String query(String serviceId, File imageFile, String loc, Integer count, String tags,
+                        String keywords, String minPrice, String maxPrice, Map<String, String> params) throws PAIException {
+        if (imageFile == null) {
+            throw new PAIException("imageFile is required");
+        }
+
+        try {
+            String json = generateQueryJson(null, loc, count, tags, keywords, minPrice, maxPrice, params);
+            String url = BASE_URL + "/product_search/" + serviceId;
+            return Http.request(HttpMethod.POST, url, getHeaders(), json, "search", imageFile);
+        } catch (PAIException paie) {
+            logger.log(Level.SEVERE, "ProductSearch createService request error", paie);
+            throw paie;
+        }
+    }
+
+    private String generateQueryJson(String imageUrl, String loc, Integer count, String tags,
+                                     String keywords, String minPrice, String maxPrice, Map<String, String> params) {
+        if (loc == null) {
+            loc = "0-0-1-1";
+        }
+        if (count == null) {
+            count = 20;
+        }
+        String json = "{";
+        if (tags != null) {
+            json += "\"tags\":\"" + tags + "\",";
+        }
+        if (minPrice != null) {
+            json += "\"min_price\":\"" + minPrice + "\",";
+        }
+        if (maxPrice != null) {
+            json += "\"max_price\":\"" + maxPrice + "\",";
+        }
+        if (keywords != null) {
+            json += "\"keywords\":\"" + keywords + "\",";
+        }
+
+        if (params != null) {
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                json += "\"" + entry.getKey() + "\":\"" + entry.getValue() + "\",";
+            }
+        }
+        if (imageUrl != null) {
+            json += "\"url\":\"" + imageUrl + "\",";
+        }
+        json += "\"loc\":\"" + loc + "\","
+                + "\"count\":\"" + count + "\""
+                + "}";
+        return json;
     }
 
     @Override

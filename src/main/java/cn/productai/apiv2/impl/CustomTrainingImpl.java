@@ -95,14 +95,14 @@ public class CustomTrainingImpl extends AbstractService implements CustomTrainin
     }
 
     @Override
-    public String predict(String serviceId, File image) throws PAIException {
+    public String predict(String serviceId, File imageFile) throws PAIException {
         try {
-            if (image == null) {
-                throw new PAIException("image is required");
+            if (imageFile == null) {
+                throw new PAIException("imageFile is required");
             }
 
             String url = BASE_URL + "/custom_training/" + serviceId;
-            return Http.request(HttpMethod.POST, url, getHeaders(), "search", image);
+            return Http.request(HttpMethod.POST, url, getHeaders(), "search", imageFile);
         } catch (PAIException paie) {
             logger.log(Level.SEVERE, "CustomTraining predict request error", paie);
             throw paie;

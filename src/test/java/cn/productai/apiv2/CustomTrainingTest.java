@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+
 public class CustomTrainingTest {
 
     private static IProfile profile = new DefaultProfile();
@@ -71,12 +73,26 @@ public class CustomTrainingTest {
     }
 
     @Test
-    @DisplayName("Predict")
-    void testPredict() {
+    @DisplayName("PredictImageUrl")
+    void testPredictImageUrl() {
         try {
             String serviceId = "0ingz90g";
-            String image = "";
-            String result = customTraining.predict(serviceId, null, image);
+            String imageUrl = "";
+            String result = customTraining.predict(serviceId, imageUrl);
+            System.out.println("Delete service");
+            System.out.println(result);
+        } catch (PAIException e) {
+            System.out.println("Fail");
+        }
+    }
+
+    @Test
+    @DisplayName("PredictImageFile")
+    void testPredictImageFile() {
+        try {
+            String serviceId = "0ingz90g";
+            File image = new File("/home/liujian/Downloads/test/a.jpeg");
+            String result = customTraining.predict(serviceId, image);
             System.out.println("Delete service");
             System.out.println(result);
         } catch (PAIException e) {

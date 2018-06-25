@@ -5,7 +5,17 @@ public class PAIException extends Exception {
     private Integer errorCode = 500;
     private String message = "PAIException";
 
+    private Integer responseCode;
+    private String requestId;
+
     public PAIException() {
+    }
+
+    public PAIException(Integer errorCode, String message, Integer responseCode, String requestId) {
+        this.errorCode = errorCode;
+        this.message = message;
+        this.responseCode = responseCode;
+        this.requestId = requestId;
     }
 
     public PAIException(Integer errorCode, String message) {
@@ -36,5 +46,21 @@ public class PAIException extends Exception {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Integer getResponseCode() {
+        return responseCode;
+    }
+
+    public void setResponseCode(Integer responseCode) {
+        this.responseCode = responseCode;
+    }
+
+    public String getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
     }
 }
