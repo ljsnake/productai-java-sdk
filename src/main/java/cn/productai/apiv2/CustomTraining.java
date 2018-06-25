@@ -3,6 +3,8 @@ package cn.productai.apiv2;
 import cn.productai.api.core.IProfile;
 import cn.productai.apiv2.exceptions.PAIException;
 
+import java.io.File;
+
 public interface CustomTraining {
 
     void setProfile(IProfile profile);
@@ -15,7 +17,9 @@ public interface CustomTraining {
 
     String deleteServiceById(String serviceId) throws PAIException;
 
-    String predict(String serviceId, String imageUrl, String image) throws PAIException;
+    String predict(String serviceId, String imageUrl) throws PAIException;
+
+    String predict(String serviceId, File image) throws PAIException;
 
     String createService(String trainingSetId, String name, String description, String scenario) throws PAIException;
 }

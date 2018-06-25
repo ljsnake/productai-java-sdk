@@ -64,7 +64,7 @@ public class Test {
         result = customTraining.updateServiceName(serviceId, "Bar name");
         System.out.println(">>> updateServiceName result: " + result);
 
-        result = customTraining.predict(serviceId, "https://styleai-shopping.oss-cn-beijing.aliyuncs.com/14d1b1e8a38ae767cc67834799be5ef9ed4595b9.jpg", null);
+        result = customTraining.predict(serviceId, "https://styleai-shopping.oss-cn-beijing.aliyuncs.com/14d1b1e8a38ae767cc67834799be5ef9ed4595b9.jpg");
         System.out.println(">>> predict result: " + result);
 
         result = customTraining.deleteServiceById(serviceId);

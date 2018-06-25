@@ -6,6 +6,7 @@ import cn.productai.apiv2.CustomTraining;
 import cn.productai.apiv2.exceptions.PAIException;
 import cn.productai.apiv2.lib.Http;
 
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -78,21 +79,30 @@ public class CustomTrainingImpl extends AbstractService implements CustomTrainin
     }
 
     @Override
-    public String predict(String serviceId, String imageUrl, String image) throws PAIException {
+    public String predict(String serviceId, String imageUrl) throws PAIException {
         try {
-            if (imageUrl == null && image == null) {
-                throw new PAIException("imageUrl and image can be null at the same time.");
+            if (imageUrl == null) {
+                throw new PAIException("imageUrl is required");
             }
 
             String url = BASE_URL + "/custom_training/" + serviceId;
-            String json;
-            if (image != null) {
-                json = "{\"image\":\"" + image + "\"}";
-            } else {
-                json = "{\"image_url\":\"" + imageUrl + "\"}";
+            String json = "{\"image_url\":\"" + imageUrl + "\"}";
+            return Http.request(HttpMethod.POST, url, getHeaders(), json);
+        } catch (PAIException paie) {
+            logger.log(Level.SEVERE, "CustomTraining predict request error", paie);
+            throw paie;
+        }
+    }
+
+    @Override
+    public String predict(String serviceId, File image) throws PAIException {
+        try {
+            if (image == null) {
+                throw new PAIException("image is required");
             }
 
-            return Http.request(HttpMethod.POST, url, getHeaders(), json);
+            String url = BASE_URL + "/custom_training/" + serviceId;
+            return Http.request(HttpMethod.POST, url, getHeaders(), "search", image);
         } catch (PAIException paie) {
             logger.log(Level.SEVERE, "CustomTraining predict request error", paie);
             throw paie;
