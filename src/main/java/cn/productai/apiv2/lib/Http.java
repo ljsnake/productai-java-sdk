@@ -76,7 +76,7 @@ public class Http {
         } catch (PAIException paie) {
             throw paie;
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Http error", e.getMessage());
+            logger.log(Level.SEVERE, "Http error:" + e.getMessage());
             throw new PAIException(e);
         }
     }
